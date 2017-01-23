@@ -1,4 +1,4 @@
 package game.carte;
 
-public class Element {
+public interface Element {
 }
