@@ -11,7 +11,7 @@ public class ControlleurJoueur implements IController{
 	/**
 	 * Ajoute une commande de controle
 	 *
-	 * @param actionCode
+	 * @param actionCode code de l'ation
 	 * @param keyCode    le code
 	 */
 	@Override
@@ -22,8 +22,8 @@ public class ControlleurJoueur implements IController{
 	/**
 	 * Donne si oui ou non le code d'action actionné
 	 *
-	 * @param actionCode
-	 * @return
+	 * @param actionCode code d'ation préfeini
+	 * @return true si oui ou non il est actionné
 	 */
 	@Override
 	public boolean isActionned(final int actionCode) {
