@@ -1,0 +1,23 @@
+package es.interfaces;
+
+public interface IController {
+
+	/**
+	 * Ajoute une commande de controle
+	 * @param keyCode le code
+	 * @param actionCode
+	 */
+	void setActionMap(int actionCode, int keyCode);
+//mon petit, cette paix est ce pourquoi luttent tous les vrais spaghettis.
+	/**
+	 * Donne si oui ou non le code d'action actionné
+	 * @param actionCode
+	 * @return
+	 */
+	boolean isActionned(int actionCode);
+
+	boolean isActionned(int ... actionCode);
+
+	boolean isJustPress(int actionCode);
+
+}
