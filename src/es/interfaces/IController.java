@@ -1,5 +1,11 @@
 package es.interfaces;
 
+/**
+ * Principe de l'interface :
+ *
+ * Interface visant à controler des objets, via un set de commandes paramétrés
+ * Doit être implémenté par des controlleurs d'objets
+ */
 public interface IController {
 
 	/**
@@ -8,9 +14,8 @@ public interface IController {
 	 * @param actionCode code d'action
 	 */
 	void setActionMap(int actionCode, int keyCode);
-//mon petit, cette paix est ce pourquoi luttent tous les vrais spaghettis.
 	/**
-	 * Donne si oui ou non le code d'action actionné
+	 * Donne si oui ou non le code d'action actionCode est donné
 	 * @param actionCode code d'action
 	 * @return true si déclenché
 	 */
