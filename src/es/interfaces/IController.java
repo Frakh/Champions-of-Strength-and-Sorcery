@@ -1,23 +1,20 @@
 package es.interfaces;
 
-/**
- * Principe de l'interface :
- *
- * Interface visant à controler des objets, via un set de commandes paramétrés
- * Doit être implémenté par des controlleurs d'objets
- */
 public interface IController {
+
+	int NUMBER_MAX_OF_KEY_BINDING = 256;
 
 	/**
 	 * Ajoute une commande de controle
-	 * @param keyCode le code de la touche
-	 * @param actionCode code d'action
+	 * @param keyCode le code
+	 * @param actionCode
 	 */
 	void setActionMap(int actionCode, int keyCode);
+//mon petit, cette paix est ce pourquoi luttent tous les vrais spaghettis.
 	/**
-	 * Donne si oui ou non le code d'action actionCode est donné
-	 * @param actionCode code d'action
-	 * @return true si déclenché
+	 * Donne si oui ou non le code d'action actionné
+	 * @param actionCode
+	 * @return
 	 */
 	boolean isActionned(int actionCode);
 

@@ -9,23 +9,12 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Classe de gestion des images dans l'application
- *
- * Lors de la demande d'obtention d'une image ( ce qui se fait en donnant l'url ),
- * la classe regarde si oui ou non elle a déjà lu et chargé cette image en mémoire
- * Si non, alors, elle la charge. A la fin, elle la recharge.
- * Si aucune image n'est trouvé, alors, une RuntimeException() est levé
- */
 public class ImageManager {
 
 	/**
 	 * Carte de transition entre la chaine de char et les images
 	 */
 	private static Map<String, BufferedImage> imageMap;
-	/**
-	 * Si ce boolean est a true, alors, a chaque chargement, une version inversé verticalement est créé
-	 */
 	public static boolean CREATE_FLIPPED_IMG_ON_LOAD = true;
 
 	static {

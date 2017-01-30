@@ -1,20 +1,32 @@
 package es.sortie;
 
 
+import es.interfaces.IPosition;
+
 public class FocusView {
 
-	private double lengthShift, heightShift;
-	private double blockMultiplier;
-	private boolean applyBlockMultiplier;
+	private IPosition followPos;
+	private FrameManager frameManager;
 
-	public static final double DEF_LENGTH_SHIFT = 0, DEF_HEIGHT_SHIFT = 0, DEF_MULTIPLIER = 1;
-	public static final boolean DEF_BLOCK_MULTIPLIER_APPLICATION = false;
+	public FocusView(FrameManager frame) {
+		this.frameManager = frame;
+	}
 
-	public FocusView() {
-		lengthShift = DEF_LENGTH_SHIFT;
-		heightShift = DEF_HEIGHT_SHIFT;
-		blockMultiplier = DEF_MULTIPLIER;
-		applyBlockMultiplier = DEF_BLOCK_MULTIPLIER_APPLICATION;
+	public FocusView(FrameManager manager, IPosition ip) {
+		this(manager);
+		this.followPos = ip;
+	}
+
+	public int getXDeplacement() {
+		return (int) ((frameManager.getLength()/2)-(frameManager.getSpriteLength()*this.followPos.getX()));
+	}
+
+	public int getYDeplacement() {
+		return (int) ((frameManager.getHeight()/2)-(frameManager.getSpriteHeigt()*this.followPos.getY()));
+	}
+
+	public IPosition getCentralPos() {
+		return this.followPos.copy();
 	}
 
 }
