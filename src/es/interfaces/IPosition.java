@@ -62,16 +62,8 @@ public interface IPosition {
 	 */
 	double distanceBetween(IPosition p);
 
-	/**
-	 * Arrondis par défaut les nombres aux position
-	 * @return La version arrondis
-	 */
 	IPosition roundByDefault();
 
-	/**
-	 * Retourne une nouvelle copie de l'objet ( équivalent a deplace(0,0) );
-	 * @return la nouvelle position au mêmes coordonnés
-	 */
 	IPosition copy();
 
 }
