@@ -45,6 +45,9 @@ public class Carte {
 
 	/**
 	 * Methode verifiant si la classe donné est une classe implémentant l'interface IGoodComponent
+	 *
+	 * !!! JE NE SAIS PAS SI CA MARCHE !!!
+	 *
 	 * @param c : la classe en question
 	 * @return true si la classe passé en paramètre implément IGoodComp, false sinon
 	 */
