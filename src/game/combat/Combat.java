@@ -57,6 +57,8 @@ public class Combat {
 	private void placerTroupes(int nbTroupes1, int nbTroupes2) {
 
 		double step = ((double)HAUTEURTERRAIN)/((double)nbTroupes1+1);
+		//Step sert a determiner le pas qu'il faut avancer pour placer les unités
+
 		for (int i = 1; i <= nbTroupes1; ++i) {
 			terrainCombat[(int)(step*i)][0].setUnit(ArmeeGauche[i-1]);
 		}
