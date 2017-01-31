@@ -12,7 +12,7 @@ public enum Case implements es.interfaces.ISpriteDrawable{
 	Marais("",1.75),
 	Eau("",0.0);
 
-	private String sprite = "";
+	private String sprite;
 	private double mvtCost = 0;
 	
 	Case(String spritePath, double cost){
@@ -26,6 +26,7 @@ public enum Case implements es.interfaces.ISpriteDrawable{
 	
 	@Override
 	public String getImage() {
-		return sprite;
+		// Permet de ne pas retaper "assets/img/" dans le CTOR de l'enum
+		return "./assets/img/"+sprite;
 	}
 }
