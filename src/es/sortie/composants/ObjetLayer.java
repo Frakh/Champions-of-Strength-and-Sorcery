@@ -2,34 +2,42 @@ package es.sortie.composants;
 
 import es.dataManager.ImageManager;
 import es.interfaces.IPosition;
-import es.interfaces.ISpriteDrawable;
 import es.sortie.FocusView;
 import es.sortie.FrameManager;
 import game.carte.Carte;
+import game.carte.IElement;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Map;
+import java.util.Set;
 
-public class CarteLayer extends JComponent implements IGoodComp {
+public class ObjetLayer extends JComponent implements IGoodComp {
 
-	// Friend
 	public static class Friend { private Friend(){}}
 	private static Friend friend = new Friend();
-
 	private Carte carte;
+
 	private FrameManager fm;
 
-	public CarteLayer(FrameManager fm, Carte c) {
+	public ObjetLayer(FrameManager fm, Carte c) {
 		this.fm = fm;
 		this.carte = c;
 	}
 
 	@Override
+	public void dessiner(final Graphics g) {
+		paintComponent(g);
+	}
+
+	@Override
 	public void paintComponent(Graphics g) {
+
 		Graphics2D g2 = (Graphics2D) g;
 		FocusView fw = fm.getFw();
 
-
+		// Obtention du tableau de la carte
 
 		int xDecalage = fw.getXDeplacement();
 		int yDecalage = fw.getYDeplacement();
@@ -57,26 +65,18 @@ public class CarteLayer extends JComponent implements IGoodComp {
 		if (jEndPos> carte.getLargeur())
 			jEndPos = carte.getLargeur();
 
-		int nbOfRenderedBlocks = 0;
+		Map<IPosition, IElement> elementMap = carte.getElements(friend);
+		Set<IPosition> positions = elementMap.keySet();
 
-		ISpriteDrawable[][] tableau = carte.getSol(friend);
+		for (IPosition ip : positions) {
 
-		for (int i = iStartPos; i < iEndPos; ++i) {
-			for (int j = jStartPos; j < jEndPos; ++j) {
+			int xCoordImgDraw = (int) (fm.getSpriteLength() * ip.getX() + xDecalage),
+					yCoordImgDraw = (int) (fm.getSpriteHeigt() * ip.getY() + yDecalage);
 
-				int xCoordImgDraw = fm.getSpriteLength() * i + xDecalage,
-						yCoordImgDraw = fm.getSpriteHeigt() * j + yDecalage;
-				nbOfRenderedBlocks++;
-				g2.drawImage(ImageManager.getImage(tableau[i][j].getImage()), xCoordImgDraw, yCoordImgDraw,
-						spriteWidth, spriteHeight,this);
-			}
+			BufferedImage bi = ImageManager.getImage(elementMap.get(ip).getImage());
+			g2.drawImage(bi, xCoordImgDraw, yCoordImgDraw, fm.getSpriteLength(), fm.getSpriteHeigt(), this);
 		}
-		g2.setColor(Color.RED);
-		g2.drawString("Rendered components : " + nbOfRenderedBlocks, 10,20);
+
 	}
 
-	@Override
-	public void dessiner(final Graphics g) {
-		paintComponent(g);
-	}
 }
