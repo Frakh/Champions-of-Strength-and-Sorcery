@@ -7,6 +7,7 @@ import es.sortie.composants.ObjetLayer;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 
 public class Carte {
@@ -16,6 +17,11 @@ public class Carte {
 	//le constructeur du debug wesh
 	public Carte(int hauteur, int largeur, HashMap<IPosition,IElement> elements){
 		sol = new Case[hauteur][largeur];
+		Set<IPosition> ip = elements.keySet();
+		for (IPosition p : ip) {
+			if (p.getX() < 0 || p.getY() < 0 || p.getX()>largeur || p.getY() > hauteur)
+				throw new IllegalArgumentException("Une position ne rentre pas dans les dimensions : " + p.toString());
+		}
 		this.elements=elements;
 	}
 	
