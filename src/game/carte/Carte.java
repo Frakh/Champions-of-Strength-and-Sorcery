@@ -19,6 +19,8 @@ public class Carte {
 		sol = new Case[hauteur][largeur];
 		Set<IPosition> ip = elements.keySet();
 		for (IPosition p : ip) {
+			// La hauteur, c'est Y, la largeur, c'est X
+			// Si y augmente, ça descend, si x augmentes, ça vas vers la droite
 			if (p.getX() < 0 || p.getY() < 0 || p.getX()>largeur || p.getY() > hauteur)
 				throw new IllegalArgumentException("Une position ne rentre pas dans les dimensions : " + p.toString());
 		}
