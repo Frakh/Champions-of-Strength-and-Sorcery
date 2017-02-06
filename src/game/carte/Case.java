@@ -4,9 +4,9 @@ public enum Case implements es.interfaces.ISpriteDrawable{
 
 	// Convention : les elements enum sont ecris en majuscule
 
-	HERBE("",1.0),
-	TERRE("",1.0),
-	LAVE("",1.0),
+	HERBE("weed.jpg",1.0),
+	TERRE("eat shit.jpg",1.0),
+	LAVE("feel the burn.jpg",1.0),
 	SOUTERRAIN("",1.0),
 	ROCHE("",0.0),
 	TUNDRA("",1.25),
