@@ -8,4 +8,7 @@ public class Evenement {
 		this.eventId = eventId;
 	}
 
+	public int getEventId() {
+		return eventId;
+	}
 }
