@@ -1,6 +1,4 @@
-package game.carte;
-
-import es.interfaces.IPosition;
+package utilitaire;
 
 public class Position implements IPosition {
 

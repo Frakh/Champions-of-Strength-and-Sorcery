@@ -1,9 +1,10 @@
 package game.carte;
 
-import es.interfaces.IPosition;
+import utilitaire.IPosition;
 import es.exception.IllegalFriendException;
 import es.sortie.composants.CarteLayer;
 import es.sortie.composants.ObjetLayer;
+import utilitaire.Position;
 
 import java.util.HashMap;
 import java.util.Map;

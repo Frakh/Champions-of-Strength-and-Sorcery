@@ -1,4 +1,4 @@
-package es.interfaces;
+package utilitaire;
 
 public interface IPosition {
 
