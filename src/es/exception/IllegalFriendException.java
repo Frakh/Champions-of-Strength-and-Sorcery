@@ -1,4 +1,4 @@
-package es.interfaces;
+package es.exception;
 
 public class IllegalFriendException extends RuntimeException {
 
