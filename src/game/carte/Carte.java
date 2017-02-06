@@ -14,6 +14,15 @@ import java.util.Set;
 public class Carte {
 	private Case[][] sol;
 	private Map<IPosition,IElement> elements;
+
+	public Carte(Case[][] sol) {
+		this.sol = sol;
+	}
+
+	public Carte(Case[][] sol, Map<IPosition, IElement> elements) {
+		this.sol = sol;
+		this.elements = elements;
+	}
 	
 	//le constructeur du debug wesh
 	public Carte(int largeur, int hauteur, Case[][] sol, HashMap<IPosition,IElement> elements){
@@ -21,14 +30,16 @@ public class Carte {
 		this.sol=sol;
 		Set<IPosition> ip = elements.keySet();
 
-		// Verification que toutes les positions soient dans la map
-		for (IPosition p : ip) {
-			// La hauteur, c'est Y, la largeur, c'est X
-			// Si Y augmente, ça descend, si X augmente, ça vas vers la droite
-			if (p.getX() < 0 || p.getY() < 0 || p.getX()>largeur || p.getY() > hauteur)
-				throw new IllegalArgumentException("Une position ne rentre pas dans les dimensions : " + p.toString());
+		if (elements!=null) {
+			// Verification que toutes les positions soient dans la map
+			for (IPosition p : ip) {
+				// La hauteur, c'est Y, la largeur, c'est X
+				// Si Y augmente, ça descend, si X augmente, ça vas vers la droite
+				if (p.getX() < 0 || p.getY() < 0 || p.getX() > largeur || p.getY() > hauteur)
+					throw new IllegalArgumentException("Une position ne rentre pas dans les dimensions : " + p.toString());
+			}
+			this.elements = elements;
 		}
-		this.elements=elements;
 	}
 	
 	//le constructeur du fichier texte
