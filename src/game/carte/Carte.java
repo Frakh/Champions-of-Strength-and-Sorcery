@@ -15,8 +15,9 @@ public class Carte {
 	private Map<IPosition,IElement> elements;
 	
 	//le constructeur du debug wesh
-	public Carte(int hauteur, int largeur, HashMap<IPosition,IElement> elements){
-		sol = new Case[hauteur][largeur];
+	public Carte(int largeur, int hauteur, Case[][] sol, HashMap<IPosition,IElement> elements){
+		sol = new Case[largeur][hauteur];
+		this.sol=sol;
 		Set<IPosition> ip = elements.keySet();
 
 		// Verification que toutes les positions soient dans la map
@@ -49,8 +50,8 @@ public class Carte {
 	}
 
 	// friend class CarteLayer;
-	public Case[][] getSol(CarteLayer.Friend friend) {
-		if (friend==null)
+	public Case[][] getSol(CarteLayer.Friend friend) {	//allons nous faire des amis
+		if (friend==null)								//je suis ton meilleur ami
 			throw new IllegalFriendException("La classe appelante n'est pas friendly");
 		return sol;
 	}
