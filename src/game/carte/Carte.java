@@ -1,7 +1,7 @@
 package game.carte;
 
 import es.interfaces.IPosition;
-import es.interfaces.IllegalFriendException;
+import es.exception.IllegalFriendException;
 import es.sortie.composants.CarteLayer;
 import es.sortie.composants.ObjetLayer;
 
@@ -18,9 +18,11 @@ public class Carte {
 	public Carte(int hauteur, int largeur, HashMap<IPosition,IElement> elements){
 		sol = new Case[hauteur][largeur];
 		Set<IPosition> ip = elements.keySet();
+
+		// Verification que toutes les positions soient dans la map
 		for (IPosition p : ip) {
 			// La hauteur, c'est Y, la largeur, c'est X
-			// Si y augmente, ça descend, si x augmentes, ça vas vers la droite
+			// Si Y augmente, ça descend, si X augmente, ça vas vers la droite
 			if (p.getX() < 0 || p.getY() < 0 || p.getX()>largeur || p.getY() > hauteur)
 				throw new IllegalArgumentException("Une position ne rentre pas dans les dimensions : " + p.toString());
 		}

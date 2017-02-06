@@ -62,7 +62,8 @@ public class ImageManager {
 		return imageMap.get(url);
 	}
 
-	private static void createVirtualImage(String newUrl, BufferedImage bm) {
+	protected static void createVirtualImage(String newUrl, BufferedImage bm) {
+		System.out.println("Vritual Image created at " + newUrl);
 		imageMap.put(newUrl, bm);
 	}
 
