@@ -1,7 +1,7 @@
 package es.sortie;
 
 
-import es.interfaces.IPosition;
+import utilitaire.IPosition;
 
 public class FocusView {
 

@@ -1,6 +1,6 @@
 package es.sortie;
 
-import es.interfaces.IPosition;
+import utilitaire.IPosition;
 import es.sortie.composants.AntiTearBuffer;
 import es.sortie.composants.IGoodComp;
 

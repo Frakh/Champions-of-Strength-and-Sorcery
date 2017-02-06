@@ -1,7 +1,7 @@
 package es.sortie.composants;
 
 import es.dataManager.ImageManager;
-import es.interfaces.IPosition;
+import utilitaire.IPosition;
 import es.interfaces.ISpriteDrawable;
 import es.sortie.FocusView;
 import es.sortie.FrameManager;
