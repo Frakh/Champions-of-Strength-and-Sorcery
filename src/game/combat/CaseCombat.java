@@ -14,9 +14,8 @@ public class CaseCombat {
 	public IUnite getUnit() {
 		return unit;
 	}
-
-	public void setUnit(IUnite armeeGauche) {
-		this.unit = armeeGauche;
+	public void setUnit(IUnite troupe) {
+		this.unit = troupe;
 	}
 	
 	
