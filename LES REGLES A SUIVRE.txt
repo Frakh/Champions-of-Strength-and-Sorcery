@@ -1,4 +1,6 @@
 Voici une petite liste de règles a suivre pour coder :
 
 - ENCODAGE DES SOURCES = UTF-8, pas de ANSI, ni de UTF-8 BOM, mais QUE DU UTF-8.
-- FORMAT = DOS/WINDOWS (CRLF). Pas de UNIX (LF), NI DE MAC (CR) 
+- FORMAT = DOS/WINDOWS (CRLF). Pas de UNIX (LF), NI DE MAC (CR).
+
+SI vous ne voulez pas vous emmerder a configurer votre IDE, utilisez IntelliJ. Lui, c'est CRLF et UTF-8 par défaut...
