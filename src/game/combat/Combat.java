@@ -56,6 +56,32 @@ public class Combat {
 		unit.setChance(unit.getChance() + chance);
 	}
 
+	// Tableau des placement des troupes
+	private int[][] tableauPlacement = {
+			{6},
+			{4,8},
+			{2,6,10},
+			{1,4,8,11},
+			{0,3,6,9,12},
+			{0,2,5,7,10,12},
+			{0,2,4,6,8,10,12}
+	};
+
+	private void placerTroupeV2(int nbt1, int nbt2) {
+		if (nbt1 < 1 || nbt1 > 7 || nbt2 < 1 || nbt2 > 7)
+			throw new IllegalArgumentException("Arguments invalides : nbt1 = " + nbt1 + " - nbt2 = " + nbt2 );
+
+		for (int i = 1; i <= nbt1; ++i) {
+			terrainCombat[tableauPlacement[nbt1][i-1]][0].setUnit(ArmeeGauche[0]);
+			coordTroupes[i-1].set(tableauPlacement[nbt1][i-1], 0);
+		}
+
+		for (int i = 1; i <= nbt2; ++i) {
+			terrainCombat[tableauPlacement[nbt1][i-1]][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
+			coordTroupes[i-1].set(tableauPlacement[nbt1][i-1], LARGEURTERRAIN-1);
+		}
+	}
+
 	private void placerTroupes(int nbTroupes1, int nbTroupes2) { // place les troupes de départ, les met dans le repertoire des coordonnees et les initialise aux stats des héros
 		switch (nbTroupes1){
 			case 1:
