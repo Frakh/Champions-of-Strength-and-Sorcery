@@ -18,8 +18,8 @@ public class Equipement implements IElement {
 	}
 
 	@Override
-	public String décrire() {
-		// je sais absolument pas comment on va associer les id aux équipements associés mais c'est pas grave
+	public String decrire() {
+
 		return null;
 	}
 

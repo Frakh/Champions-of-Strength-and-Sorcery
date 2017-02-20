@@ -5,8 +5,8 @@ import game.Joueur;
 import game.carte.IElement;
 
 public class Batiment implements IElement{
-	public Joueur propriétaire;
-	private int id; //parce que un jour, je suis presque sûr qu'on saura faire l'association entre id et batiment
+	public Joueur proprietaire;
+	private int id; //parce que un jour, je suis presque sÃ»r qu'on saura faire l'association entre id et batiment
 	
 	@Override
 	public String getImage() {
@@ -16,15 +16,15 @@ public class Batiment implements IElement{
 
 	@Override
 	public void interagir(Heros oui) {
-		/*if (!(propriétaire.equals(oui.getJoueur())))
-		 	propriétaire=oui.getJoueur();
-		   else faire des trucs dépendants du batîment et je sais pas comment on va faire mais programmer quarante classes de batiments semble chiant
-		   à terme il faudra peut-être rendre batiment abstraite et faire des implémentations*/
+		/*if (!(propriÃ©taire.equals(oui.getJoueur())))
+		 	propriÃ©taire=oui.getJoueur();
+		   else faire des trucs dÃ©pendants du batÃ®ment et je sais pas comment on va faire mais programmer quarante classes de batiments semble chiant
+		   Ã  terme il faudra peut-Ãªtre rendre batiment abstraite et faire des implÃ©mentations*/
 	}
-	
+
 	@Override
-	public String décrire() {
-		// je sais absolument pas comment on va associer les id aux batiments associés mais c'est pas grave
+	public String decrire() {
+
 		return null;
 	}
 }
