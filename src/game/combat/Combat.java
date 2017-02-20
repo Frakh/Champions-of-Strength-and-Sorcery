@@ -67,6 +67,11 @@ public class Combat {
 			{0,2,4,6,8,10,12}
 	};
 
+	/**
+	 * Version 2 du placerTroupes
+	 * @param nbt1
+	 * @param nbt2
+	 */
 	private void placerTroupeV2(int nbt1, int nbt2) {
 		if (nbt1 < 1 || nbt1 > 7 || nbt2 < 1 || nbt2 > 7)
 			throw new IllegalArgumentException("Arguments invalides : nbt1 = " + nbt1 + " - nbt2 = " + nbt2 );
