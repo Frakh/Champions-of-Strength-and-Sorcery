@@ -1,31 +1,35 @@
 package game;
 
 public interface IUnite {
-	public int getMoral();
-	public void setMoral(int moral);
-	public int getChance();
-	public void setChance(int chance);
-	public int getNombre();
-	public void setNombre(int nombre);
-	public void setAttaque(int attaque);
-	public void setDefense(int defense);
-	public void setDegatsMin(int degatsMin);
-	public void setDegatsMax(int degatsMax);
-	public void setPvMax(int pvMax);
-	public void setInitiative(int initiative);
-	public void setMouvement(int mouvement);
-	public void setPortee(int portee);
-	public void setMunitions(int munitions);
-	public int getAttaque();
-	public int getDefense();
-	public int getDegatsMin();
-	public int getDegatsMax();
-	public int getPvMax();
-	public int getPvActuels();
-	public void setPvActuels(int pvAct);
-	public int getInitiative();
-	public int getMouvement();
-	public boolean isDistance();
-	public int getPortee();
-	public int getMunitions();
+	int getMoral();
+	void setMoral(int moral);
+	int getChance();
+	void setChance(int chance);
+	int getNombre();
+	void setNombre(int nombre);
+	void setAttaque(int attaque);
+	void setDefense(int defense);
+	void setDegatsMin(int degatsMin);
+	void setDegatsMax(int degatsMax);
+	void setPvMax(int pvMax);
+	void setInitiative(int initiative);
+	void setMouvement(int mouvement);
+	void setPortee(int portee);
+	void setMunitions(int munitions);
+	int getAttaque();
+	int getDefense();
+	int getDegatsMin();
+	int getDegatsMax();
+	int getPvMax();
+	int getPvActuels();
+	void setPvActuels(int pvAct);
+	int getInitiative();
+	int getMouvement();
+	boolean isDistance();
+	int getPortee();
+	int getMunitions();
+	void setUnite(Integer idUnite, Integer NbUnites);
+	void setArmeeGauche(boolean b); // sert à dire si la troupe appartient a l'armee gauche, utile en combat.
+	boolean getArmeeGauche();
+	int getType(); // renvoie l'id du type de l'unit
 }
