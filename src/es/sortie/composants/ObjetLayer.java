@@ -65,7 +65,7 @@ public class ObjetLayer extends JComponent implements IGoodComp {
 		if (jEndPos> carte.getLargeur())
 			jEndPos = carte.getLargeur();
 
-		Map<IPosition, IElement> elementMap = carte.getElements(friend);
+	/*	IElement[][] elementMap = carte.getElements(friend);
 		Set<IPosition> positions = elementMap.keySet();
 
 		for (IPosition ip : positions) {
@@ -75,7 +75,7 @@ public class ObjetLayer extends JComponent implements IGoodComp {
 
 			BufferedImage bi = ImageManager.getImage(elementMap.get(ip).getImage());
 			g2.drawImage(bi, xCoordImgDraw, yCoordImgDraw, fm.getSpriteLength(), fm.getSpriteHeigt(), this);
-		}
+		}*/
 
 	}
 
