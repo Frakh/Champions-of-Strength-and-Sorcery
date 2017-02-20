@@ -3,6 +3,7 @@ package game.carte;
 import es.exception.IllegalFriendException;
 import es.sortie.composants.CarteLayer;
 import es.sortie.composants.ObjetLayer;
+import utilitaire.IPosition;
 
 
 public class Carte {
@@ -31,6 +32,11 @@ public class Carte {
 	
 	//le constructeur du fichier texte
 	//public Carte(String path) mais j'ai la flemme pour l'instant
+	
+	public boolean canMove(IPosition pos){
+		if (sol[(int) pos.getX()][(int) pos.getY()].getMvtCost()==0) return false;
+		return true;
+	}
 	
 	public Case getCase(int x, int y){
 		return sol[y][x];

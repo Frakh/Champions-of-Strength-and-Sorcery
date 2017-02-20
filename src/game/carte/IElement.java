@@ -5,5 +5,5 @@ import game.Heros;
 
 public interface IElement extends ISpriteDrawable {
 	void interagir(Heros oui);
-	void decrire();
+	String decrire();
 }

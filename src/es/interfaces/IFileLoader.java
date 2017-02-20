@@ -2,6 +2,7 @@ package es.interfaces;
 
 import game.carte.Case;
 
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.NoSuchElementException;
@@ -11,7 +12,9 @@ public interface IFileLoader {
 
 	static Case[][] loadCarteFile(String path) throws IOException {
 		FileInputStream fis = new FileInputStream(path);
-		Scanner sc = new Scanner(fis);
+		// Utilisez les Buffered bidules
+		BufferedInputStream bis = new BufferedInputStream(fis);
+		Scanner sc = new Scanner(bis);
 
 		/*
 		  File format :
