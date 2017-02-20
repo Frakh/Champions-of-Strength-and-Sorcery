@@ -5,8 +5,8 @@ import game.Joueur;
 import game.carte.IElement;
 
 public class ChateauMap implements IElement{
-	private Joueur propriétaire;
-	//private ChateauInside chateau; //les fonctions de création de batîment, recrutement etc
+	private Joueur proprietaire;
+	//private ChateauInside chateau; //les fonctions de crÃ©ation de batÃ®ment, recrutement etc
 	
 	@Override
 	public String getImage() {
@@ -16,13 +16,14 @@ public class ChateauMap implements IElement{
 
 	@Override
 	public void interagir(Heros oui) {
-		/*if (!(propriétaire.equals(oui.getJoueur())))
+		/*if (!(propriÃ©taire.equals(oui.getJoueur())))
 		 	baston;
 		   else ouvrir menu chateau*/
 	}
-	
+
 	@Override
-	public String décrire() {
+	public String decrire() {
+
 		return null;
 	}
 }
