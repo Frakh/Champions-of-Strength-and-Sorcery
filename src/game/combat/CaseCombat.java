@@ -1,9 +1,8 @@
 package game.combat;
-import game.IUnite;
 
 public class CaseCombat {
 	boolean franchissable;
-	IUnite unit;
+	IUnit unit;
 	
 	public CaseCombat(){
 		franchissable = true;
@@ -11,10 +10,10 @@ public class CaseCombat {
 	public boolean getFranchissable(){
 		return franchissable;
 	}
-	public IUnite getUnit() {
+	public IUnit getUnit() {
 		return unit;
 	}
-	public void setUnit(IUnite troupe) {
+	public void setUnit(IUnit troupe) {
 		this.unit = troupe;
 	}
 	
