@@ -1,5 +1,9 @@
 package game.carte;
 
-public interface IElement {
+import es.interfaces.ISpriteDrawable;
+import game.Heros;
+
+public interface IElement extends ISpriteDrawable {
 	void interagir(Heros oui);
+	String decrire();
 }

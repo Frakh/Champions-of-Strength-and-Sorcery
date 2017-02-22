@@ -11,14 +11,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ImageManager {
 
-	/**
-	 * Carte de transition entre la chaine de char et les images
-	 */
 	private static Map<String, BufferedImage> imageMap;
 	public static boolean CREATE_FLIPPED_IMG_ON_LOAD = true;
 
 	static {
-		//Initialisation de la map
 		imageMap = new ConcurrentHashMap<>();
 	}
 
@@ -66,7 +62,8 @@ public class ImageManager {
 		return imageMap.get(url);
 	}
 
-	private static void createVirtualImage(String newUrl, BufferedImage bm) {
+	protected static void createVirtualImage(String newUrl, BufferedImage bm) {
+		System.out.println("Virtual Image created at " + newUrl);
 		imageMap.put(newUrl, bm);
 	}
 
