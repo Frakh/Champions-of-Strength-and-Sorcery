@@ -2,9 +2,11 @@ package game;
 
 import java.util.ArrayList;
 
+import game.carte.CaseDejaPriseException;
+
 public class Heros {
 	
-	public IUnite[] armee;
+	public Unite[] armee;
 	private final static int NBUNITES = 7;
 	private ICapacite[] capacites;
 	private final static int NBCAPACITES = 10;
@@ -28,7 +30,7 @@ public class Heros {
 	
 	
 	public Heros() {
-		armee = new IUnite[NBUNITES];
+		armee = new Unite[NBUNITES];
 		capacites = new ICapacite[NBCAPACITES];
 	}
 	
@@ -52,7 +54,19 @@ public class Heros {
 		this.armeGauche = armeGauche;
 	}
 
-
+	public void addTroupe(Unite u, int noCase) throws CaseDejaPriseException{
+		if (!(armee[noCase]==null)){
+			armee[noCase]=u;
+		}
+		else throw new CaseDejaPriseException();
+	}
+	
+	public Unite[] getArmee(){
+		return armee;
+	}
+	
+	
+	
 	public IArtefact getArmure() {
 		return armure;
 	}
