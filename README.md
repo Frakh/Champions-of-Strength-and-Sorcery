@@ -1,2 +1,2 @@
 # Champions-of-Strength-and-Sorcery
-git gud u scrub
+Le duc d'Onkled est ataqué par le dîner. Je pars pour Gamelon pour baiser Ganon.
