@@ -1,162 +1,7 @@
 <<<<<<< HEAD
 package game.combat;
 
-import game.Heros;
-import game.IUnite;
-
-public class Combat {
-	
-	public static final int HAUTEURTERRAIN = 13;
-	public static final int LARGEURTERRAIN = 20;
-	public CaseCombat[][] terrainCombat;
-	Heros armee1;
-	Heros armee2;
-	IUnite[] ArmeeGauche;
-	IUnite[] ArmeeDroite;
-
-	
-	public Combat (Heros h1, Heros h2){
-		terrainCombat = new CaseCombat[HAUTEURTERRAIN][LARGEURTERRAIN];
-		armee1=h1;
-		armee2=h2;
-		ArmeeGauche = new IUnite[7];
-		ArmeeDroite = new IUnite[7];
-	}
-	
-	public void initialiserCombat(){
-		int nbTroupes1=0;
-		int nbTroupes2=0;
-		for (int i=0; i<armee1.armee.length; i++){
-			if (armee1.armee[i]!=null){
-				nbTroupes1++;
-				ArmeeGauche[i]=armee1.armee[i];
-				boostStats (ArmeeGauche[i], armee1.getAttaque(), armee1.getDefense(), armee1.getChance(), armee1.getMoral());
-			}
-			
-		}
-		for (int i=0; i<armee2.armee.length; i++){
-			if (armee2.armee[i]!=null){
-				nbTroupes1++;
-				ArmeeDroite[i]=armee1.armee[i];
-				boostStats (ArmeeDroite[i], armee2.getAttaque(), armee2.getDefense(), armee2.getChance(), armee2.getMoral());
-			}
-			
-		}
-		
-		placerTroupes(nbTroupes1, nbTroupes2);
-		
-
-	}
-
-	 private void boostStats(IUnite unit, int attaque, int defense, int moral, int chance){
-		 unit.setAttaque(unit.getAttaque()+attaque);
-		 unit.setDefense(unit.getDefense()+defense);
-		 unit.setMoral(unit.getMoral()+moral);
-		 unit.setChance(unit.getChance()+chance);
-	 }
-	
-	 private void placerTroupes(int nbTroupes1, int nbTroupes2){
-		 if (nbTroupes1==1){
-			 terrainCombat[6][0].setUnit(ArmeeGauche[0]);//.......i.......
-	 }
-		 if (nbTroupes1==2){
-			 terrainCombat[4][0].setUnit(ArmeeGauche[0]);
-			 terrainCombat[8][0].setUnit(ArmeeGauche[1]);//....i...i....
-			 
-	 }
-		 if (nbTroupes1==3){
-			 terrainCombat[3][0].setUnit(ArmeeGauche[0]);//...i..i..i...
-			 terrainCombat[6][0].setUnit(ArmeeGauche[1]);
-			 terrainCombat[9][0].setUnit(ArmeeGauche[2]);
-			 
-	 }
-		 if (nbTroupes1==4){
-			 terrainCombat[1][0].setUnit(ArmeeGauche[0]);//.i..i...i..i.
-			 terrainCombat[4][0].setUnit(ArmeeGauche[1]);
-			 terrainCombat[8][0].setUnit(ArmeeGauche[2]);
-			 terrainCombat[11][0].setUnit(ArmeeGauche[3]);
-			 
-	 }
-		 if (nbTroupes1==5){
-			 terrainCombat[1][0].setUnit(ArmeeGauche[0]);//.i..i.i.i..i.
-			 terrainCombat[4][0].setUnit(ArmeeGauche[1]);
-			 terrainCombat[6][0].setUnit(ArmeeGauche[2]);
-			 terrainCombat[8][0].setUnit(ArmeeGauche[3]);
-			 terrainCombat[11][0].setUnit(ArmeeGauche[4]);
-			 
-	 }
-		 if (nbTroupes1==6){
-			 terrainCombat[1][0].setUnit(ArmeeGauche[0]);//.i.i.i.i.i.i.
-			 terrainCombat[3][0].setUnit(ArmeeGauche[1]);
-			 terrainCombat[5][0].setUnit(ArmeeGauche[2]);
-			 terrainCombat[7][0].setUnit(ArmeeGauche[3]);
-			 terrainCombat[9][0].setUnit(ArmeeGauche[4]);
-			 terrainCombat[11][0].setUnit(ArmeeGauche[5]);
-	 }
-		 if (nbTroupes1==7){
-			 terrainCombat[0][0].setUnit(ArmeeGauche[0]);//i.i.i.i.i.i.i
-			 terrainCombat[2][0].setUnit(ArmeeGauche[1]);
-			 terrainCombat[4][0].setUnit(ArmeeGauche[2]);
-			 terrainCombat[6][0].setUnit(ArmeeGauche[3]);
-			 terrainCombat[8][0].setUnit(ArmeeGauche[4]);
-			 terrainCombat[10][0].setUnit(ArmeeGauche[5]);
-			 terrainCombat[12][0].setUnit(ArmeeGauche[6]);
-	 }
-		 if (nbTroupes2==1){
-			 terrainCombat[6][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);//.......i.......
-	 }
-		 if (nbTroupes2==2){
-			 terrainCombat[4][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			 terrainCombat[8][LARGEURTERRAIN-1].setUnit(ArmeeDroite[1]);//....i...i....
-			 
-	 }
-		 if (nbTroupes2==3){
-			 terrainCombat[3][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);//...i..i..i...
-			 terrainCombat[6][LARGEURTERRAIN-1].setUnit(ArmeeDroite[1]);
-			 terrainCombat[9][LARGEURTERRAIN-1].setUnit(ArmeeDroite[2]);
-			 
-	 }
-		 if (nbTroupes2==4){
-			 terrainCombat[1][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);//.i..i...i..i.
-			 terrainCombat[4][LARGEURTERRAIN-1].setUnit(ArmeeDroite[1]);
-			 terrainCombat[8][LARGEURTERRAIN-1].setUnit(ArmeeDroite[2]);
-			 terrainCombat[11][LARGEURTERRAIN-1].setUnit(ArmeeDroite[3]);
-			 
-	 }
-		 if (nbTroupes2==5){
-			 terrainCombat[1][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);//.i..i.i.i..i.
-			 terrainCombat[4][LARGEURTERRAIN-1].setUnit(ArmeeDroite[1]);
-			 terrainCombat[6][LARGEURTERRAIN-1].setUnit(ArmeeDroite[2]);
-			 terrainCombat[8][LARGEURTERRAIN-1].setUnit(ArmeeDroite[3]);
-			 terrainCombat[11][LARGEURTERRAIN-1].setUnit(ArmeeDroite[4]);
-			 
-	 }
-		 if (nbTroupes2==6){
-			 terrainCombat[1][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);//.i.i.i.i.i.i.
-			 terrainCombat[3][LARGEURTERRAIN-1].setUnit(ArmeeDroite[1]);
-			 terrainCombat[5][LARGEURTERRAIN-1].setUnit(ArmeeDroite[2]);
-			 terrainCombat[7][LARGEURTERRAIN-1].setUnit(ArmeeDroite[3]);
-			 terrainCombat[9][LARGEURTERRAIN-1].setUnit(ArmeeDroite[4]);
-			 terrainCombat[11][LARGEURTERRAIN-1].setUnit(ArmeeDroite[5]);
-	 }
-		 if (nbTroupes2==7){
-			 terrainCombat[0][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);//i.i.i.i.i.i.i
-			 terrainCombat[2][LARGEURTERRAIN-1].setUnit(ArmeeDroite[1]);
-			 terrainCombat[4][LARGEURTERRAIN-1].setUnit(ArmeeDroite[2]);
-			 terrainCombat[6][LARGEURTERRAIN-1].setUnit(ArmeeDroite[3]);
-			 terrainCombat[8][LARGEURTERRAIN-1].setUnit(ArmeeDroite[4]);
-			 terrainCombat[10][LARGEURTERRAIN-1].setUnit(ArmeeDroite[5]);
-			 terrainCombat[12][LARGEURTERRAIN-1].setUnit(ArmeeDroite[6]);
-	 }
-
-}	 
-	 
-}
-=======
-package game.combat;
-
 import java.io.FileNotFoundException;
-
 import game.Heros;
 import utilitaire.IPosition;
 
@@ -233,7 +78,7 @@ public class Combat {
 		}
 	}
 
-	private void placerTroupes(int nbTroupes1, int nbTroupes2) { // place les troupes de départ, les met dans le repertoire des coordonnees et les initialise aux stats des héros
+	private void placerTroupes(int nbTroupes1, int nbTroupes2) { // place les troupes de dÃ©part, les met dans le repertoire des coordonnees et les initialise aux stats des hÃ©ros
 		switch (nbTroupes1){
 			case 1:
 				terrainCombat[6][0].setUnit(ArmeeGauche[0]);//------i------
@@ -393,7 +238,7 @@ public class Combat {
 		}
 	}
 	
-	private boolean deplacement1Case(int hauteur, int largeur, int hauteurVoulue, int largeurVoulue){//indique si un déplacement est légal
+	private boolean deplacement1Case(int hauteur, int largeur, int hauteurVoulue, int largeurVoulue){//indique si un dÃ©placement est lÃ©gal
 		if (hauteur == hauteurVoulue){
 			if (largeurVoulue==largeur+1 ||largeurVoulue == largeur-1){
 				return true;
@@ -425,17 +270,17 @@ public class Combat {
 		}
 	}
 	
-	private Boolean[][] pathfinding(int coordUniteL, int coordUniteH, boolean volant){ // renvoie un tableau de bools, représentant les cases accessibles par un monstre qui marche par terre
-		// case non visitée = null
+	private Boolean[][] pathfinding(int coordUniteL, int coordUniteH, boolean volant){ // renvoie un tableau de bools, reprÃ©sentant les cases accessibles par un monstre qui marche par terre
+		// case non visitÃ©e = null
 		// case accessible = true
-		// case à accéder = false
+		// case Ã  accÃ©der = false
 		int k;
 		int l;
 		Boolean trucARetourner[][] = new Boolean[LARGEURTERRAIN][HAUTEURTERRAIN];
 		trucARetourner[coordUniteL][coordUniteH]=true;
 		int mouvement = terrainCombat[coordUniteL][coordUniteH].getUnit().getMouvement();
-		while (mouvement !=0){//while for for if for for if if. bon appétit bien sûr.
-			//trouver les cases à accéder
+		while (mouvement !=0){//while for for if for for if if. bon appÃ©tit bien sÃ»r.
+			//trouver les cases Ã  accÃ©der
 			for(int i=0; i<LARGEURTERRAIN; i++){
 				for (int j=0; j<HAUTEURTERRAIN; j++){
 					if (trucARetourner[i][j] == true){
@@ -447,7 +292,7 @@ public class Combat {
 							while (j <= HAUTEURTERRAIN){	
 								if (deplacement1Case(j,i,l,k)){
 									if (trucARetourner[k][l] != true){
-											trucARetourner[k][l]=false; // changé juste après, pour éviter que les true créés ici fassent n'importe quoi dans la boucle
+											trucARetourner[k][l]=false; // changÃ© juste aprÃ¨s, pour Ã©viter que les true crÃ©Ã©s ici fassent n'importe quoi dans la boucle
 									}
 								}
 								j++;
@@ -467,7 +312,7 @@ public class Combat {
 			}
 			mouvement--;
 		}
-		if (volant){ // volant: pas de détection des collisions dans la boucle, amis on enlève les cases inaccessibles à la fin
+		if (volant){ // volant: pas de dÃ©tection des collisions dans la boucle, amis on enlÃ¨ve les cases inaccessibles Ã  la fin
 			for(int i=0; i<LARGEURTERRAIN; i++){
 				for (int j=0; j<HAUTEURTERRAIN; j++){
 					if (trucARetourner[i][j] && !(terrainCombat[i][j].getFranchissable() && terrainCombat[i][j].getUnit() == null) ){
@@ -482,11 +327,11 @@ public class Combat {
 		
 	private void finCombat(int gaucheVainqueur){ // finit le combat. [gauchevainqueur=0:match nul; 1=gauche gagne; 2=gauche perd]
 		int compteur=0;
-		for(int i=0;i<6; i++){ // enleve les troupes du héros vainqueur
+		for(int i=0;i<6; i++){ // enleve les troupes du hÃ©ros vainqueur
 			armee1.armee[i].setUnite(null, null);
 		}
 		if (gaucheVainqueur ==1){
-			for (int i=0; i<coordTroupes.length; i++){ // prend les troupes vivantes sur le terrain et les rend au héros vainqueur
+			for (int i=0; i<coordTroupes.length; i++){ // prend les troupes vivantes sur le terrain et les rend au hÃ©ros vainqueur
 				if (terrainCombat[(int) coordTroupes[i].getX()][(int) coordTroupes[i].getY()].getUnit().getArmeeGauche()){
 					armee1.armee[compteur].setUnite(
 							terrainCombat[(int) coordTroupes[i].getX()][(int) coordTroupes[i].getY()]
@@ -500,7 +345,7 @@ public class Combat {
 			
 		}
 		else if(gaucheVainqueur == 2){
-			for (int i=0; i<coordTroupes.length; i++){ // prend les troupes vivantes sur le terrain et les rend au héros vainqueur
+			for (int i=0; i<coordTroupes.length; i++){ // prend les troupes vivantes sur le terrain et les rend au hÃ©ros vainqueur
 				if (!terrainCombat[(int) coordTroupes[i].getX()][(int) coordTroupes[i].getY()].getUnit().getArmeeGauche()){
 					armee2.armee[compteur].setUnite(
 							terrainCombat[(int) coordTroupes[i].getX()][(int) coordTroupes[i].getY()]
@@ -523,8 +368,15 @@ public class Combat {
 		}
 	}
 	
+	private boolean armeeMorte(){ //dit si un joueur a gagnÃ©
+		//a faire
+	}
 	
-	
+	private void tourCombat(){ //a faire
+		while(!armeeMorte){
+			
+		}
+	}
 	
 	
 }
