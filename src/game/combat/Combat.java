@@ -396,7 +396,7 @@ public class Combat {
 		else{
 			throw new IllegalArgumentException("pas de vainqueur du match, pas de signal de match nul");
 		}
-	}
+	} 
 	
 	private boolean armeeMorte(){ //indique si le combat doit se terminer
 		boolean a=true;
