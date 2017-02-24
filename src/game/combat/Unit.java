@@ -20,6 +20,9 @@ public class Unit implements IUnit {
 	int mouvement;
 	int degatMin;
 	int degatMax;
+	boolean AJoue;
+	boolean riposte;
+	boolean mort;
 	String description;
 	String pouvoir;
 	
@@ -37,8 +40,17 @@ public class Unit implements IUnit {
 		this.pouvoir=sc.nextLine();
 		sc.close();
 		this.nombre = nombre;
+		this.riposte=true;
+		this.mort=false;
 	}
 	
+	
+	public boolean getAJoue(){
+		return AJoue;
+	}
+	public void setAJoue(boolean a){
+		AJoue=a;
+	}
 	public String getPouvoir(){
 		return this.pouvoir;
 	}
@@ -174,7 +186,7 @@ public class Unit implements IUnit {
 			u.setNombre(u.getNombre()-1);
 			degatsEffectues -= u.getPvAct();
 			if (u.getNombre()==0){
-				u.mourir();
+				u.setMort(true);
 				degatsEffectues = 0;
 			}
 		}
@@ -183,12 +195,25 @@ public class Unit implements IUnit {
 		}
 	}
 	
-	public void mourir(){
-		//blblblbl
+	public void setMort(boolean a){
+		this.mort=a;
 	}
 	
-	public void githubmarchepasblblbl(){
-		
+
+	public boolean getRiposte() {
+		return riposte;
+	}
+
+
+	@Override
+	public void setRiposte(boolean b) {
+		riposte=b;
+	}
+
+
+	@Override
+	public boolean getMort() {
+		return mort;
 	}
 
 }

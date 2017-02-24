@@ -1,9 +1,7 @@
 package game.combat;
 
 import java.io.FileNotFoundException;
-
 import game.Heros;
-import utilitaire.IPosition;
 import utilitaire.Vector2i;
 
 public class Combat {
@@ -60,8 +58,6 @@ public class Combat {
 		}
 		placerTroupes(nbTroupes1, nbTroupes2);
 	}
-	
-	
 	
 	private void boostStats(IUnit unit, int attaque, int defense, int moral, int chance) { //augmente les stats de unit
 		unit.setAttaque(unit.getAttaque() + attaque);
@@ -280,19 +276,19 @@ public class Combat {
 			for(int i=0; i<coordTroupes.length;i++){
 				if(coordTroupes[i].getX()==depart.getX() && coordTroupes[i].getY()==depart.getY()){
 					coordTroupes[i]=arrivee;
-					System.out.println("blblllll");
 				}
-				System.out.println("blb");
 			}
 			terrainCombat[arrivee.getX()][arrivee.getY()].setUnit(terrainCombat[depart.getX()][depart.getY()].getUnit());
 			terrainCombat[depart.getX()][depart.getY()].setUnit(null);
 		}
 	}
 	
-	private boolean[][] pathfinding(int coordUniteL, int coordUniteH, boolean volant){ // renvoie un tableau de bools, représentant les cases accessibles par un monstre qui marche par terre
+	public boolean[][] pathfinding(int coordUniteL, int coordUniteH){ // renvoie un tableau de bools, représentant les cases accessibles par un monstre qui marche par terre
 		// case non visitée = null
 		// case accessible = true
 		// case à accéder = false
+		boolean volant = false;
+		if (terrainCombat[coordUniteL][coordUniteH].getUnit().getPouvoir()=="Volant") volant = true;
 		int k;
 		int l;
 		boolean trucARetourner[][] = new boolean[LARGEURTERRAIN][HAUTEURTERRAIN];
@@ -306,7 +302,6 @@ public class Combat {
 		trucARetourner[coordUniteL][coordUniteH]=true;
 		truc[coordUniteL][coordUniteH]=1;
 		int mouvement = terrainCombat[coordUniteL][coordUniteH].getUnit().getMouvement();
-		System.out.println("mv="+mouvement);
 		while (mouvement !=0){//while for for if for for if if. bon appétit bien sûr.
 			//trouver les cases à accéder
 			for(int i=0; i<LARGEURTERRAIN; i++){
@@ -359,10 +354,11 @@ public class Combat {
 		return trucARetourner;
 	}
 		
-	private void finCombat(int gaucheVainqueur){ // finit le combat. [gauchevainqueur=0:match nul; 1=gauche gagne; 2=gauche perd]
+	private void finCombat(int gaucheVainqueur){ // finit le combat. [gauchevainqueur:0=match nul; 1=gauche gagne; 2=gauche perd]
 		int compteur=0;
-		for(int i=0;i<6; i++){ // enleve les troupes du héros vainqueur
+		for(int i=0;i<6; i++){ // enleve les troupes des 2 heros
 			armee1.armee[i].setUnite(null, null);
+			armee2.armee[i].setUnite(null, null);
 		}
 		if (gaucheVainqueur ==1){
 			for (int i=0; i<coordTroupes.length; i++){ // prend les troupes vivantes sur le terrain et les rend au héros vainqueur
@@ -398,20 +394,59 @@ public class Combat {
 		}
 			
 		else{
-			throw new IllegalArgumentException("pas de vainqueur du match");
+			throw new IllegalArgumentException("pas de vainqueur du match, pas de signal de match nul");
 		}
 	}
 	
-
-	private boolean armeeMorte(){ //dit si un joueur a gagné
-		//a faire
-		return true;
+	private boolean armeeMorte(){ //indique si le combat doit se terminer
+		boolean a=true;
+		for (int i=0; i<7; i++){
+			if(!terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getMort())
+				a=false;
+		}
+		if (a==true) return a;
+		for (int i=7; i<14; i++){
+			if(!terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getMort())
+				a=false;
+		}
+		return a;
 	}
 	
-	private void tourCombat(){ //a faire
+	private void fight(){ //bah, l'endroit on on fait se taper des gens avec d'autres
+		boolean JoueurGaucheEnTrainDeJouer;
+		int CestSonTour=-1;
+		int initMin=1000;
 		while(!armeeMorte()){
+			for(int i =0; i<coordTroupes.length; i++){//choisir l'unité dont c'est le tour
+				if (terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getInitiative()<initMin && !terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getAJoue()){
+					initMin=terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getInitiative();
+					CestSonTour=i;
+				}
+			}
+			if (CestSonTour!=-1){
+				JoueurGaucheEnTrainDeJouer = terrainCombat[coordTroupes[CestSonTour].getX()][coordTroupes[CestSonTour].getY()].getUnit().getArmeeGauche();
+				//donner la main au joueur pour lui faire faire des trucs
+				//attendre le signal et faire en fonction
+			}
+			else{
+				for(int i =0; i<coordTroupes.length; i++){//fin d'un tour de jeu: les unites regagnent leur riposte et leur droit de jouer
+					terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().setAJoue(false);
+				}
+			}
+			CestSonTour=-1;
+			initMin=1000;
 			
 		}
+		for (int i =0; i<coordTroupes.length; i++){//regarder quelle armée est morte
+			if (!terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getMort()){
+				if(i<7)
+					finCombat(1);
+				else
+					finCombat(2);
+			}
+			
+		}
+		finCombat(0);
 	}
 
 	public String toString(){
@@ -436,9 +471,7 @@ public class Combat {
 		st+="\nEmplacement des troupes\n";
 		for (int i = 0; i < coordTroupes.length; i++){
 			if (coordTroupes[i].getX()!=-1){
-				System.out.println(coordTroupes[i].getY());
 				st+= "unite "+i+": ";
-				System.out.println(coordTroupes[i].getX()+ "  "+coordTroupes[i].getY());
 				st+=terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getNombre()+" ";
 				st+=terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getDescription()+"\n";
 			}
@@ -449,7 +482,7 @@ public class Combat {
 		String st="";
 		st+="tableau de pathfinding\n";
 		
-		boolean[][] pf = pathfinding(unit.getX(), unit.getY(), false);
+		boolean[][] pf = pathfinding(unit.getX(), unit.getY());
 		
 		for(int j = 0; j < HAUTEURTERRAIN; j++){
 			for(int i = 0; i < LARGEURTERRAIN; i++){
