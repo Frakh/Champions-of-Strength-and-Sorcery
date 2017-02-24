@@ -28,4 +28,5 @@ public interface IUnit {
 	public void setDegatMax(int degatMax);
 	public void combattre(IUnit u);
 	public void mourir();
+	public String getDescription();
 }
