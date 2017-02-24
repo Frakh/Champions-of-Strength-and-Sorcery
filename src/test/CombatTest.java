@@ -1,6 +1,8 @@
 package test;
 
 import game.combat.Combat;
+import utilitaire.Vector2i;
+
 import org.junit.Test;
 import game.Heros;
 import game.Unite;
@@ -24,6 +26,10 @@ public class CombatTest {
 		Combat c = new Combat(Heros, Mechaaaaant);
 		c.initialiserCombat();
 		System.out.println(c.toString());
+		System.out.println(c.toStringPathFinding(new Vector2i(0,6)));
+		c.teleporterTroupe(new Vector2i(0,6),new Vector2i(3,6));
+		System.out.println(c.toString());
+		System.out.println(c.toStringPathFinding(new Vector2i(3,6)));
 	}
 	
 }

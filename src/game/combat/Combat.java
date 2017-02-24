@@ -53,7 +53,7 @@ public class Combat {
 		for (int i = 0; i < armee2.armee.length; i++) {
 			if (armee2.armee[i] != null) {
 
-				ArmeeDroite[nbTroupes2] = new Unit (armee2.armee[i].getIdUnite(),armee2.armee[i].getIdUnite()) ;
+				ArmeeDroite[nbTroupes2] = new Unit (armee2.armee[i].getIdUnite(),armee2.armee[i].getNombre()) ;
 				ArmeeDroite[nbTroupes2].setArmeeGauche(false);
 				nbTroupes2++;
 			}
@@ -275,39 +275,53 @@ public class Combat {
 		return false;
 	}
 	
-	private void teleporterTroupe(CaseCombat depart, CaseCombat arrivee){ //teleporte la troupe de la case depart vers la case arrivee
-		if (arrivee.getFranchissable() && arrivee.getUnit()==null){
-			arrivee.setUnit(depart.getUnit());
-			depart.setUnit(null);
+	public void teleporterTroupe(Vector2i depart, Vector2i arrivee){ //teleporte la troupe de la case depart vers la case arrivee
+		if (terrainCombat[arrivee.getX()][arrivee.getY()].getFranchissable() && terrainCombat[arrivee.getX()][arrivee.getY()].getUnit()==null){
+			for(int i=0; i<coordTroupes.length;i++){
+				if(coordTroupes[i].getX()==depart.getX() && coordTroupes[i].getY()==depart.getY()){
+					coordTroupes[i]=arrivee;
+					System.out.println("blblllll");
+				}
+				System.out.println("blb");
+			}
+			terrainCombat[arrivee.getX()][arrivee.getY()].setUnit(terrainCombat[depart.getX()][depart.getY()].getUnit());
+			terrainCombat[depart.getX()][depart.getY()].setUnit(null);
 		}
 	}
 	
-	private Boolean[][] pathfinding(int coordUniteL, int coordUniteH, boolean volant){ // renvoie un tableau de bools, représentant les cases accessibles par un monstre qui marche par terre
+	private boolean[][] pathfinding(int coordUniteL, int coordUniteH, boolean volant){ // renvoie un tableau de bools, représentant les cases accessibles par un monstre qui marche par terre
 		// case non visitée = null
 		// case accessible = true
 		// case à accéder = false
 		int k;
 		int l;
-		Boolean trucARetourner[][] = new Boolean[LARGEURTERRAIN][HAUTEURTERRAIN];
+		boolean trucARetourner[][] = new boolean[LARGEURTERRAIN][HAUTEURTERRAIN];
+		int truc[][]=new int[LARGEURTERRAIN][HAUTEURTERRAIN]; // ai besoin de truc pour avoir faux, vrai et à rendre vrai
+		for(int i=0; i<LARGEURTERRAIN; i++){
+			for (int j=0; j<HAUTEURTERRAIN; j++){
+				trucARetourner[i][j]=false;
+				truc[i][j]=0;
+			}
+		}
 		trucARetourner[coordUniteL][coordUniteH]=true;
+		truc[coordUniteL][coordUniteH]=1;
 		int mouvement = terrainCombat[coordUniteL][coordUniteH].getUnit().getMouvement();
+		System.out.println("mv="+mouvement);
 		while (mouvement !=0){//while for for if for for if if. bon appétit bien sûr.
 			//trouver les cases à accéder
 			for(int i=0; i<LARGEURTERRAIN; i++){
 				for (int j=0; j<HAUTEURTERRAIN; j++){
-					if (trucARetourner[i][j] == true){
+					if (truc[i][j] == 1){
 						k=i-1;
-						if (k<0) k=0;
-						while (k<=LARGEURTERRAIN){//double boucle while parce que for me faisait sortir du tableau
+						if (k<0) {k=0;}
+						while (k <= i+1){//double boucle while parce que for me faisait sortir du tableau
 							l=j-1;
-							if (j<0) j=0;
-							while (j <= HAUTEURTERRAIN){	
-								if (deplacement1Case(j,i,l,k)){
-									if (trucARetourner[k][l] != true){
-											trucARetourner[k][l]=false; // changé juste après, pour éviter que les true créés ici fassent n'importe quoi dans la boucle
-									}
+							if (l<0) {l=0;}
+							while (l <= j+1){	
+								if (deplacement1Case(j,i,l,k) && truc[k][l] != 1){
+											truc[k][l]=2; // changé juste après, pour éviter que les true créés ici fassent n'importe quoi dans la boucle
 								}
-								j++;
+								l++;
 							}
 							k++;
 						}
@@ -316,9 +330,9 @@ public class Combat {
 			}
 			for(int i=0; i<LARGEURTERRAIN; i++){
 				for (int j=0; j<HAUTEURTERRAIN; j++){
-					if (trucARetourner[i][j]==false){
+					if (truc[i][j]==2){
 						if (volant == true || (terrainCombat[i][j].getFranchissable() && terrainCombat[i][j].getUnit() == null) )
-							trucARetourner[i][j]=true;
+							truc[i][j]=1;
 					}
 				}
 			}
@@ -327,13 +341,21 @@ public class Combat {
 		if (volant){ // volant: pas de détection des collisions dans la boucle, amis on enlève les cases inaccessibles à la fin
 			for(int i=0; i<LARGEURTERRAIN; i++){
 				for (int j=0; j<HAUTEURTERRAIN; j++){
-					if (trucARetourner[i][j] && !(terrainCombat[i][j].getFranchissable() && terrainCombat[i][j].getUnit() == null) ){
-						trucARetourner[i][j] = false;
+					if (truc[i][j]==0 || !(terrainCombat[i][j].getFranchissable() && terrainCombat[i][j].getUnit() == null) ){
+						truc[i][j] = 0;
 					}
 				}
 			}
 		}
-		trucARetourner[coordUniteL][coordUniteH]=false;
+		
+		truc[coordUniteL][coordUniteH]=0;
+		for(int i=0; i<LARGEURTERRAIN; i++){
+			for (int j=0; j<HAUTEURTERRAIN; j++){
+				if (truc[i][j]==1){
+					trucARetourner[i][j]=true;
+				}
+			}
+		}
 		return trucARetourner;
 	}
 		
@@ -414,8 +436,29 @@ public class Combat {
 		st+="\nEmplacement des troupes\n";
 		for (int i = 0; i < coordTroupes.length; i++){
 			if (coordTroupes[i].getX()!=-1){
-				st+= "unite "+i+": "+terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getNombre()+" "+terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getDescription()+"\n";
+				System.out.println(coordTroupes[i].getY());
+				st+= "unite "+i+": ";
+				System.out.println(coordTroupes[i].getX()+ "  "+coordTroupes[i].getY());
+				st+=terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getNombre()+" ";
+				st+=terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getDescription()+"\n";
 			}
+		}
+		return st;
+	}
+	public String toStringPathFinding(Vector2i unit){
+		String st="";
+		st+="tableau de pathfinding\n";
+		
+		boolean[][] pf = pathfinding(unit.getX(), unit.getY(), false);
+		
+		for(int j = 0; j < HAUTEURTERRAIN; j++){
+			for(int i = 0; i < LARGEURTERRAIN; i++){
+				if (pf[i][j])
+					st+="o";
+				else
+					st+="x";
+			}
+			st+="\n";
 		}
 		return st;
 	}
