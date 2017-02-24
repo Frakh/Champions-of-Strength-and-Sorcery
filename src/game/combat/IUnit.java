@@ -35,5 +35,5 @@ public interface IUnit {
 	public boolean getMort();
 	public void setMort(boolean b);
 	public void combattre(IUnit u);
-	
+	 
 }

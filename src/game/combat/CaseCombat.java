@@ -19,4 +19,4 @@ public class CaseCombat {
 		this.unit = troupe;
 	}
 	
-}
+} 

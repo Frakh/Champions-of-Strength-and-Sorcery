@@ -32,6 +32,6 @@ public class CombatTest {
 		c.teleporterTroupe(new Vector2i(0,6),new Vector2i(3,6));
 		System.out.println(c.toString());
 		System.out.println(c.toStringPathFinding(new Vector2i(3,6)));
-	}
+	} 
 	
 }

@@ -204,14 +204,10 @@ public class Unit implements IUnit {
 		return riposte;
 	}
 
-
-	@Override
 	public void setRiposte(boolean b) {
 		riposte=b;
 	}
 
-
-	@Override
 	public boolean getMort() {
 		return mort;
 	}

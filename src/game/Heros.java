@@ -6,7 +6,7 @@ import game.carte.CaseDejaPriseException;
 import game.combat.Unit;
 
 public class Heros {
-	
+	 
 	public Unite[] armee;
 	private final static int NBUNITES = 7;
 	private ICapacite[] capacites;
