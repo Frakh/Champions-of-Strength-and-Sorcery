@@ -1,5 +1,5 @@
 package game.combat;
-
+//test
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -184,6 +184,10 @@ public class Unit implements IUnit {
 	}
 	
 	public void mourir(){
+		//blblblbl
+	}
+	
+	public void githubmarchepasblblbl(){
 		
 	}
 
