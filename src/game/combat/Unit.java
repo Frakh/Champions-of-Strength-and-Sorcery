@@ -24,8 +24,7 @@ public class Unit implements IUnit {
 	String pouvoir;
 	
 	public Unit(int id, int nombre) throws FileNotFoundException{
-		this.nombre = nombre;
-		String nomFichierSource = "C:\\Users\\Ereshkigal\\git\\Champions-of-Strength-and-Sorcery\\assets\\unit\\descriptionUnit" +nombre + ".txt";
+		String nomFichierSource = "C:\\Users\\Ereshkigal\\git\\Champions-of-Strength-and-Sorcery\\assets\\unit\\descriptionUnit" +id + ".txt";
 		Scanner sc = new Scanner (new FileInputStream(new File(nomFichierSource)));
 		this.attaque=Integer.parseInt(sc.nextLine());
 		this.defense=Integer.parseInt(sc.nextLine());
@@ -37,6 +36,7 @@ public class Unit implements IUnit {
 		this.description=sc.nextLine();
 		this.pouvoir=sc.nextLine();
 		sc.close();
+		this.nombre = nombre;
 	}
 	
 	public String getPouvoir(){

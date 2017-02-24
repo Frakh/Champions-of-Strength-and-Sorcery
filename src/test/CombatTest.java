@@ -20,6 +20,7 @@ public class CombatTest {
 		Heros.addTroupe(new Unite(11, 30), 1);
 		Heros Mechaaaaant = new Heros();
 		Mechaaaaant.addTroupe(new Unite(11, 50), 0);
+		Mechaaaaant.addTroupe(new Unite(11, 75), 4);
 		Combat c = new Combat(Heros, Mechaaaaant);
 		c.initialiserCombat();
 		System.out.println(c.toString());

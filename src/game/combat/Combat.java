@@ -45,7 +45,7 @@ public class Combat {
 		int nbTroupes2 = 0;
 		for (int i = 0; i < armee1.armee.length; i++) {
 			if (armee1.armee[i] != null){
-				ArmeeGauche[nbTroupes1] = new Unit (armee1.getArmee()[i].getIdUnite(),armee1.getArmee()[i].getIdUnite()) ;
+				ArmeeGauche[nbTroupes1] = new Unit (armee1.getArmee()[i].getIdUnite(),armee1.getArmee()[i].getNombre()) ;
 				ArmeeGauche[nbTroupes1].setArmeeGauche(true);
 				nbTroupes1++;
 			}
@@ -58,8 +58,6 @@ public class Combat {
 				nbTroupes2++;
 			}
 		}
-		System.out.println(ArmeeDroite[0].getAttaque()+"\n");
-		System.out.println(ArmeeGauche[0].getAttaque()+"\n");
 		placerTroupes(nbTroupes1, nbTroupes2);
 	}
 	
@@ -400,7 +398,13 @@ public class Combat {
 		
 		for(int j = 0; j < HAUTEURTERRAIN; j++){
 			for(int i = 0; i < LARGEURTERRAIN; i++){
-				if (terrainCombat[i][j].franchissable)
+				if ((terrainCombat[i][j].getUnit()!=null)){
+					for(int k=0;k<coordTroupes.length;k++){
+						if (coordTroupes[k].getX()==i&&coordTroupes[k].getY()==j)
+							st+=k;
+					}
+				}
+				else if (terrainCombat[i][j].franchissable)
 					st+="o";
 				else
 					st+="x";
@@ -410,7 +414,7 @@ public class Combat {
 		st+="\nEmplacement des troupes\n";
 		for (int i = 0; i < coordTroupes.length; i++){
 			if (coordTroupes[i].getX()!=-1){
-				st+= "unite numero "+i+" x="+coordTroupes[i].getX()+" y="+coordTroupes[i].getY()+"\n";
+				st+= "unite "+i+": "+terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getNombre()+" "+terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getDescription()+"\n";
 			}
 		}
 		return st;
