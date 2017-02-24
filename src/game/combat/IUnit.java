@@ -26,7 +26,14 @@ public interface IUnit {
 	public void setDegatMin(int degatMin);
 	public int getDegatMax();
 	public void setDegatMax(int degatMax);
-	public void combattre(IUnit u);
-	public void mourir();
 	public String getDescription();
+	public String getPouvoir();
+	public boolean getAJoue();//renvoie si l'unite a deja joue
+	public void setAJoue(boolean b);
+	public boolean getRiposte();//renvoie si l'unite a deja joue
+	public void setRiposte(boolean b);
+	public boolean getMort();
+	public void setMort(boolean b);
+	public void combattre(IUnit u);
+	
 }

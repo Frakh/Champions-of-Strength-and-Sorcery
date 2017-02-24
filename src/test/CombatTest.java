@@ -27,6 +27,8 @@ public class CombatTest {
 		c.initialiserCombat();
 		System.out.println(c.toString());
 		System.out.println(c.toStringPathFinding(new Vector2i(0,6)));
+		System.out.println("\n\nDeplacement du gobelin 0 de 3 cases en avant:\n");
+		assert (c.pathfinding(0,6)[3][6]);
 		c.teleporterTroupe(new Vector2i(0,6),new Vector2i(3,6));
 		System.out.println(c.toString());
 		System.out.println(c.toStringPathFinding(new Vector2i(3,6)));
