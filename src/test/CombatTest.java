@@ -15,18 +15,14 @@ public class CombatTest {
 	 * @throws Throwable 
 	 */
 	@Test
-	public void UniteTest() throws Throwable{
+	public void UniteTest() throws Throwable{  //teste la création de héros, d'unités, et l'initialisation du combat
 		Heros Heros = new Heros();
-		Heros.addTroupe(new Unite( 11, 30), 0);
+		Heros.addTroupe(new Unite(11, 30), 1);
 		Heros Mechaaaaant = new Heros();
-		Heros.addTroupe(new Unite(21, 50), 0);
+		Mechaaaaant.addTroupe(new Unite(11, 50), 0);
 		Combat c = new Combat(Heros, Mechaaaaant);
 		c.initialiserCombat();
-	}
-	
-	
-	public void Combat(){
-		
+		System.out.println(c.toString());
 	}
 	
 }

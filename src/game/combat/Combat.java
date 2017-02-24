@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 
 import game.Heros;
 import utilitaire.IPosition;
+import utilitaire.Vector2i;
 
 public class Combat {
 
@@ -14,7 +15,7 @@ public class Combat {
 	Heros armee2;
 	IUnit[] ArmeeGauche;
 	IUnit[] ArmeeDroite;
-	IPosition[] coordTroupes;
+	Vector2i[] coordTroupes;
 	private int[][] tableauPlacement = {  // Tableau des placement des troupes
 			{6},
 			{4,8},
@@ -27,11 +28,16 @@ public class Combat {
 	
 	public Combat(Heros h1, Heros h2) {
 		terrainCombat = new CaseCombat[LARGEURTERRAIN][HAUTEURTERRAIN];
+		for(int i=0; i<LARGEURTERRAIN;i++)
+			for(int j=0; j<HAUTEURTERRAIN;j++)
+				terrainCombat[i][j]=new CaseCombat();
 		armee1 = h1;
 		armee2 = h2;
 		ArmeeGauche = new IUnit[7];
 		ArmeeDroite = new IUnit[7];
-		coordTroupes= new IPosition[14];
+		coordTroupes= new Vector2i[14];
+		for(int j=0; j<14;j++)
+			coordTroupes[j]= new Vector2i(-1,-1);
 	}
 
 	public void initialiserCombat() throws FileNotFoundException {
@@ -39,18 +45,21 @@ public class Combat {
 		int nbTroupes2 = 0;
 		for (int i = 0; i < armee1.armee.length; i++) {
 			if (armee1.armee[i] != null){
+				ArmeeGauche[nbTroupes1] = new Unit (armee1.getArmee()[i].getIdUnite(),armee1.getArmee()[i].getIdUnite()) ;
+				ArmeeGauche[nbTroupes1].setArmeeGauche(true);
 				nbTroupes1++;
-				ArmeeGauche[i] = new Unit (armee1.getArmee()[i].getIdUnite(),armee1.getArmee()[i].getIdUnite()) ;
-				ArmeeGauche[i].setArmeeGauche(true);
 			}
 		}
 		for (int i = 0; i < armee2.armee.length; i++) {
 			if (armee2.armee[i] != null) {
-				nbTroupes1++;
-				ArmeeDroite[i] = new Unit (armee2.armee[i].getIdUnite(),armee2.armee[i].getIdUnite()) ;
-				ArmeeDroite[i].setArmeeGauche(false);
+
+				ArmeeDroite[nbTroupes2] = new Unit (armee2.armee[i].getIdUnite(),armee2.armee[i].getIdUnite()) ;
+				ArmeeDroite[nbTroupes2].setArmeeGauche(false);
+				nbTroupes2++;
 			}
 		}
+		System.out.println(ArmeeDroite[0].getAttaque()+"\n");
+		System.out.println(ArmeeGauche[0].getAttaque()+"\n");
 		placerTroupes(nbTroupes1, nbTroupes2);
 	}
 	
@@ -81,159 +90,164 @@ public class Combat {
 	private void placerTroupes(int nbTroupes1, int nbTroupes2) { // place les troupes de départ, les met dans le repertoire des coordonnees et les initialise aux stats des héros
 		switch (nbTroupes1){
 			case 1:
-				terrainCombat[6][0].setUnit(ArmeeGauche[0]);//------i------
-				coordTroupes[0].set(6, 0);
+				terrainCombat[0][6].setUnit(ArmeeGauche[0]);//------i------
+				coordTroupes[0].set(0,6);
 				break;
 			case 2:
-				terrainCombat[4][0].setUnit(ArmeeGauche[0]);//----i---i----
-				terrainCombat[8][0].setUnit(ArmeeGauche[0]);
-				coordTroupes[0].set(4, 0);
-				coordTroupes[1].set(8, 0);
+				terrainCombat[0][4].setUnit(ArmeeGauche[0]);//----i---i----
+				terrainCombat[0][8].setUnit(ArmeeGauche[01]);
+				coordTroupes[0].set(0,4);
+				coordTroupes[1].set(0,8);
 				break;
 			case 3:
-				terrainCombat[2][0].setUnit(ArmeeGauche[0]);//--i---i---i--
-				terrainCombat[6][0].setUnit(ArmeeGauche[0]);
-				terrainCombat[10][0].setUnit(ArmeeGauche[0]);
-				coordTroupes[0].set(2, 0);
-				coordTroupes[1].set(6, 0);
-				coordTroupes[2].set(10, 0);
+				terrainCombat[0][2].setUnit(ArmeeGauche[0]);//--i---i---i--
+				terrainCombat[0][6].setUnit(ArmeeGauche[01]);
+				terrainCombat[0][10].setUnit(ArmeeGauche[02]);
+				coordTroupes[0].set(0,2);
+				coordTroupes[1].set(0,6);
+				coordTroupes[2].set(0,10);
 				break;
 			case 4:
-				terrainCombat[1][0].setUnit(ArmeeGauche[0]);//-i--i---i--i-
-				terrainCombat[4][0].setUnit(ArmeeGauche[0]);
-				terrainCombat[8][0].setUnit(ArmeeGauche[0]);
-				terrainCombat[11][0].setUnit(ArmeeGauche[0]);
-				coordTroupes[0].set(1, 0);
-				coordTroupes[1].set(4, 0);
-				coordTroupes[2].set(8, 0);				
-				coordTroupes[3].set(11, 0);
+				terrainCombat[0][1].setUnit(ArmeeGauche[0]);//-i--i---i--i-
+				terrainCombat[0][4].setUnit(ArmeeGauche[01]);
+				terrainCombat[0][8].setUnit(ArmeeGauche[02]);
+				terrainCombat[0][11].setUnit(ArmeeGauche[03]);
+				coordTroupes[0].set(0,1);
+				coordTroupes[1].set(0,4);
+				coordTroupes[2].set(0,8);				
+				coordTroupes[3].set(0,11);
 
 				break;
 			case 5:
 				terrainCombat[0][0].setUnit(ArmeeGauche[0]);//i--i--i--i--i
-				terrainCombat[3][0].setUnit(ArmeeGauche[0]);
-				terrainCombat[6][0].setUnit(ArmeeGauche[0]);
-				terrainCombat[9][0].setUnit(ArmeeGauche[0]);
-				terrainCombat[12][0].setUnit(ArmeeGauche[0]);
+				terrainCombat[0][3].setUnit(ArmeeGauche[01]);
+				terrainCombat[0][6].setUnit(ArmeeGauche[02]);
+				terrainCombat[0][9].setUnit(ArmeeGauche[03]);
+				terrainCombat[0][12].setUnit(ArmeeGauche[04]);
 				coordTroupes[0].set(0, 0);
-				coordTroupes[1].set(3, 0);
-				coordTroupes[2].set(6, 0);				
-				coordTroupes[3].set(9, 0);				
-				coordTroupes[4].set(12, 0);
+				coordTroupes[1].set(0,3);
+				coordTroupes[2].set(0,6);				
+				coordTroupes[3].set(0,9);				
+				coordTroupes[4].set(0,12);
 				break;
 			case 6:
 				terrainCombat[0][0].setUnit(ArmeeGauche[0]);//i-i--i-i--i-i
-				terrainCombat[2][0].setUnit(ArmeeGauche[0]);
-				terrainCombat[5][0].setUnit(ArmeeGauche[0]);
-				terrainCombat[7][0].setUnit(ArmeeGauche[0]);
-				terrainCombat[10][0].setUnit(ArmeeGauche[0]);
-				terrainCombat[12][0].setUnit(ArmeeGauche[0]);
+				terrainCombat[0][2].setUnit(ArmeeGauche[01]);
+				terrainCombat[0][5].setUnit(ArmeeGauche[02]);
+				terrainCombat[0][7].setUnit(ArmeeGauche[03]);
+				terrainCombat[0][10].setUnit(ArmeeGauche[04]);
+				terrainCombat[0][12].setUnit(ArmeeGauche[05]);
 				coordTroupes[0].set(0, 0);
-				coordTroupes[1].set(2, 0);
-				coordTroupes[2].set(5, 0);				
-				coordTroupes[3].set(7, 0);				
-				coordTroupes[4].set(10, 0);
-				coordTroupes[5].set(12, 0);
+				coordTroupes[1].set(0,2);
+				coordTroupes[2].set(0,5);				
+				coordTroupes[3].set(0,7);				
+				coordTroupes[4].set(0,10);
+				coordTroupes[5].set(0,12);
 				break;
 			case 7:
 				terrainCombat[0][0].setUnit(ArmeeGauche[0]);//i-i-i-i-i-i-i
-				terrainCombat[2][0].setUnit(ArmeeGauche[0]);
-				terrainCombat[4][0].setUnit(ArmeeGauche[0]);
-				terrainCombat[6][0].setUnit(ArmeeGauche[0]);
-				terrainCombat[8][0].setUnit(ArmeeGauche[0]);
-				terrainCombat[10][0].setUnit(ArmeeGauche[0]);
-				terrainCombat[12][0].setUnit(ArmeeGauche[0]);
+				terrainCombat[0][2].setUnit(ArmeeGauche[01]);
+				terrainCombat[0][4].setUnit(ArmeeGauche[02]);
+				terrainCombat[0][6].setUnit(ArmeeGauche[03]);
+				terrainCombat[0][8].setUnit(ArmeeGauche[04]);
+				terrainCombat[0][10].setUnit(ArmeeGauche[05]);
+				terrainCombat[0][12].setUnit(ArmeeGauche[06]);
 				coordTroupes[0].set(0, 0);
-				coordTroupes[1].set(2, 0);
-				coordTroupes[2].set(4, 0);				
-				coordTroupes[3].set(6, 0);				
-				coordTroupes[4].set(8, 0);
-				coordTroupes[5].set(10, 0);
-				coordTroupes[6].set(12, 0);
+				coordTroupes[1].set(0,2);
+				coordTroupes[2].set(0,4);				
+				coordTroupes[3].set(0,6);				
+				coordTroupes[4].set(0,8);
+				coordTroupes[5].set(0,10);
+				coordTroupes[6].set(0,12);
 				break;
 			default:
 				throw new IllegalArgumentException("tableau de troupes vide ou invalide");
 		}
 		switch (nbTroupes2){
 		case 1:
-			terrainCombat[6][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);//------i------
-			coordTroupes[0].set(6, LARGEURTERRAIN-1);
+			terrainCombat[LARGEURTERRAIN-1][6].setUnit(ArmeeDroite[0]);//------i------
+			coordTroupes[7].set(LARGEURTERRAIN-1,6);
 			break;
 		case 2:
-			terrainCombat[4][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);//----i---i----
-			terrainCombat[8][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			coordTroupes[0].set(4, LARGEURTERRAIN-1);
-			coordTroupes[1].set(8, LARGEURTERRAIN-1);
+			terrainCombat[LARGEURTERRAIN-1][4].setUnit(ArmeeDroite[0]);//----i---i----
+			terrainCombat[LARGEURTERRAIN-1][8].setUnit(ArmeeDroite[01]);
+			coordTroupes[7].set(LARGEURTERRAIN-1,4);
+			coordTroupes[8].set(LARGEURTERRAIN-1,8);
 			break;
 		case 3:
-			terrainCombat[2][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);//--i---i---i--
-			terrainCombat[6][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			terrainCombat[10][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			coordTroupes[0].set(2, LARGEURTERRAIN-1);
-			coordTroupes[1].set(6, LARGEURTERRAIN-1);
-			coordTroupes[2].set(10, LARGEURTERRAIN-1);
+			terrainCombat[LARGEURTERRAIN-1][2].setUnit(ArmeeDroite[0]);//--i---i---i--
+			terrainCombat[LARGEURTERRAIN-1][6].setUnit(ArmeeDroite[01]);
+			terrainCombat[LARGEURTERRAIN-1][10].setUnit(ArmeeDroite[02]);
+			coordTroupes[7].set(LARGEURTERRAIN-1,2);
+			coordTroupes[8].set(LARGEURTERRAIN-1,6);
+			coordTroupes[9].set(LARGEURTERRAIN-1,10);
 			break;
 		case 4:
-			terrainCombat[1][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);//-i--i---i--i-
-			terrainCombat[4][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			terrainCombat[8][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			terrainCombat[11][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			coordTroupes[0].set(1, LARGEURTERRAIN-1);
-			coordTroupes[1].set(4, LARGEURTERRAIN-1);
-			coordTroupes[2].set(8, LARGEURTERRAIN-1);				
-			coordTroupes[3].set(11, LARGEURTERRAIN-1);
+			terrainCombat[LARGEURTERRAIN-1][1].setUnit(ArmeeDroite[0]);//-i--i---i--i-
+			terrainCombat[LARGEURTERRAIN-1][4].setUnit(ArmeeDroite[01]);
+			terrainCombat[LARGEURTERRAIN-1][8].setUnit(ArmeeDroite[02]);
+			terrainCombat[LARGEURTERRAIN-1][11].setUnit(ArmeeDroite[03]);
+			coordTroupes[7].set(LARGEURTERRAIN-1,1);
+			coordTroupes[8].set(LARGEURTERRAIN-1,4);
+			coordTroupes[9].set(LARGEURTERRAIN-1,8);				
+			coordTroupes[10].set(LARGEURTERRAIN-1,10);
 			break;
 		case 5:
-			terrainCombat[0][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);//i--i--i--i--i
-			terrainCombat[3][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			terrainCombat[6][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			terrainCombat[9][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			terrainCombat[12][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			coordTroupes[0].set(0, LARGEURTERRAIN-1);
-			coordTroupes[1].set(3, LARGEURTERRAIN-1);
-			coordTroupes[2].set(6, LARGEURTERRAIN-1);				
-			coordTroupes[3].set(9, LARGEURTERRAIN-1);				
-			coordTroupes[4].set(12, LARGEURTERRAIN-1);
+			terrainCombat[LARGEURTERRAIN-1][0].setUnit(ArmeeDroite[0]);//i--i--i--i--i
+			terrainCombat[LARGEURTERRAIN-1][3].setUnit(ArmeeDroite[01]);
+			terrainCombat[LARGEURTERRAIN-1][6].setUnit(ArmeeDroite[02]);
+			terrainCombat[LARGEURTERRAIN-1][9].setUnit(ArmeeDroite[03]);
+			terrainCombat[LARGEURTERRAIN-1][12].setUnit(ArmeeDroite[04]);
+			coordTroupes[7].set(LARGEURTERRAIN-1,0);
+			coordTroupes[8].set(LARGEURTERRAIN-1,3);
+			coordTroupes[9].set(LARGEURTERRAIN-1,6);				
+			coordTroupes[10].set(LARGEURTERRAIN-1,9);				
+			coordTroupes[11].set(LARGEURTERRAIN-1,12);
 			break;
 		case 6:
-			terrainCombat[0][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);//i-i--i-i--i-i
-			terrainCombat[2][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			terrainCombat[5][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			terrainCombat[7][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			terrainCombat[10][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			terrainCombat[12][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			coordTroupes[0].set(0, LARGEURTERRAIN-1);
-			coordTroupes[1].set(2, LARGEURTERRAIN-1);
-			coordTroupes[2].set(5, LARGEURTERRAIN-1);				
-			coordTroupes[3].set(7, LARGEURTERRAIN-1);				
-			coordTroupes[4].set(10, LARGEURTERRAIN-1);
-			coordTroupes[5].set(12, LARGEURTERRAIN-1);
+			terrainCombat[LARGEURTERRAIN-1][0].setUnit(ArmeeDroite[0]);//i-i--i-i--i-i
+			terrainCombat[LARGEURTERRAIN-1][2].setUnit(ArmeeDroite[01]);
+			terrainCombat[LARGEURTERRAIN-1][5].setUnit(ArmeeDroite[02]);
+			terrainCombat[LARGEURTERRAIN-1][7].setUnit(ArmeeDroite[03]);
+			terrainCombat[LARGEURTERRAIN-1][10].setUnit(ArmeeDroite[04]);
+			terrainCombat[LARGEURTERRAIN-1][12].setUnit(ArmeeDroite[05]);
+			coordTroupes[7].set(LARGEURTERRAIN-1,0);
+			coordTroupes[8].set(LARGEURTERRAIN-1,2);
+			coordTroupes[9].set(LARGEURTERRAIN-1,5);				
+			coordTroupes[10].set(LARGEURTERRAIN-1,7);				
+			coordTroupes[11].set(LARGEURTERRAIN-1,10);
+			coordTroupes[12].set(LARGEURTERRAIN-1,12);
 			break;
 		case 7:
-			terrainCombat[0][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);//i-i-i-i-i-i-i
-			terrainCombat[2][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			terrainCombat[4][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			terrainCombat[6][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			terrainCombat[8][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			terrainCombat[10][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			terrainCombat[12][LARGEURTERRAIN-1].setUnit(ArmeeDroite[0]);
-			coordTroupes[0].set(0, LARGEURTERRAIN-1);
-			coordTroupes[1].set(2, LARGEURTERRAIN-1);
-			coordTroupes[2].set(4, LARGEURTERRAIN-1);				
-			coordTroupes[3].set(6, LARGEURTERRAIN-1);				
-			coordTroupes[4].set(8, LARGEURTERRAIN-1);
-			coordTroupes[5].set(10, LARGEURTERRAIN-1);
-			coordTroupes[6].set(12, LARGEURTERRAIN-1);
+			terrainCombat[LARGEURTERRAIN-1][0].setUnit(ArmeeDroite[0]);//i-i-i-i-i-i-i
+			terrainCombat[LARGEURTERRAIN-1][2].setUnit(ArmeeDroite[01]);
+			terrainCombat[LARGEURTERRAIN-1][4].setUnit(ArmeeDroite[02]);
+			terrainCombat[LARGEURTERRAIN-1][6].setUnit(ArmeeDroite[03]);
+			terrainCombat[LARGEURTERRAIN-1][8].setUnit(ArmeeDroite[04]);
+			terrainCombat[LARGEURTERRAIN-1][10].setUnit(ArmeeDroite[05]);
+			terrainCombat[LARGEURTERRAIN-1][12].setUnit(ArmeeDroite[06]);
+			coordTroupes[7].set(LARGEURTERRAIN-1,0);
+			coordTroupes[8].set(LARGEURTERRAIN-1,2);
+			coordTroupes[9].set(LARGEURTERRAIN-1,4);				
+			coordTroupes[10].set(LARGEURTERRAIN-1,6);				
+			coordTroupes[11].set(LARGEURTERRAIN-1,8);
+			coordTroupes[12].set(LARGEURTERRAIN-1,10);
+			coordTroupes[13].set(LARGEURTERRAIN-1,12);
 			break;
 		default:
 			throw new IllegalArgumentException("tableau de troupes vide ou invalide");
 		}
+
 		for (int i=0; i<coordTroupes.length; i++){
+
 			if (i<7){
-				boostStats (terrainCombat[(int) coordTroupes[i].getX()][(int) coordTroupes[i].getY()].getUnit(), armee1.getAttaque(), armee1.getDefense(), armee1.getChance(), armee1.getMoral());
+				if (coordTroupes[i].getX()!=-1){ // case de coords vide{
+					boostStats (terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit(), armee1.getAttaque(), armee1.getDefense(), armee1.getChance(), armee1.getMoral());
+				}
 			}
 			else{
-				boostStats (terrainCombat[(int) coordTroupes[i].getX()][(int) coordTroupes[i].getY()].getUnit(), armee2.getAttaque(), armee2.getDefense(), armee2.getChance(), armee2.getMoral());
+				if (coordTroupes[i].getX()!=-1)
+					boostStats (terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit(), armee2.getAttaque(), armee2.getDefense(), armee2.getChance(), armee2.getMoral());
 			}
 		}
 	}
@@ -380,5 +394,25 @@ public class Combat {
 		}
 	}
 
-	
+	public String toString(){
+		String st="";
+		st+="tableau de combat\n";
+		
+		for(int j = 0; j < HAUTEURTERRAIN; j++){
+			for(int i = 0; i < LARGEURTERRAIN; i++){
+				if (terrainCombat[i][j].franchissable)
+					st+="o";
+				else
+					st+="x";
+			}
+			st+="\n";
+		}
+		st+="\nEmplacement des troupes\n";
+		for (int i = 0; i < coordTroupes.length; i++){
+			if (coordTroupes[i].getX()!=-1){
+				st+= "unite numero "+i+" x="+coordTroupes[i].getX()+" y="+coordTroupes[i].getY()+"\n";
+			}
+		}
+		return st;
+	}
 }
