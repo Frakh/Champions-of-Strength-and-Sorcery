@@ -1,7 +1,7 @@
-<<<<<<< HEAD
 package game.combat;
 
 import java.io.FileNotFoundException;
+
 import game.Heros;
 import utilitaire.IPosition;
 
@@ -78,7 +78,7 @@ public class Combat {
 		}
 	}
 
-	private void placerTroupes(int nbTroupes1, int nbTroupes2) { // place les troupes de dÃ©part, les met dans le repertoire des coordonnees et les initialise aux stats des hÃ©ros
+	private void placerTroupes(int nbTroupes1, int nbTroupes2) { // place les troupes de départ, les met dans le repertoire des coordonnees et les initialise aux stats des héros
 		switch (nbTroupes1){
 			case 1:
 				terrainCombat[6][0].setUnit(ArmeeGauche[0]);//------i------
@@ -238,7 +238,7 @@ public class Combat {
 		}
 	}
 	
-	private boolean deplacement1Case(int hauteur, int largeur, int hauteurVoulue, int largeurVoulue){//indique si un dÃ©placement est lÃ©gal
+	private boolean deplacement1Case(int hauteur, int largeur, int hauteurVoulue, int largeurVoulue){//indique si un déplacement est légal
 		if (hauteur == hauteurVoulue){
 			if (largeurVoulue==largeur+1 ||largeurVoulue == largeur-1){
 				return true;
@@ -270,17 +270,17 @@ public class Combat {
 		}
 	}
 	
-	private Boolean[][] pathfinding(int coordUniteL, int coordUniteH, boolean volant){ // renvoie un tableau de bools, reprÃ©sentant les cases accessibles par un monstre qui marche par terre
-		// case non visitÃ©e = null
+	private Boolean[][] pathfinding(int coordUniteL, int coordUniteH, boolean volant){ // renvoie un tableau de bools, représentant les cases accessibles par un monstre qui marche par terre
+		// case non visitée = null
 		// case accessible = true
-		// case Ã  accÃ©der = false
+		// case à accéder = false
 		int k;
 		int l;
 		Boolean trucARetourner[][] = new Boolean[LARGEURTERRAIN][HAUTEURTERRAIN];
 		trucARetourner[coordUniteL][coordUniteH]=true;
 		int mouvement = terrainCombat[coordUniteL][coordUniteH].getUnit().getMouvement();
-		while (mouvement !=0){//while for for if for for if if. bon appÃ©tit bien sÃ»r.
-			//trouver les cases Ã  accÃ©der
+		while (mouvement !=0){//while for for if for for if if. bon appétit bien sûr.
+			//trouver les cases à accéder
 			for(int i=0; i<LARGEURTERRAIN; i++){
 				for (int j=0; j<HAUTEURTERRAIN; j++){
 					if (trucARetourner[i][j] == true){
@@ -292,7 +292,7 @@ public class Combat {
 							while (j <= HAUTEURTERRAIN){	
 								if (deplacement1Case(j,i,l,k)){
 									if (trucARetourner[k][l] != true){
-											trucARetourner[k][l]=false; // changÃ© juste aprÃ¨s, pour Ã©viter que les true crÃ©Ã©s ici fassent n'importe quoi dans la boucle
+											trucARetourner[k][l]=false; // changé juste après, pour éviter que les true créés ici fassent n'importe quoi dans la boucle
 									}
 								}
 								j++;
@@ -312,7 +312,7 @@ public class Combat {
 			}
 			mouvement--;
 		}
-		if (volant){ // volant: pas de dÃ©tection des collisions dans la boucle, amis on enlÃ¨ve les cases inaccessibles Ã  la fin
+		if (volant){ // volant: pas de détection des collisions dans la boucle, amis on enlève les cases inaccessibles à la fin
 			for(int i=0; i<LARGEURTERRAIN; i++){
 				for (int j=0; j<HAUTEURTERRAIN; j++){
 					if (trucARetourner[i][j] && !(terrainCombat[i][j].getFranchissable() && terrainCombat[i][j].getUnit() == null) ){
@@ -327,11 +327,11 @@ public class Combat {
 		
 	private void finCombat(int gaucheVainqueur){ // finit le combat. [gauchevainqueur=0:match nul; 1=gauche gagne; 2=gauche perd]
 		int compteur=0;
-		for(int i=0;i<6; i++){ // enleve les troupes du hÃ©ros vainqueur
+		for(int i=0;i<6; i++){ // enleve les troupes du héros vainqueur
 			armee1.armee[i].setUnite(null, null);
 		}
 		if (gaucheVainqueur ==1){
-			for (int i=0; i<coordTroupes.length; i++){ // prend les troupes vivantes sur le terrain et les rend au hÃ©ros vainqueur
+			for (int i=0; i<coordTroupes.length; i++){ // prend les troupes vivantes sur le terrain et les rend au héros vainqueur
 				if (terrainCombat[(int) coordTroupes[i].getX()][(int) coordTroupes[i].getY()].getUnit().getArmeeGauche()){
 					armee1.armee[compteur].setUnite(
 							terrainCombat[(int) coordTroupes[i].getX()][(int) coordTroupes[i].getY()]
@@ -345,7 +345,7 @@ public class Combat {
 			
 		}
 		else if(gaucheVainqueur == 2){
-			for (int i=0; i<coordTroupes.length; i++){ // prend les troupes vivantes sur le terrain et les rend au hÃ©ros vainqueur
+			for (int i=0; i<coordTroupes.length; i++){ // prend les troupes vivantes sur le terrain et les rend au héros vainqueur
 				if (!terrainCombat[(int) coordTroupes[i].getX()][(int) coordTroupes[i].getY()].getUnit().getArmeeGauche()){
 					armee2.armee[compteur].setUnite(
 							terrainCombat[(int) coordTroupes[i].getX()][(int) coordTroupes[i].getY()]
@@ -368,16 +368,17 @@ public class Combat {
 		}
 	}
 	
-	private boolean armeeMorte(){ //dit si un joueur a gagnÃ©
+
+	private boolean armeeMorte(){ //dit si un joueur a gagné
 		//a faire
+		return true;
 	}
 	
 	private void tourCombat(){ //a faire
-		while(!armeeMorte){
+		while(!armeeMorte()){
 			
 		}
 	}
-	
+
 	
 }
->>>>>>> branch 'master' of https://github.com/Frakh/Champions-of-Strength-and-Sorcery.git
