@@ -3,6 +3,7 @@ package game;
 import java.util.ArrayList;
 
 import game.carte.CaseDejaPriseException;
+import game.combat.Unit;
 
 public class Heros {
 	
@@ -32,8 +33,24 @@ public class Heros {
 	public Heros() {
 		armee = new Unite[NBUNITES];
 		capacites = new ICapacite[NBCAPACITES];
+		for (int i = 0; i<NBUNITES; i++)
+			armee[i]=null;
+		for (int i = 0; i<NBCAPACITES; i++)
+			capacites[i]=null;
 	}
 	
+	
+	public String toString(){
+		String ret="";
+		int nbTroupes=0;
+		for (int i = 0; i < NBUNITES; i++) {
+			if (armee[i] != null){
+				nbTroupes++;
+			}
+		}
+		ret += (ret="taille armee " + nbTroupes + "\n");
+		return ret;
+	}
 	
 	public IArtefact getArmeDroite() {
 		return armeDroite;
@@ -56,9 +73,9 @@ public class Heros {
 
 	public void addTroupe(Unite u, int noCase) throws CaseDejaPriseException{
 		if (!(armee[noCase]==null)){
-			armee[noCase]=u;
+			throw new CaseDejaPriseException();
 		}
-		else throw new CaseDejaPriseException();
+		else armee[noCase]=u;
 	}
 	
 	public Unite[] getArmee(){

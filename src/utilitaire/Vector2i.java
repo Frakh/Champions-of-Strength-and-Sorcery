@@ -9,6 +9,11 @@ public class Vector2i {
 		y=b;
 	}
 	
+	public void set(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	public int getX() {
 		return x;
 	}
