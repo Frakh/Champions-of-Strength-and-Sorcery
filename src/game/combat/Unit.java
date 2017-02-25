@@ -204,7 +204,7 @@ public class Unit implements IUnit {
 			}
 		}
 	}
-	 
+	
 	public void setMort(boolean a){
 		this.mort=a;
 	}

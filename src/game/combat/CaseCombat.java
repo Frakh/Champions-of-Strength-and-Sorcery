@@ -18,5 +18,5 @@ public class CaseCombat {
 	public void setUnit(IUnit troupe) {
 		this.unit = troupe;
 	}
-	
-} 
+	 
+}
