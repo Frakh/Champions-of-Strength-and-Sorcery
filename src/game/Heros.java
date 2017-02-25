@@ -33,8 +33,9 @@ public class Heros {
 	public Heros() {
 		armee = new Unite[NBUNITES];
 		capacites = new ICapacite[NBCAPACITES];
-		for (int i = 0; i<NBUNITES; i++)
-			armee[i]=null;
+		for (int i = 0; i<NBUNITES; i++){
+			armee[i]=new Unite(0,0);
+		}
 		for (int i = 0; i<NBCAPACITES; i++)
 			capacites[i]=null;
 	}
@@ -72,7 +73,7 @@ public class Heros {
 	}
 
 	public void addTroupe(Unite u, int noCase) throws CaseDejaPriseException{
-		if (!(armee[noCase]==null)){
+		if ((armee[noCase].getNombre()!=0)){
 			throw new CaseDejaPriseException();
 		}
 		else armee[noCase]=u;
