@@ -1,5 +1,7 @@
 package game.combat;
 
+import utilitaire.Vector2i;
+
 public interface IUnit {
 	public int getId();
 	public boolean getArmeeGauche();
@@ -35,5 +37,6 @@ public interface IUnit {
 	public boolean getMort();
 	public void setMort(boolean b);
 	public void combattre(IUnit u);
-	 
+	public Vector2i getDegatsEffectues(IUnit unit);
+	public void subirDegats(int degatsEffectues);	 
 }

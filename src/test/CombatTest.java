@@ -32,6 +32,11 @@ public class CombatTest {
 		c.teleporterTroupe(new Vector2i(0,6),new Vector2i(3,6));
 		System.out.println(c.toString());
 		System.out.println(c.toStringPathFinding(new Vector2i(3,6)));
+		Vector2i degats=c.terrainCombat[3][6].getUnit().getDegatsEffectues(c.terrainCombat[19][4].getUnit());
+		System.out.println("le gobelin 0 attaque le gobelin 7");
+		System.out.println("il devrait faire entre "+degats.getX()+" et "+degats.getY()+ " degats. Un gobelin a "+ c.terrainCombat[3][6].getUnit().getPvMax()+" PV.");
+		c.terrainCombat[3][6].getUnit().combattre(c.terrainCombat[19][4].getUnit());
+		System.out.println(c.toString());
 	} 
 	
 }

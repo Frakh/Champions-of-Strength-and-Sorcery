@@ -8,6 +8,7 @@ import java.util.Scanner;
 import utilitaire.Vector2i;
 
 public class Unit implements IUnit {
+	int id;
 	boolean armeeGauche;
 	int nombre;
 	int attaque;
@@ -27,6 +28,7 @@ public class Unit implements IUnit {
 	String pouvoir;
 	
 	public Unit(int id, int nombre) throws FileNotFoundException{
+		this.id=id;
 		String nomFichierSource = "C:\\Users\\Ereshkigal\\git\\Champions-of-Strength-and-Sorcery\\assets\\unit\\descriptionUnit" +id + ".txt";
 		Scanner sc = new Scanner (new FileInputStream(new File(nomFichierSource)));
 		this.attaque=Integer.parseInt(sc.nextLine());
@@ -42,6 +44,7 @@ public class Unit implements IUnit {
 		this.nombre = nombre;
 		this.riposte=true;
 		this.mort=false;
+		this.pvAct=pvMax;
 	}
 	
 	
@@ -154,7 +157,7 @@ public class Unit implements IUnit {
 		this.degatMax = degatMax;
 	}
 	public int getId() {
-		return this.getId();
+		return id;
 	}
 	
 	
@@ -179,19 +182,26 @@ public class Unit implements IUnit {
 		Vector2i degatsMinMax = getDegatsEffectues(u);
 		int degatsEffectues = (int) (Math.random()*(degatsMinMax.getY() - degatsMinMax.getX())+degatsMinMax.getX()); 
 		
-		if (degatsEffectues >=0) //minimun de dégats parce que wouallah
+		if (degatsEffectues <=0) //minimun de dégats parce que wouallah
 				degatsEffectues = 1;
-		
-		while (degatsEffectues >= u.getPvAct() && degatsEffectues !=0){
-			u.setNombre(u.getNombre()-1);
-			degatsEffectues -= u.getPvAct();
-			if (u.getNombre()==0){
-				u.setMort(true);
-				degatsEffectues = 0;
+		u.subirDegats(degatsEffectues);
+	}
+	
+	public void subirDegats(int degatsRecus){
+		while(this.getNombre()!=0 && degatsRecus!=0){
+			if (degatsRecus>=this.pvAct){
+				degatsRecus-=pvAct;
+				this.setNombre(this.getNombre()-1);
+				if (this.getNombre()!=0){
+					this.pvAct=this.pvMax;
+				}
+				else
+					this.pvAct=0;
 			}
-		}
-		while (degatsEffectues > 0){
-			u.setPvAct(u.getPvAct()-degatsEffectues);
+			else{
+				this.pvAct-=degatsRecus;
+				degatsRecus=0;
+			}
 		}
 	}
 	
