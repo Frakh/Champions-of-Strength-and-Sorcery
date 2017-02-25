@@ -23,7 +23,7 @@ public class Combat {
 			{0,2,5,7,10,12},
 			{0,2,4,6,8,10,12}
 	};	
-	
+	 
 	public Combat(Heros h1, Heros h2) {
 		terrainCombat = new CaseCombat[LARGEURTERRAIN][HAUTEURTERRAIN];
 		for(int i=0; i<LARGEURTERRAIN;i++)

@@ -37,6 +37,6 @@ public class CombatTest {
 		System.out.println("il devrait faire entre "+degats.getX()+" et "+degats.getY()+ " degats. Un gobelin a "+ c.terrainCombat[3][6].getUnit().getPvMax()+" PV.");
 		c.terrainCombat[3][6].getUnit().combattre(c.terrainCombat[19][4].getUnit());
 		System.out.println(c.toString());
-	} 
+	}  
 	
 }
