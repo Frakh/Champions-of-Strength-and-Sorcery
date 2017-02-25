@@ -10,6 +10,7 @@ public class CombatMapTest{
 		Heros heros = new Heros();
 		heros.addTroupe(new Unite(11, 30), 1);
 		ennemi.interagir(heros);
+		
 	}
 	
 }

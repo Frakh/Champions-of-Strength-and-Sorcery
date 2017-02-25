@@ -39,4 +39,4 @@ public interface IUnit {
 	public void combattre(IUnit u);
 	public Vector2i getDegatsEffectues(IUnit unit);
 	public void subirDegats(int degatsEffectues);	 
-} 
+}
