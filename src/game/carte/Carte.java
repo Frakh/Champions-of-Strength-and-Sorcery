@@ -70,6 +70,7 @@ public class Carte {
 	}
 	
 	public IElement checkElement(int x, int y){
+<<<<<<< HEAD
 		 if (elements[x][y]!=null) return elements[x][y];
 		 	for (int i=x-1;i<=x+1;++i){
 		 		for (int j=y-1;j<=y+1;++j){
@@ -129,3 +130,16 @@ public class Carte {
 		return trucARetourner;
 	}
 }
+=======
+		if (elements[x][y]!=null) return elements[x][y];
+		for (int i=x-1;i<=x+1;++i){
+			for (int j=y-1;j<=y+1;++j){
+				if(i!=x&&j!=y){
+					if (elements[i][j]!=null) return elements[i][j];
+				}
+			}
+		}
+		return null;
+	}
+}
+>>>>>>> branch 'master' of https://github.com/Frakh/Champions-of-Strength-and-Sorcery.git
