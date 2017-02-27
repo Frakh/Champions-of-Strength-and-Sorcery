@@ -67,4 +67,16 @@ public class Carte {
 			throw new IllegalFriendException();
 		return elements;
 	}
+	
+	public IElement checkElement(int x, int y){
+		if (elements[x][y]!=null) return elements[x][y];
+		for (int i=x-1;i<=x+1;++i){
+			for (int j=y-1;j<=y+1;++j){
+				if(i!=x&&j!=y){
+					if (elements[i][j]!=null) return elements[i][j];
+				}
+			}
+		}
+		return null;
+	}
 }
