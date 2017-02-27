@@ -6,7 +6,10 @@ import game.carte.CaseDejaPriseException;
 import game.combat.Unit;
 
 public class Heros {
-	 
+	public String nom;
+
+
+
 	public Unite[] armee;
 	private final static int NBUNITES = 7;
 	private ICapacite[] capacites;
@@ -216,6 +219,16 @@ public class Heros {
 
 	public void setPtDeplacement(double ptDeplacement) {
 		this.ptDeplacement = ptDeplacement;
+	}
+	
+	
+	public String getNom() {
+		return nom;
+	}
+
+
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 }

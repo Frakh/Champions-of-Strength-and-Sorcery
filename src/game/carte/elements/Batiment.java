@@ -4,7 +4,7 @@ import game.Heros;
 import game.Joueur;
 import game.carte.IElement;
 
-public class Batiment implements IElement{
+public abstract class Batiment implements IElement{
 	public Joueur proprietaire;
 	private int id; //parce que un jour, je suis presque sûr qu'on saura faire l'association entre id et batiment
 	
@@ -23,8 +23,8 @@ public class Batiment implements IElement{
 	}
 
 	@Override
-	public String decrire() {
-
-		return null;
-	}
+	public abstract String decrire() ; //Ce qui est affiché sur le tooltip
+	
+	public abstract void activerJour() ; //effectue les actions quotidiennes du batiment
+	public abstract void activerSemaine(); //effectue les actions par semaine du batiment
 }

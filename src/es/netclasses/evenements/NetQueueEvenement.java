@@ -3,22 +3,42 @@ package es.netclasses.evenements;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class NetQueueEvenement implements Runnable {
+/**
+ * Classe de répartition des évenements
+ *
+ * Cette classe va permettre de répartire les évenements entre les différentes classes
+ */
+public class NetQueueEvenement {
 
-	public static final int MAP_EVENT = 0;
-	public static final int PLAYER_EVENT = 1;
-	public static final int GAME_EVENT = 2;
+	// Nombre max de queues
+	public static final int MAX_QUEUE_ARRAY_SIZE = Byte.MAX_VALUE;
 
-	public static final int MAX_QUEUE_ARRAY_SIZE = 256;
+	// Tableau de queues
+	private static Queue[] arrayQueue = new ConcurrentLinkedQueue[MAX_QUEUE_ARRAY_SIZE];
 
-	private Queue<Evenement> evenements;
-
-	public NetQueueEvenement() {
-		evenements = new ConcurrentLinkedQueue<>();
+	/**
+	 * Methode permettant d'ajouter un évenement
+	 * @param e
+	 */
+	public static void addEvenement(Evenement e) {
+		if (arrayQueue[e.getId()] == null) {
+			arrayQueue[e.getId()] = new ConcurrentLinkedQueue();
+		}
+		// PUTAIN DE GENERIQUES !!!
+		arrayQueue[e.getId()].add(e);
 	}
 
-	@Override
-	public void run() {
-		// Systeme de répartition des evenements
+	/**
+	 * Methode permettant d'obtenir un tableau des évenements selon l'id passé
+	 * @param id : l'identifiant de l'évenement
+	 * @return Le tableau de la queue
+	 * @throws NullPointerException : en cas de queue inexistante
+	 *
+	 */
+	public static Evenement[] getEvents(int id) throws NullPointerException {
+		Evenement[] evenements = new Evenement[arrayQueue[id].size()];
+		arrayQueue[id].toArray(evenements);
+		arrayQueue[id].clear();
+		return evenements;
 	}
 }

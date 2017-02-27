@@ -3,10 +3,9 @@ package game.carte.elements;
 import game.Heros;
 import game.carte.IElement;
 
-public class MapHeros implements IElement {
+public class HerosMap implements IElement {
 
-	private int nombre;
-	private int id;
+	private Heros heros; //le héros auquel l'élément de map correspond
 
 	@Override
 	public String getImage() {
@@ -20,7 +19,7 @@ public class MapHeros implements IElement {
 
 	@Override
 	public String decrire() {
-		return null;
+		return heros.getNom();
 	}
 
 }
