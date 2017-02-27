@@ -7,25 +7,38 @@ import java.io.*;
  */
 public class LogSys {
 
-	public static final String logfilename = "./log/log.txt";
+	public static final String logfilename = "./log.txt";
 
 	private static BufferedWriter bw = null;
+
+	static {
+		if (!init()) {
+			throw new RuntimeException("LogSys initialization failed");
+		}
+	}
 
 	private static boolean init() {
 		File f = new File(logfilename);
 		if (!f.exists()) {
-			return false;
+			try {
+				f.createNewFile();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 		}
 		try {
 			FileOutputStream fos = new FileOutputStream(f);
 			bw = new BufferedWriter(new OutputStreamWriter(fos));
 		} catch (FileNotFoundException e) {
-			return false;
+			throw new RuntimeException(e);
+//			return false;
 		}
 		return true;
 	}
 
-	public boolean log(String str) {
+	public static boolean log(String str) {
 		try {
 			bw.write(str);
 			return true;
@@ -35,7 +48,7 @@ public class LogSys {
 		}
 	}
 
-	public boolean log(Throwable t) {
+	public static boolean log(Throwable t) {
 		String thrMsg = t.getMessage();
 		StringBuilder builder = new StringBuilder(1024 + thrMsg.length());
 		builder.append(t.getClass().getName()).append("  --- MESSAGE  :  ").append(thrMsg);
@@ -47,15 +60,24 @@ public class LogSys {
 		return log(builder.toString());
 	}
 
-	public boolean log(Throwable t, String str) {
+	public static boolean log(Throwable t, String str) {
 		boolean b1 = log(t);
 		boolean b2 = log(str);
 		return b1 && b2;
 	}
 
-	public boolean log(String str, Throwable t) {
+	public static boolean log(String str, Throwable t) {
 		boolean b2 = log(str);
 		boolean b1 = log(t);
 		return b1 && b2;
+	}
+
+	public static void exit() {
+		try {
+			bw.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 }
