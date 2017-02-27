@@ -18,8 +18,7 @@ public class Artefact implements IArtefact {
 	private int experience;
 	private double ptDeplacement;
 
-	public Artefact(Heros heros, String type, int attaque, int defense, int magieMin, int magieMax, int puissanceMagie, int connaissance, int moral, int chance, int experience, double ptDeplacement) {
-		this.heros = heros;
+	public Artefact(String type, int attaque, int defense, int magieMin, int magieMax, int puissanceMagie, int connaissance, int moral, int chance, int experience, double ptDeplacement) {
 		this.type = type;
 		this.attaque = attaque;
 		this.defense = defense;
