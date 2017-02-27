@@ -12,6 +12,9 @@ public class CaseCombat {
 	public boolean getFranchissable(){
 		return franchissable;
 	}
+	public void setFranchissable( boolean a){
+		franchissable=a;
+	}
 	public IUnit getUnit() {
 		return unit;
 	}
