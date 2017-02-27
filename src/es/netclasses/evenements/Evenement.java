@@ -1,5 +1,7 @@
 package es.netclasses.evenements;
 
+import java.io.Serializable;
+
 /**
  * Classe d'évenements.
  * Classe qui sera envoyé au serveur qui traitera les evenements
@@ -7,7 +9,7 @@ package es.netclasses.evenements;
  *
  * Les sous classes utiliseront leurs propres données qui sera exploité par les classes correspondantes
  */
-public class Evenement {
+public class Evenement implements Serializable {
 
 	/**
 	 * Unique field de la classe Evenement
