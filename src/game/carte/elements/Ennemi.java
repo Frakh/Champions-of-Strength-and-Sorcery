@@ -1,5 +1,7 @@
 package game.carte.elements;
 
+import java.io.FileNotFoundException;
+
 import game.Heros;
 import game.Unite;
 import game.carte.CaseDejaPriseException;
@@ -22,10 +24,10 @@ public class Ennemi implements IElement {
 	}
 
 	@Override
-	public void interagir(Heros oui) throws CaseDejaPriseException {
+	public void interagir(Heros oui) throws Exception {
 		Heros Mechaaaaant = new Heros();
 		Mechaaaaant.addTroupe(new Unite(id, nombre), 0);
-		Combat c = new Combat(oui, Mechaaaaant);
+		Combat c = new Combat(oui, Mechaaaaant, 10);
 	}
 
 	@Override

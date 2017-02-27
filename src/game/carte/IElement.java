@@ -4,6 +4,6 @@ import es.interfaces.ISpriteDrawable;
 import game.Heros;
 
 public interface IElement extends ISpriteDrawable {
-	void interagir(Heros oui) throws CaseDejaPriseException;
+	void interagir(Heros oui) throws Exception;
 	String decrire();
 }
