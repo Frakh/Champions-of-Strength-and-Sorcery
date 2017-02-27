@@ -13,10 +13,10 @@ public class Evenement {
 	 * Unique field de la classe Evenement
 	 * Une valeur négative signifie que l'évenement ne doit pas être routé
 	 */
-	public final short eventId;
+	public final byte eventId;
 
 	// Default CTOR
-	public Evenement(short eventId) {
+	public Evenement(byte eventId) {
 		this.eventId = eventId;
 	}
 

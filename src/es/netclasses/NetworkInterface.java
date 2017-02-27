@@ -7,6 +7,11 @@ import es.netclasses.evenements.NetQueueEvenement;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Classe d'interface réseau
+ *
+ * Reçois et mets l'evenement reçu automatiquement sur la pile de gestion d'evenets
+ */
 public class NetworkInterface {
 
 	private static Socket streamSocket = null;
@@ -23,6 +28,8 @@ public class NetworkInterface {
 			ois = new ObjectInputStream(new BufferedInputStream(streamSocket.getInputStream()));
 
 			threceiver = new Thread(() -> {
+
+				// Thread reçevant les objets
 
 				while (true) {
 					try {
@@ -48,6 +55,11 @@ public class NetworkInterface {
 		return true;
 	}
 
+	/**
+	 * Methode envoyant un objet sur le réseau, au serveur
+	 * @param e : l'evenement
+	 * @throws IOException : en cas de problemes
+	 */
 	public static void send(Evenement e) throws IOException {
 		oos.writeObject(e);
 	}
