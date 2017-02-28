@@ -41,4 +41,18 @@ public class NetQueueEvenement {
 		arrayQueue[id].clear();
 		return evenements;
 	}
+
+	/**
+	 * Methode permettant de vider le contenu de la queue désigné
+	 * @param id : identifiant de la queue d'évenement
+	 * @return -1 en cas de queue nulle, le nombre d'évenements supprimés sinon
+	 */
+	public static int clearQueue(int id) {
+		Queue clq = arrayQueue[id];
+		if (clq==null)
+			return -1;
+		int s = clq.size();
+		clq.clear();
+		return s;
+	}
 }
