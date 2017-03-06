@@ -23,6 +23,10 @@ public class Joueur implements IControllable{
 		//chateaux = new ArrayList<Chateau>();
 		controleur = new ControlleurJoueur();
 		controleur.setActionMap(2, KeyEvent.VK_2);
+		controleur.setActionMap(8, KeyEvent.VK_8);
+		controleur.setActionMap(4, KeyEvent.VK_4);
+		controleur.setActionMap(6, KeyEvent.VK_6);
+		controleur.setActionMap(5, KeyEvent.VK_5);
 	}
 		
 	@Override
@@ -35,6 +39,7 @@ public class Joueur implements IControllable{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	
 	
 }
