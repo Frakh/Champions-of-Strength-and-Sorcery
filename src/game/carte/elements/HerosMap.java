@@ -7,6 +7,10 @@ public class HerosMap implements IElement {
 
 	private Heros heros; //le héros auquel l'élément de map correspond
 
+	public Heros getHeros() {
+		return heros;
+	}
+
 	@Override
 	public String getImage() {
 		return null;
