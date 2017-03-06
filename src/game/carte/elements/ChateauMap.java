@@ -4,7 +4,7 @@ import game.Heros;
 import game.Joueur;
 import game.carte.IElement;
 
-public class ChateauMap implements IElement{
+public class ChateauMap extends Batiment{
 	private Joueur proprietaire;
 	//private ChateauInside chateau; //les fonctions de création de batîment, recrutement etc
 	
@@ -25,5 +25,17 @@ public class ChateauMap implements IElement{
 	public String decrire() {
 
 		return null;
+	}
+
+	@Override
+	public void activerJour() {
+		// faire des trucs selon les batiments du ChateauInside
+		
+	}
+
+	@Override
+	public void activerSemaine() {
+		// faire des trucs selon les batiments du ChateauInside
+		
 	}
 }

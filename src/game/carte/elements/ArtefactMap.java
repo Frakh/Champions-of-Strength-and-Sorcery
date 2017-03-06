@@ -1,10 +1,12 @@
 package game.carte.elements;
 
 import game.Heros;
+import game.artefacts.Artefact;
 import game.carte.IElement;
 
-public class Equipement implements IElement {
-	private int id; 
+public abstract class ArtefactMap implements IElement {
+	private Artefact art; //l'artefact auquel l'élémnt de la carte correspond
+	
 	@Override
 	public String getImage() {
 		// TODO Auto-generated method stub
@@ -13,14 +15,11 @@ public class Equipement implements IElement {
 
 	@Override
 	public void interagir(Heros oui) {
-		//oui.ramasserEquipement(id);
+		//oui.ramasserArtefact(id);
 
 	}
 
 	@Override
-	public String decrire() {
-
-		return null;
-	}
+	public abstract String decrire() ;
 
 }
