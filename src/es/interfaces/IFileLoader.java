@@ -42,6 +42,7 @@ public interface IFileLoader {
 				} catch (IndexOutOfBoundsException ignored) {}
 			}
 		} catch (NoSuchElementException ignored) {}
+		sc.close();
 		return tab;
 	}
 
