@@ -29,7 +29,7 @@ public class MapTest {
 
 		fm.init(carteLayer);
 
-		while (true) {
+		for (int i = 0; i < 10; ++i) {
 			fm.repaint();
 			Thread.sleep(5000);
 		}
