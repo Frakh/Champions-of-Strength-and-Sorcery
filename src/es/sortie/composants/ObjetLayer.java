@@ -1,17 +1,12 @@
 package es.sortie.composants;
 
-import es.dataManager.ImageManager;
 import utilitaire.IPosition;
 import es.sortie.FocusView;
 import es.sortie.FrameManager;
 import game.carte.Carte;
-import game.carte.IElement;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Map;
-import java.util.Set;
 
 public class ObjetLayer extends JComponent implements IGoodComp {
 

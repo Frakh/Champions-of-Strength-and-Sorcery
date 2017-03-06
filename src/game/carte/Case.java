@@ -8,7 +8,7 @@ public enum Case implements es.interfaces.ISpriteDrawable{
 	TERRE("TERRE.png",100),
 	LAVE("LAVE.png",100),
 	SOUTERRAIN("SOUTERRAIN.png",100),
-	ROCHE("ROCHE.png",000),
+	ROCHE("ROCHE.png", 0),
 	TUNDRA("TUNDRA.png",125),
 	SABLE("SABLE.png",150),
 	NEIGE("NEIGE.png",150),

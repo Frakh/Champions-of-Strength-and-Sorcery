@@ -1,11 +1,11 @@
 package game.combat;
 //test
+import utilitaire.Vector2i;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
-import utilitaire.Vector2i;
 
 public class Unit implements IUnit {
 	int id;
@@ -182,7 +182,7 @@ public class Unit implements IUnit {
 		Vector2i degatsMinMax = getDegatsEffectues(u);
 		int degatsEffectues = (int) (Math.random()*(degatsMinMax.getY() - degatsMinMax.getX())+degatsMinMax.getX()); 
 		
-		if (degatsEffectues <=0) //minimun de dégats parce que wouallah
+		if (degatsEffectues <=0) //minimun de dÃ©gats parce que wouallah
 				degatsEffectues = 1;
 		u.subirDegats(degatsEffectues);
 	}

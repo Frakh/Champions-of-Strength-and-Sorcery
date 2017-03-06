@@ -5,7 +5,7 @@ import game.artefacts.Artefact;
 import game.carte.IElement;
 
 public abstract class ArtefactMap implements IElement {
-	private Artefact art; //l'artefact auquel l'élémnt de la carte correspond
+	private Artefact art; //l'artefact auquel l'Ã©lÃ©mnt de la carte correspond
 	
 	@Override
 	public String getImage() {

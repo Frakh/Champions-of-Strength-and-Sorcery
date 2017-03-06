@@ -2,7 +2,6 @@ package game.carte.elements;
 
 import game.Heros;
 import game.Joueur;
-import game.carte.IElement;
 
 public class ChateauMap extends Batiment{
 	private Joueur proprietaire;

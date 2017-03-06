@@ -1,12 +1,13 @@
 package game.combat;
 
+import game.Heros;
+import utilitaire.Vector2i;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Objects;
 import java.util.Scanner;
-
-import game.Heros;
-import utilitaire.Vector2i;
 
 public class Combat {
 
@@ -158,7 +159,8 @@ public class Combat {
 		// case accessible = true
 		// case à accéder = false
 		boolean volant = false;
-		if (terrainCombat[coordUniteL][coordUniteH].getUnit().getPouvoir()=="Volant") volant = true;
+		// On ne compare pas les string avec == bordel
+		if (Objects.equals(terrainCombat[coordUniteL][coordUniteH].getUnit().getPouvoir(), "Volant")) volant = true;
 		int k;
 		int l;
 		boolean trucARetourner[][] = new boolean[LARGEURTERRAIN][HAUTEURTERRAIN];
@@ -196,7 +198,7 @@ public class Combat {
 			for(int i=0; i<LARGEURTERRAIN; i++){
 				for (int j=0; j<HAUTEURTERRAIN; j++){
 					if (truc[i][j]==2){
-						if (volant == true || (terrainCombat[i][j].getFranchissable() && terrainCombat[i][j].getUnit() == null) )
+						if (volant || (terrainCombat[i][j].getFranchissable() && terrainCombat[i][j].getUnit() == null) )
 							truc[i][j]=1;
 					}
 				}
@@ -232,12 +234,13 @@ public class Combat {
 			armee2.armee[i].setUnite(null, null);
 		}
 		if (gaucheVainqueur ==1){
-			for (int i=0; i<coordTroupes.length; i++){ // prend les troupes vivantes sur le terrain et les rend au héros vainqueur
-				if(coordTroupes[i].getX()!=-1)
-					if (terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getArmeeGauche()){
+			// Remplacé par un foreach par l'ide
+			for (Vector2i coordTroupe : coordTroupes) { // prend les troupes vivantes sur le terrain et les rend au héros vainqueur
+				if (coordTroupe.getX() != -1)
+					if (terrainCombat[coordTroupe.getX()][coordTroupe.getY()].getUnit().getArmeeGauche()) {
 						armee1.armee[compteur].setUnite(
-								terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getId(),
-								terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getNombre());
+								terrainCombat[coordTroupe.getX()][coordTroupe.getY()].getUnit().getId(),
+								terrainCombat[coordTroupe.getX()][coordTroupe.getY()].getUnit().getNombre());
 						compteur++;
 					}
 			}
@@ -245,13 +248,14 @@ public class Combat {
 			
 		}
 		else if(gaucheVainqueur == 2){
-			for (int i=0; i<coordTroupes.length; i++){ // prend les troupes vivantes sur le terrain et les rend au héros vainqueur
-				if(coordTroupes[i].getX()!=-1)
-					if (!terrainCombat[(int) coordTroupes[i].getX()][(int) coordTroupes[i].getY()].getUnit().getArmeeGauche()){
+			// Remplacé par un foreach par l'ide
+			for (Vector2i coordTroupe : coordTroupes) { // prend les troupes vivantes sur le terrain et les rend au héros vainqueur
+				if (coordTroupe.getX() != -1)
+					if (!terrainCombat[coordTroupe.getX()][coordTroupe.getY()].getUnit().getArmeeGauche()) {
 						armee2.armee[compteur].setUnite(
-								terrainCombat[(int) coordTroupes[i].getX()][(int) coordTroupes[i].getY()]
+								terrainCombat[coordTroupe.getX()][coordTroupe.getY()]
 										.getUnit().getId(),
-								terrainCombat[(int) coordTroupes[i].getX()][(int) coordTroupes[i].getY()]
+								terrainCombat[coordTroupe.getX()][coordTroupe.getY()]
 										.getUnit().getNombre());
 						compteur++;
 					}
@@ -276,7 +280,7 @@ public class Combat {
 				if(!terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getMort())
 					a=false;
 		}
-		if (a==true) return a;
+		if (a) return a;
 		for (int i=7; i<14; i++){
 			if (coordTroupes[i].getX()>0)
 				if(!terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getMort())
@@ -302,8 +306,9 @@ public class Combat {
 				//attendre le signal et faire en fonction
 			}
 			else{
-				for(int i =0; i<coordTroupes.length; i++){//fin d'un tour de jeu: les unites regagnent leur riposte et leur droit de jouer
-					terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().setAJoue(false);
+				// Remplacé par un foreach par l'ide
+				for (Vector2i coordTroupe : coordTroupes) {//fin d'un tour de jeu: les unites regagnent leur riposte et leur droit de jouer
+					terrainCombat[coordTroupe.getX()][coordTroupe.getY()].getUnit().setAJoue(false);
 				}
 			}
 			CestSonTour=-1;
