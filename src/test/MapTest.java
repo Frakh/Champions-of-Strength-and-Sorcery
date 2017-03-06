@@ -33,6 +33,8 @@ public class MapTest {
 			fm.repaint();
 			Thread.sleep(5000);
 		}
+
+
 	}
 
 }
