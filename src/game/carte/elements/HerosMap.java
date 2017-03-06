@@ -1,9 +1,10 @@
 package game.carte.elements;
 
+import es.interfaces.ISpriteDrawable;
 import game.Heros;
 import game.carte.IElement;
 
-public class HerosMap implements IElement {
+public class HerosMap implements IElement, ISpriteDrawable {
 
 	private Heros heros; //le héros auquel l'élément de map correspond
 
@@ -13,7 +14,7 @@ public class HerosMap implements IElement {
 
 	@Override
 	public String getImage() {
-		return null;
+		return "./assets/img/heros";
 	}
 
 	@Override
