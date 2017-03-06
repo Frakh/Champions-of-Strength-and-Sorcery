@@ -23,13 +23,21 @@ public class NetQueueEvenement {
 
 	/**
 	 * Methode permettant d'ajouter un évenement
-	 * @param e
+	 * @param e l'evenement
 	 */
 	public static void addEvenement(Evenement e) {
 		if (arrayQueue[e.getId()] == null) {
 			arrayQueue[e.getId()] = new ConcurrentLinkedQueue();
 		}
-		// PUTAIN DE GENERIQUES !!!
+		/*
+		 * // PUTAIN DE GENERIQUES !!!
+		 * Ce truc génère un warning compilateur, mais la, faut pas se foutre de la gueule du monde
+		 * Java est même pas foutu d'implementer les générics correctements, tellement que personne ne
+		 * peut instancier un tableau de types génériques, quand bien même le type erasure est censé
+		 * donner le même putain de résultat a la compilation
+		 *
+		 * ET LE COMPILO ME DIT DE FAIRE GAFFE ???
+		 */
 		arrayQueue[e.getId()].add(e);
 	}
 
