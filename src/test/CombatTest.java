@@ -6,9 +6,6 @@ import utilitaire.Vector2i;
 import org.junit.Test;
 import game.Heros;
 import game.Unite;
-import game.carte.CaseDejaPriseException;
-
-import static game.combat.Combat.HAUTEURTERRAIN;
 
 public class CombatTest {
 
@@ -17,7 +14,7 @@ public class CombatTest {
 	 * @throws Throwable 
 	 */
 	@Test
-	public void UniteTest() throws Throwable{  //teste la création de héros, d'unités, et l'initialisation du combat
+	public void UniteTest() throws Throwable{  //teste la crï¿½ation de hï¿½ros, d'unitï¿½s, et l'initialisation du combat
 		Heros Heros = new Heros();
 		Heros.addTroupe(new Unite(11, 30), 1);
 		Heros Mechaaaaaaaaant = new Heros();

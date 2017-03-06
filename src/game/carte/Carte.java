@@ -4,7 +4,6 @@ import es.exception.IllegalFriendException;
 import es.sortie.composants.CarteLayer;
 import es.sortie.composants.ObjetLayer;
 import game.carte.elements.HerosMap;
-import utilitaire.IPosition;
 import utilitaire.Vector2i;
 
 
@@ -36,8 +35,8 @@ public class Carte {
 	//public Carte(String path) mais j'ai la flemme pour l'instant
 	
 	public boolean canMove(Vector2i pos){
-		if (sol[pos.getX()][pos.getY()].getMvtCost()==0) return false;
-		return true;
+		// Code simplifi√© par l'ide
+		return sol[pos.getX()][pos.getY()].getMvtCost() != 0;
 	}
 	
 	public Case getCase(int x, int y){
@@ -82,13 +81,13 @@ public class Carte {
 		 	return null;
 		}
 	
-	public PFUtil[][] pathfinding(int coordHerosH, int coordHerosL, int nbPointsMouv){ // renvoie un tableau de bools, reprÈsentant les cases accessibles par un monstre qui marche par terre
-		// case non visitÈe = -1
+	public PFUtil[][] pathfinding(int coordHerosH, int coordHerosL, int nbPointsMouv){ // renvoie un tableau de bools, repr√©sentant les cases accessibles par un monstre qui marche par terre
+		// case non visit√©e = -1
 		// case accessible = + de 0
 		int k;
 		int l;
 		PFUtil trucARetourner[][] = new PFUtil[getHauteur()][getLargeur()];
-		int truc[][]=new int[getHauteur()][getLargeur()]; // ai besoin de truc pour avoir faux, vrai et ‡ rendre vrai
+		int truc[][]=new int[getHauteur()][getLargeur()]; // ai besoin de truc pour avoir faux, vrai et √† rendre vrai
 		for(int i=0; i<getHauteur(); i++){
 			for (int j=0; j<getLargeur(); j++){
 				trucARetourner[i][j].setCoord(-1);
@@ -98,7 +97,7 @@ public class Carte {
 		trucARetourner[coordHerosH][coordHerosL].setCoord(0);
 		int mouvement = 1000;// = case[coordHerosH][coordHerosL].getHeros.getMouvement;
 		boolean Continue=true;
-		while (Continue){//while for for if if while if while if. bon appÈtit bien s˚r.
+		while (Continue){//while for for if if while if while if. bon app√©tit bien s√ªr.
 			for(int i=0; i<getHauteur(); i++){
 				for (int j=0; j<getLargeur(); j++){
 					if (trucARetourner[coordHerosH][coordHerosL].getCoord()!=-1 && !trucARetourner[coordHerosH][coordHerosL].isEvent()){

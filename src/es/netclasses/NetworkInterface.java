@@ -18,6 +18,11 @@ public class NetworkInterface {
 	private static Thread threceiver;
 	private static ObjectOutputStream oos;
 	private static ObjectInputStream ois;
+	private static boolean should_run = true;
+
+	public static void stop() {
+		should_run = false;
+	}
 
 	public static boolean bind(String addr, int port) {
 		try {
@@ -31,7 +36,7 @@ public class NetworkInterface {
 
 				// Thread reçevant les objets
 
-				while (true) {
+				while (should_run) {
 					try {
 						Evenement rObj = (Evenement) ois.readObject();
 						NetQueueEvenement.addEvenement(rObj);

@@ -3,7 +3,6 @@ package game;
 import java.util.ArrayList;
 
 import game.carte.CaseDejaPriseException;
-import game.combat.Unit;
 
 public class Heros {
 	public String nom;

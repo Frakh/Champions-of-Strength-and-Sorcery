@@ -13,8 +13,9 @@ public class FileLoaderTest {
 
 		Case[][] testTab = IFileLoader.loadCarteFile("./ressources/map/test.gameres");
 		for (int j = 0; j < testTab[0].length; ++j) {
-			for (int i =0; i < testTab.length; ++i) {
-				System.out.print(testTab[i][j].toString() + " - ");
+			// Remplacé par un foreach par l'ide
+			for (Case[] aTestTab : testTab) {
+				System.out.print(aTestTab[j].toString() + " - ");
 			}
 			System.out.print('\n');
 		}

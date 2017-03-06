@@ -5,7 +5,7 @@ import game.carte.IElement;
 
 public class HerosMap implements IElement {
 
-	private Heros heros; //le héros auquel l'élément de map correspond
+	private Heros heros; //le hÃ©ros auquel l'Ã©lÃ©ment de map correspond
 
 	public Heros getHeros() {
 		return heros;

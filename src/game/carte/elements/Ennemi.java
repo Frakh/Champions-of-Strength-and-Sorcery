@@ -1,10 +1,7 @@
 package game.carte.elements;
 
-import java.io.FileNotFoundException;
-
 import game.Heros;
 import game.Unite;
-import game.carte.CaseDejaPriseException;
 import game.carte.IElement;
 import game.combat.Combat;
 
