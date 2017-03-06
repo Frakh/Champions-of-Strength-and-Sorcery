@@ -40,6 +40,17 @@ public class Joueur implements IControllable{
 		return null;
 	}
 	
+	public void deplacerCurseur(int action){
+		switch (action){
+		case 2: ;//faire des collages en bas
+		case 8: ;//faire des collages en haut
+		case 4: ;//faire des collages à gauche
+		case 6: ;//faire des collages à droite
+		}
+	}
 	
+	public void validerCurseur(){
+		//valider les collages
+	}
 	
 }
