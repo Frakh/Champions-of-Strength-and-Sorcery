@@ -24,7 +24,7 @@ public class Heros {
 	private int moral;
 	private int chance;
 	private int experience;
-	private double ptDeplacement;
+	private int ptDeplacement;
 	
 	private IArtefact armeDroite;
 	private IArtefact armeGauche;
@@ -212,12 +212,12 @@ public class Heros {
 	}
 
 
-	public double getPtDeplacement() {
+	public int getPtDeplacement() {
 		return ptDeplacement;
 	}
 
 
-	public void setPtDeplacement(double ptDeplacement) {
+	public void setPtDeplacement(int ptDeplacement) {
 		this.ptDeplacement = ptDeplacement;
 	}
 	
