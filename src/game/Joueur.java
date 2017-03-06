@@ -1,5 +1,40 @@
 package game;
 
-public class Joueur {
+import java.util.ArrayList;
+
+import com.sun.glass.events.KeyEvent;
+
+import es.entree.ControlleurJoueur;
+import es.interfaces.IControllable;
+import es.interfaces.IController;
+import game.carte.elements.Batiment;
+import javafx.scene.input.KeyCode;
+import utilitaire.IPosition;
+
+public class Joueur implements IControllable{
+	private ArrayList<Batiment> batiments;
+	private ArrayList<Heros> heros;
+	//private ArrayList<Chateau> chateaux;
+	private ControlleurJoueur controleur;
+	
+	public Joueur(){
+		batiments = new ArrayList<Batiment>();
+		heros = new ArrayList<Heros>();
+		//chateaux = new ArrayList<Chateau>();
+		controleur = new ControlleurJoueur();
+		controleur.setActionMap(2, KeyEvent.VK_2);
+	}
+		
+	@Override
+	public IController getController() {
+		return controleur;
+	}
+
+	@Override
+	public IPosition getPosition() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 }
