@@ -7,7 +7,6 @@ public class TileDecoder {
 	public static void loadTile(String path, int length, int height) {
 
 		BufferedImage bm = ImageManager.getImage(path);
-		BufferedImage nbi;
 
 		for (int i = 0; i < (bm.getWidth()/length); ++i) {
 			for (int j= 0; j < bm.getHeight()/height; ++j) {
