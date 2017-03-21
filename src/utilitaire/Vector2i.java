@@ -1,12 +1,17 @@
 package utilitaire;
 
 public class Vector2i {
-	int x;
-	int y;
+	public int x;
+	public int y;
 	 
 	public Vector2i(int a, int b){
 		x=a;
 		y=b;
+	}
+
+	public Vector2i(Vector2i v) {
+		this.x = v.x;
+		this.y = v.y;
 	}
 	
 	public void set(int x, int y) {

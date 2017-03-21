@@ -1,0 +1,49 @@
+package es.sortie.composants;
+
+import es.dataManager.ImageManager;
+import es.sortie.FocusView;
+import es.sortie.FrameManager;
+import utilitaire.Vector2i;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class CurseurLayer extends JComponent implements IGoodComp {
+
+	private Vector2i curseurArray;
+	private String sprite;
+	protected FrameManager fm;
+
+	public CurseurLayer(FrameManager fm, String sprite, Vector2i vs) {
+		this.sprite = sprite;
+		this.curseurArray = vs;
+		this.fm = fm;
+	}
+
+	//Non thread safe
+	@Override
+	protected void paintComponent(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
+		FocusView fw = fm.getFw();
+
+		int xDecalage = fw.getXDeplacement();
+		int yDecalage = fw.getYDeplacement();
+
+		int spriteWidth = fm.getSpriteLength();
+		int spriteHeight = fm.getSpriteHeigt();
+
+		// Pas de verifications par rapport a si oui ou non c'est hors de l'image
+
+		int xCoordImgDraw = fm.getSpriteLength() * curseurArray.x + xDecalage,
+				yCoordImgDraw = fm.getSpriteHeigt() * curseurArray.y + yDecalage;
+
+		g2.drawImage(ImageManager.getImage(sprite), xCoordImgDraw, yCoordImgDraw,
+					spriteWidth, spriteHeight, this);
+
+	}
+
+	@Override
+	public void dessiner(final Graphics g) {
+		this.paintComponent(g);
+	}
+}
