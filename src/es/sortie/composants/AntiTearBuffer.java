@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class AntiTearBuffer extends JComponent {
 
-	private java.util.List<IGoodComp> components;
+	private java.util.List<AbstractBufferComposant> components;
 	private BufferedImage screenBuffer;
 
 	public AntiTearBuffer(BufferedImage sb) {
@@ -15,7 +15,7 @@ public class AntiTearBuffer extends JComponent {
 		screenBuffer = sb;
 	}
 
-	public void addComponents(IGoodComp j) {
+	public void addComponents(AbstractBufferComposant j) {
 		components.add(j);
 	}
 
@@ -25,7 +25,7 @@ public class AntiTearBuffer extends JComponent {
 		Graphics2D imgGraph = screenBuffer.createGraphics();
 		imgGraph.setBackground(new Color(0,0,0,0));
 		imgGraph.clearRect(0,0,screenBuffer.getWidth(), screenBuffer.getHeight());
-		for (IGoodComp jc: components) {
+		for (AbstractBufferComposant jc: components) {
 			jc.dessiner(screenBuffer.getGraphics());
 		}
 		g.drawImage(screenBuffer, 0,0,this);

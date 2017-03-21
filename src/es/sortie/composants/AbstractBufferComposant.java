@@ -1,11 +1,12 @@
 package es.sortie.composants;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.*;
 
-public interface IGoodComp {
+public abstract class AbstractBufferComposant extends JComponent {
 
-	void dessiner(Graphics g);
+	abstract void dessiner(Graphics g);
 
 	// Pour la transparence
 	// CC de Stack Overflow
@@ -29,5 +30,4 @@ public interface IGoodComp {
 		ImageProducer ip = new FilteredImageSource(im.getSource(), filter);
 		return Toolkit.getDefaultToolkit().createImage(ip);
 	}
-
 }

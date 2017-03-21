@@ -5,10 +5,9 @@ import es.sortie.FocusView;
 import es.sortie.FrameManager;
 import utilitaire.Vector2i;
 
-import javax.swing.*;
 import java.awt.*;
 
-public class CurseurLayer extends JComponent implements IGoodComp {
+public class CurseurLayer extends AbstractBufferComposant {
 
 	private Vector2i curseurArray;
 	private String sprite;
