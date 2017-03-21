@@ -9,13 +9,13 @@ import java.awt.*;
 
 public class CurseurLayer extends AbstractBufferComposant {
 
-	private Vector2i curseurArray;
+	private Vector2i curseurPos;
 	private String sprite;
 	protected FrameManager fm;
 
 	public CurseurLayer(FrameManager fm, String sprite, Vector2i vs) {
 		this.sprite = sprite;
-		this.curseurArray = vs;
+		this.curseurPos = vs;
 		this.fm = fm;
 	}
 
@@ -33,8 +33,11 @@ public class CurseurLayer extends AbstractBufferComposant {
 
 		// Pas de verifications par rapport a si oui ou non c'est hors de l'image
 
-		int xCoordImgDraw = fm.getSpriteLength() * curseurArray.x + xDecalage,
-				yCoordImgDraw = fm.getSpriteHeigt() * curseurArray.y + yDecalage;
+		int xCoordImgDraw, yCoordImgDraw;
+		synchronized (curseurPos) {
+			xCoordImgDraw = fm.getSpriteLength() * curseurPos.x + xDecalage;
+			yCoordImgDraw = fm.getSpriteHeigt() * curseurPos.y + yDecalage;
+		}
 
 		g2.drawImage(ImageManager.getImage(sprite), xCoordImgDraw, yCoordImgDraw,
 					spriteWidth, spriteHeight, this);
