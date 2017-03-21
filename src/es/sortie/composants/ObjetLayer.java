@@ -1,8 +1,10 @@
 package es.sortie.composants;
 
+import es.dataManager.ImageManager;
 import es.sortie.FocusView;
 import es.sortie.FrameManager;
 import game.carte.Carte;
+import game.carte.IElement;
 import utilitaire.IPosition;
 
 import java.awt.*;
@@ -29,7 +31,7 @@ public class ObjetLayer extends AbstractBufferComposant {
 	public void paintComponent(Graphics g) {
 
 		Graphics2D g2 = (Graphics2D) g;
-		FocusView fw = fm.getFw();
+		FocusView fw = fm.getFocusView();
 
 		// Obtention du tableau de la carte
 
@@ -59,10 +61,30 @@ public class ObjetLayer extends AbstractBufferComposant {
 		if (jEndPos> carte.getWidth())
 			jEndPos = carte.getWidth();
 
-	/*	IElement[][] elementMap = carte.getElements(friend);
-		Set<IPosition> positions = elementMap.keySet();
+		IElement[][] elementMap = carte.getElements(friend);
+		//Set<IPosition> positions = elementMap.keySet();
 
-		for (IPosition ip : positions) {
+		for (int i = iStartPos; i < iEndPos; ++i) {
+			for (int j = jStartPos; j < jEndPos; ++j) {
+
+				if (elementMap[i][j]==null)
+					continue;
+
+				int xDrawCoord = i*fm.getSpriteLength() + xDecalage,
+						yDrawCoord = j*fm.getSpriteHeigt() + yDecalage;
+
+				g2.drawImage(
+						ImageManager.getImage(elementMap[i][j].getImage()),
+						xDrawCoord,
+						yDrawCoord,
+						fm.getSpriteLength(),
+						fm.getSpriteHeigt(),
+						this
+				);
+			}
+		}
+
+		/*for (IPosition ip : positions) {
 
 			int xCoordImgDraw = (int) (fm.getSpriteLength() * ip.getX() + xDecalage),
 					yCoordImgDraw = (int) (fm.getSpriteHeigt() * ip.getY() + yDecalage);

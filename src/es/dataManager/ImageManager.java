@@ -1,5 +1,7 @@
 package es.dataManager;
 
+import es.eventlogger.LogSys;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -27,7 +29,7 @@ public class ImageManager {
 		try {
 			BufferedImage img = ImageIO.read(new File(imageURL));
 			imageMap.put(imageURL, img);
-			System.out.println("Image loaded at " + imageURL);
+			LogSys.log("Image charée a : " + imageURL);
 			if (CREATE_FLIPPED_IMG_ON_LOAD)
 				flipImage(imageURL);
 			return true;
@@ -63,7 +65,7 @@ public class ImageManager {
 	}
 
 	protected static void createVirtualImage(String newUrl, BufferedImage bm) {
-		System.out.println("Virtual Image created at " + newUrl);
+		LogSys.log("Created virtual image " + newUrl);
 		imageMap.put(newUrl, bm);
 	}
 

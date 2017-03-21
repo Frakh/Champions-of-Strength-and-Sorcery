@@ -83,19 +83,34 @@ public class FrameManager {
 		jFrame.setVisible(true);
 	}
 
+	/**
+	 * Methode a appeler pour rafraishir l'image
+	 */
 	public void repaint() {
 		jFrame.repaint();
 	}
 
+	/**
+	 * Permet de créer un point 2D a partir d'une position ( point en pixel )
+	 * @param ip la position
+	 * @return le point 2d
+	 */
 	public Point2D getPoint2DFromIPos(IPosition ip) {
 		return new Point2D.Double(ip.getX()*spriteLength, ip.getY()*spriteHeigt);
 	}
 
+	/**
+	 * Donne la position a suivre au gestionnaire de focus
+	 * @param ip
+	 */
 	public void setPositionToFollow(IPosition ip) {
-		this.fw = new FocusView(this, ip);
+		if (fw == null)
+			this.fw = new FocusView(this, ip);
+		else
+			fw.setPositionToFollow(ip);
 	}
 
-	public FocusView getFw() {
+	public FocusView getFocusView() {
 		return fw;
 	}
 }
