@@ -31,4 +31,8 @@ public class Vector2i {
 	public void setY(int y) {
 		this.y = y;
 	}
+
+	public IPosition toPosition() {
+		return new Position(x, y);
+	}
 }

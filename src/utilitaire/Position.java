@@ -136,6 +136,11 @@ public class Position implements IPosition {
 		return new Position(this);
 	}
 
+	@Override
+	public Vector2i toVector2i() {
+		return new Vector2i((int)x, (int)y);
+	}
+
 	public String toString() {
 		return "Class : Position\nValues : x = " + x + " - y = " + y;
 	}
