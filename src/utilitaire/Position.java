@@ -56,7 +56,7 @@ public class Position implements IPosition {
 	/**Set method to set values, constant field won't be copied
 	 * @param p : position, source of values that will be copied
 	 */
-	public void set(IPosition p) {
+	public synchronized void set(IPosition p) {
 		set(p.getX(), p.getY());
 	}
 
@@ -74,7 +74,7 @@ public class Position implements IPosition {
 	 * @param x : x value
 	 * @param y : y value
 	 */
-	public void set(double x, double y) {
+	public synchronized void set(double x, double y) {
 		if (is_const) {
 			throw new IllegalStateException("Class : Position - Method : set(int, int);\n"
 					+ "Method is supposed to change values of the object, while is declared as constant");
@@ -87,14 +87,14 @@ public class Position implements IPosition {
 	 * @param x : x value, will be moved Object.x + x
 	 * @param y : y value, will be moved Object.y + y
 	 */
-	public void move(double x, double y) {
+	public synchronized void move(double x, double y) {
 		set(this.x + x, this.y + y);
 	}
 
 	/**Move method
 	 * @param p : Position, source of values that will be copied
 	 */
-	public void move(IPosition p) {
+	public synchronized void move(IPosition p) {
 		set(x+p.getX(), y+p.getY());
 	}
 
@@ -120,7 +120,7 @@ public class Position implements IPosition {
 	 * @param p : position
 	 * @return : double value;
 	 */
-	public double distanceBetween(IPosition p) {
+	public synchronized double distanceBetween(IPosition p) {
 		return Math.sqrt((p.getX()-x)*(p.getX()-x) + (p.getY()-y)*(p.getY()-y));
 	}
 
