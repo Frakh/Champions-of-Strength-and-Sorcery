@@ -9,6 +9,9 @@ import java.awt.event.MouseWheelEvent;
 /**
  * Classe permettant d'utiliser la classe de souris
  * Les methodes a utiliser sont celles qui ne retournent pas void
+ *
+ * Cette classe ne peut servir uniquement par simple instanciation, elle a besoin d'être ajouté en tant que
+ * MouseListener, MouseMotionListener, MouseWheelListener dans un composant graphique.
  */
 public class Souris extends MouseAdapter {
 
