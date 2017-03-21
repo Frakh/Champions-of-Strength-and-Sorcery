@@ -5,6 +5,7 @@ public class Position implements IPosition {
 	private double x;	// X coordinnate
 	private double y;	// Y coordinate
 	private boolean is_const;	// Is (not?) constant property
+	// constant position = immutability = thread safety
 
 	/**
 	 * Default Basic Constructor
