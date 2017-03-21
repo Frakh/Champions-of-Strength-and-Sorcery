@@ -34,14 +34,17 @@ public class CurseurLayer extends AbstractBufferComposant {
 		// Pas de verifications par rapport a si oui ou non c'est hors de l'image
 
 		int xCoordImgDraw, yCoordImgDraw;
-		synchronized (curseurPos) {
 			xCoordImgDraw = fm.getSpriteLength() * curseurPos.x + xDecalage;
 			yCoordImgDraw = fm.getSpriteHeigt() * curseurPos.y + yDecalage;
-		}
 
-		g2.drawImage(ImageManager.getImage(sprite), xCoordImgDraw, yCoordImgDraw,
-					spriteWidth, spriteHeight, this);
-
+		g2.drawImage(ImageManager.getImage(sprite),
+				xCoordImgDraw,
+				yCoordImgDraw,
+				spriteWidth,
+				spriteHeight,
+				this
+		);
+		++AntiTearBuffer.RENDERED_IMAGES;
 	}
 
 	@Override

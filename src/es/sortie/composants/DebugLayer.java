@@ -4,12 +4,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class DebugComposant extends AbstractBufferComposant {
+public class DebugLayer extends AbstractBufferComposant {
 
 	private java.util.List<Object> debDis = new ArrayList<>();
 	public int startPosX = 1000, startPosY = 20;
 
-	public DebugComposant(Object...os) {
+	public DebugLayer(Object...os) {
 		Collections.addAll(debDis, os);
 	}
 

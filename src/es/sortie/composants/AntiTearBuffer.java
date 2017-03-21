@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * Classe permettant aux autres classes de dessiner dans une image, qui sera elle même déssinée sur l'écran
+ */
 public class AntiTearBuffer extends JComponent {
 
 	private java.util.List<AbstractBufferComposant> components;
@@ -19,9 +22,12 @@ public class AntiTearBuffer extends JComponent {
 		components.add(j);
 	}
 
+	public static int RENDERED_IMAGES = 0;
+
 	@Override
 	public void paintComponent(Graphics g) {
 
+		RENDERED_IMAGES = 0;
 		Graphics2D imgGraph = screenBuffer.createGraphics();
 		imgGraph.setBackground(new Color(0,0,0,0));
 		imgGraph.clearRect(0,0,screenBuffer.getWidth(), screenBuffer.getHeight());
@@ -29,6 +35,8 @@ public class AntiTearBuffer extends JComponent {
 			jc.dessiner(screenBuffer.getGraphics());
 		}
 		g.drawImage(screenBuffer, 0,0,this);
+		g.drawString("Numb of rendered component ; " + RENDERED_IMAGES,5,5);
+		RENDERED_IMAGES = 0;
 
 	}
 

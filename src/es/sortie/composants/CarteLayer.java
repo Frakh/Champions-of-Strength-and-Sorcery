@@ -64,8 +64,14 @@ public class CarteLayer extends AbstractBufferComposant {
 				int xCoordImgDraw = fm.getSpriteLength() * i + xDecalage,
 						yCoordImgDraw = fm.getSpriteHeigt() * j + yDecalage;
 				nbOfRenderedBlocks++;
-				g2.drawImage(ImageManager.getImage(tableau[i][j].getImage()), xCoordImgDraw, yCoordImgDraw,
-						spriteWidth, spriteHeight,this);
+				g2.drawImage(ImageManager.getImage(tableau[i][j].getImage()),
+						xCoordImgDraw,
+						yCoordImgDraw,
+						spriteWidth,
+						spriteHeight,
+						this
+				);
+				++AntiTearBuffer.RENDERED_IMAGES;
 			}
 		}
 		g2.setColor(Color.RED);

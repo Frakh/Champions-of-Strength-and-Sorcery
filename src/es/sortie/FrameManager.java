@@ -14,7 +14,6 @@ public class FrameManager {
 	private int length, height;
 	private int spriteHeigt, spriteLength;
 	private FocusView fw;
-	private BufferedImage screenBuffer;
 
 	public static final int DEF_LEN = 1280, DEF_HEI = 720, DEF_SPR_HEI = 32, DEF_SPR_LEN = 32;
 
@@ -50,8 +49,6 @@ public class FrameManager {
 	/**
 	 * Permet de paramétrer la dimension des sprites.
 	 * Vas automatiquement redimensionner la taille des sprites au drawtime
-	 * @param height
-	 * @param len
 	 */
 	public void setSpriteDim(int height, int len) {
 		this.spriteLength = len;
@@ -73,7 +70,7 @@ public class FrameManager {
 	public void init(AbstractBufferComposant... jComponents) {
 		jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		jFrame.setSize(length, height);
-		screenBuffer = new BufferedImage(length, height, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage screenBuffer = new BufferedImage(length, height, BufferedImage.TYPE_INT_ARGB);
 
 		AntiTearBuffer gp = new AntiTearBuffer(screenBuffer);
 		for (AbstractBufferComposant j : jComponents) {
@@ -101,7 +98,6 @@ public class FrameManager {
 
 	/**
 	 * Donne la position a suivre au gestionnaire de focus
-	 * @param ip
 	 */
 	public void setPositionToFollow(IPosition ip) {
 		if (fw == null)

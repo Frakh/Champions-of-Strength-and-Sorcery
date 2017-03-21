@@ -21,7 +21,8 @@ public class LogSys {
 		File f = new File(logfilename);
 		if (!f.exists()) {
 			try {
-				f.createNewFile();
+				if (!f.createNewFile())
+					return false;
 			} catch (IOException e) {
 
 				e.printStackTrace();
