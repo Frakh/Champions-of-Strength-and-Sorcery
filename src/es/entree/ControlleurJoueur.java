@@ -6,7 +6,12 @@ public class ControlleurJoueur implements IController{
 
 	public static final int MAX_NUMBERS_OF_BINDING = 256;
 
-	private int[] keyMap = new int[256];
+	private int[] keyMap;
+
+	public ControlleurJoueur() {
+		EcouteurClavier.init();
+		keyMap = new int[256];
+	}
 
 	/**
 	 * Ajoute une commande de controle

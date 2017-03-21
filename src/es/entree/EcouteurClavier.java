@@ -14,12 +14,12 @@ public class EcouteurClavier implements KeyEventDispatcher{
 	private EcouteurClavier() {
 		Arrays.fill(tabKeys, false);
 		Arrays.fill(tabKeyOld, false);
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
 	}
 
 	public static void init() {
 		if (_instance==null) {
 			_instance = new EcouteurClavier();
-			KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(_instance);
 		}
 	}
 

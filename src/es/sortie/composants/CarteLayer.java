@@ -29,8 +29,6 @@ public class CarteLayer extends JComponent implements IGoodComp {
 		Graphics2D g2 = (Graphics2D) g;
 		FocusView fw = fm.getFw();
 
-
-
 		int xDecalage = fw.getXDeplacement();
 		int yDecalage = fw.getYDeplacement();
 
