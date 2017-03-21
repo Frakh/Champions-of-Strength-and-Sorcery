@@ -47,12 +47,16 @@ public class Carte {
 		return elements[x][y];
 	}
 
-	public int getHauteur() {
-		return this.sol.length;
+	public int getHeight() {
+		return this.sol[0].length;
 	}
 
-	public int getLargeur() {
-		return this.sol[0].length;
+	public int getWidth() {
+		return this.sol.length;
+	}
+	
+	public Vector2i getDimensions() {
+		return new Vector2i(this.sol.length, this.sol[0].length);
 	}
 
 	// friend class CarteLayer;
@@ -86,10 +90,10 @@ public class Carte {
 		// case accessible = + de 0
 		int k;
 		int l;
-		PFUtil trucARetourner[][] = new PFUtil[getHauteur()][getLargeur()];
-		int truc[][]=new int[getHauteur()][getLargeur()]; // ai besoin de truc pour avoir faux, vrai et à rendre vrai
-		for(int i=0; i<getHauteur(); i++){
-			for (int j=0; j<getLargeur(); j++){
+		PFUtil trucARetourner[][] = new PFUtil[getHeight()][getWidth()];
+		int truc[][]=new int[getHeight()][getWidth()]; // ai besoin de truc pour avoir faux, vrai et à rendre vrai
+		for(int i=0; i<getHeight(); i++){
+			for (int j=0; j<getWidth(); j++){
 				trucARetourner[i][j].setCoord(-1);
 				truc[i][j]=0;
 			}
@@ -98,15 +102,15 @@ public class Carte {
 		int mouvement = 1000;// = case[coordHerosH][coordHerosL].getHeros.getMouvement;
 		boolean Continue=true;
 		while (Continue){//while for for if if while if while if. bon appétit bien sûr.
-			for(int i=0; i<getHauteur(); i++){
-				for (int j=0; j<getLargeur(); j++){
+			for(int i=0; i<getHeight(); i++){
+				for (int j=0; j<getWidth(); j++){
 					if (trucARetourner[coordHerosH][coordHerosL].getCoord()!=-1 && !trucARetourner[coordHerosH][coordHerosL].isEvent()){
 						k=i-1;
 						if (k<0) {k=0;}
-						while (k <= i+1 && k<getHauteur()){//double boucle while parce que for me faisait sortir du tableau
+						while (k <= i+1 && k<getHeight()){//double boucle while parce que for me faisait sortir du tableau
 							l=j-1;
 							if (l<0) {l=0;}
-							while (l <= j+1 && l<getLargeur()){	
+							while (l <= j+1 && l<getWidth()){	
 								if (canMove(new Vector2i(k,l)) && (trucARetourner[k][l].getCoord()<trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost())&&(trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost()<mouvement)){
 									trucARetourner[k][l].setCoord(trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost());
 									if (checkElement(k,l)!=null)
@@ -120,8 +124,8 @@ public class Carte {
 				}
 			}
 			Continue=false;
-			for(int i=0; i<getHauteur(); i++){
-				for (int j=0; j<getLargeur(); j++){
+			for(int i=0; i<getHeight(); i++){
+				for (int j=0; j<getWidth(); j++){
 					if (trucARetourner[i][j].getCoord()!=truc[i][j]) Continue = true;
 				}
 			}
