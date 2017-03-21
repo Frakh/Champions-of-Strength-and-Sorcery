@@ -74,8 +74,6 @@ public class CarteLayer extends AbstractBufferComposant {
 				++AntiTearBuffer.RENDERED_IMAGES;
 			}
 		}
-		g2.setColor(Color.RED);
-		g2.drawString("Rendered components : " + nbOfRenderedBlocks, 10,20);
 	}
 
 	@Override

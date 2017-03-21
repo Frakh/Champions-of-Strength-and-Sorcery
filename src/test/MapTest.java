@@ -4,9 +4,9 @@ import es.entree.ControlleurJoueur;
 import es.interfaces.IController;
 import es.interfaces.IFileLoader;
 import es.sortie.FrameManager;
+import es.sortie.composants.AbstractBufferComposant;
 import es.sortie.composants.CarteLayer;
 import es.sortie.composants.CurseurLayer;
-import es.sortie.composants.AbstractBufferComposant;
 import game.carte.Carte;
 import org.junit.Test;
 import utilitaire.IPosition;
@@ -76,7 +76,6 @@ public class MapTest {
 				cursorPos.y++;
 			fm.setPositionToFollow(new Position(cursorPos.x, cursorPos.y));
 
-			System.out.println("X : " + cursorPos.x + " - Y : " + cursorPos.y + " - Hauteur gonna haunt : " + c.getWidth());
 			Thread.sleep(16);
 		}
 	}
