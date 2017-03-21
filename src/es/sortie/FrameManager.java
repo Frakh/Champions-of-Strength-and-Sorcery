@@ -1,10 +1,11 @@
 package es.sortie;
 
-import utilitaire.IPosition;
-import es.sortie.composants.AntiTearBuffer;
 import es.sortie.composants.AbstractBufferComposant;
+import es.sortie.composants.AntiTearBuffer;
+import utilitaire.IPosition;
 
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
@@ -14,6 +15,7 @@ public class FrameManager {
 	private int length, height;
 	private int spriteHeigt, spriteLength;
 	private FocusView fw;
+	private MouseAdapter ml;
 
 	public static final int DEF_LEN = 1280, DEF_HEI = 720, DEF_SPR_HEI = 32, DEF_SPR_LEN = 32;
 
@@ -76,6 +78,11 @@ public class FrameManager {
 		for (AbstractBufferComposant j : jComponents) {
 			gp.addComponents(j);
 		}
+		if (ml != null) {
+			gp.addMouseListener(ml);
+			gp.addMouseMotionListener(ml);
+			gp.addMouseWheelListener(ml);
+		}
 		jFrame.add(gp);
 		jFrame.setVisible(true);
 	}
@@ -94,6 +101,10 @@ public class FrameManager {
 	 */
 	public Point2D getPoint2DFromIPos(IPosition ip) {
 		return new Point2D.Double(ip.getX()*spriteLength, ip.getY()*spriteHeigt);
+	}
+
+	public void addMouseListener(MouseAdapter ml) {
+		this.ml = ml;
 	}
 
 	/**
