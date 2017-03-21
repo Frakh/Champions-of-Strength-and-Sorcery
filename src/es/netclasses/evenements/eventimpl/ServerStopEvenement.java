@@ -3,7 +3,8 @@ package es.netclasses.evenements.eventimpl;
 import es.netclasses.evenements.Evenement;
 
 /**
- * Created on 28/02/2017.
+ * Classe d'evenemment permettant de bannir ou de débannir un identifiant d'evenemment
+ * Lorsque banni, alors, le server ne transmettera plus d'evenemment au client ayant demandé le bannissement
  */
 public class ServerStopEvenement extends Evenement {
 

@@ -24,6 +24,10 @@ public class NetworkInterface {
 		should_run = false;
 	}
 
+	public static void flush() throws IOException {
+		oos.flush();
+	}
+
 	public static boolean bind(String addr, int port) {
 		try {
 			streamSocket = new Socket(addr, port);
@@ -33,9 +37,7 @@ public class NetworkInterface {
 			ois = new ObjectInputStream(new BufferedInputStream(streamSocket.getInputStream()));
 
 			threceiver = new Thread(() -> {
-
 				// Thread reçevant les objets
-
 				while (should_run) {
 					try {
 						Evenement rObj = (Evenement) ois.readObject();
@@ -48,7 +50,6 @@ public class NetworkInterface {
 						LogSys.log(e);
 					}
 				}
-
 			});
 
 			threceiver.start();
