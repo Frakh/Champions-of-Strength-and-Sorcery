@@ -11,4 +11,8 @@ public class Jeu {
 		this.souterrain = souterrain;
 		this.joueurs = joueurs;
 	}
+
+	public static boolean estGagne() {
+		return false;
+	}
 }
