@@ -58,7 +58,7 @@ public class MapTest {
 		fm.init(carteLayer, curseurLayer);
 
 		IController ic = new ControlleurJoueur();
-		ic.setActionMap(0,VK_D);
+		ic.setActionMap(0, VK_D);
 		ic.setActionMap(1, VK_S);
 		ic.setActionMap(2, VK_Q);
 		ic.setActionMap(3, VK_Z);
@@ -66,17 +66,17 @@ public class MapTest {
 		while (true) {
 			fm.repaint();
 
-			if (ic.isJustPress(0))
+			if (ic.isJustPress(0) && cursorPos.x < c.getWidth()-1)
 				cursorPos.x++;
-			if (ic.isJustPress(2))
+			if (ic.isJustPress(2) && cursorPos.x>0)
 				cursorPos.x--;
-			if (ic.isJustPress(3))
+			if (ic.isJustPress(3) && cursorPos.y>0)
 				cursorPos.y--;
-			if (ic.isJustPress(1))
+			if (ic.isJustPress(1) && cursorPos.y < c.getHeight()-1)
 				cursorPos.y++;
 			fm.setPositionToFollow(new Position(cursorPos.x, cursorPos.y));
 
-			System.out.println("X : " + cursorPos.x + " - Y : " + cursorPos.y);
+			System.out.println("X : " + cursorPos.x + " - Y : " + cursorPos.y + " - Hauteur gonna haunt : " + c.getWidth());
 			Thread.sleep(16);
 		}
 	}

@@ -55,10 +55,10 @@ public class ObjetLayer extends JComponent implements IGoodComp {
 			iStartPos = 0;
 		if (jStartPos<0)
 			jStartPos = 0;
-		if (iEndPos>carte.getHauteur())
-			iEndPos = carte.getHauteur();
-		if (jEndPos> carte.getLargeur())
-			jEndPos = carte.getLargeur();
+		if (iEndPos>carte.getHeight())
+			iEndPos = carte.getHeight();
+		if (jEndPos> carte.getWidth())
+			jEndPos = carte.getWidth();
 
 	/*	IElement[][] elementMap = carte.getElements(friend);
 		Set<IPosition> positions = elementMap.keySet();

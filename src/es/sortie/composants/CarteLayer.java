@@ -50,10 +50,10 @@ public class CarteLayer extends JComponent implements IGoodComp {
 			iStartPos = 0;
 		if (jStartPos<0)
 			jStartPos = 0;
-		if (iEndPos>carte.getHauteur())
-			iEndPos = carte.getHauteur();
-		if (jEndPos> carte.getLargeur())
-			jEndPos = carte.getLargeur();
+		if (iEndPos>carte.getWidth())
+			iEndPos = carte.getWidth();
+		if (jEndPos> carte.getHeight())
+			jEndPos = carte.getHeight();
 
 		int nbOfRenderedBlocks = 0;
 
