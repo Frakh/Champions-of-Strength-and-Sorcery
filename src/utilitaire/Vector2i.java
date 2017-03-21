@@ -45,4 +45,21 @@ public class Vector2i {
 	public IPosition toPosition() {
 		return new Position(x, y);
 	}
+
+	@Override
+	public boolean equals(final Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Vector2i vector2i = (Vector2i) o;
+
+		return x == vector2i.x && y == vector2i.y;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = x;
+		result = Short.MAX_VALUE * result + y;
+		return result;
+	}
 }

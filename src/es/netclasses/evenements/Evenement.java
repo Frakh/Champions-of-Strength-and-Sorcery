@@ -33,4 +33,9 @@ public class Evenement implements Serializable {
 	public boolean isDispachtable() {
 		return eventId<0;
 	}
+
+
+
+
+	public static byte NETWORK_RESERVED_ID = 0x00;
 }
