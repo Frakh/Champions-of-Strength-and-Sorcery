@@ -53,7 +53,6 @@ public class NetworkInterface {
 			});
 
 			threceiver.start();
-
 		} catch (IOException e) {
 			LogSys.log(e);
 			return false;
