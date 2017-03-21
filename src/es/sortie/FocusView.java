@@ -13,7 +13,6 @@ public class FocusView {
 	// Position a suivre. Est censé être une référence vers la position qui peut être modifié
 	private IPosition followPos;
 	private FrameManager frameManager;
-	private IPosition positionToFollow;
 
 	FocusView(FrameManager frame) {
 		this.frameManager = frame;
@@ -49,6 +48,6 @@ public class FocusView {
 	}
 
 	public void setPositionToFollow(final IPosition positionToFollow) {
-		this.positionToFollow = positionToFollow;
+		this.followPos = positionToFollow;
 	}
 }

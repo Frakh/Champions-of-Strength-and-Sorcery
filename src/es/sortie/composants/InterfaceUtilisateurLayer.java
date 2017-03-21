@@ -26,6 +26,7 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 					vi.y,
 					this
 			);
+			++AntiTearBuffer.RENDERED_IMAGES;
 		}
 	}
 

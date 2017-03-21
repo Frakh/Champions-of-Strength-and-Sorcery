@@ -81,6 +81,7 @@ public class ObjetLayer extends AbstractBufferComposant {
 						fm.getSpriteHeigt(),
 						this
 				);
+				++AntiTearBuffer.RENDERED_IMAGES;
 			}
 		}
 

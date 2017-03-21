@@ -21,25 +21,18 @@ public class Vector2i {
 		this.y = v.y;
 	}
 
-
 	//Code boilerplate
 	public void set(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	// 4 methodes boilerplate
+	// Methode boilerplate
 	public int getX() {
 		return x;
 	}
-	public void setX(int x) {
-		this.x = x;
-	}
 	public int getY() {
 		return y;
-	}
-	public void setY(int y) {
-		this.y = y;
 	}
 
 	public IPosition toPosition() {
