@@ -44,8 +44,8 @@ public class Joueur implements IControllable{
 		switch (action){
 		case 2: ;//faire des collages en bas
 		case 8: ;//faire des collages en haut
-		case 4: ;//faire des collages à gauche
-		case 6: ;//faire des collages à droite
+		case 4: ;//faire des collages Ã  gauche
+		case 6: ;//faire des collages Ã  droite
 		}
 	}
 	
