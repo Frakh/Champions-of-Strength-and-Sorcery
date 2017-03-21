@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class NetQueueEvenement {
 
 	// Nombre max de queues
-	public static final int MAX_QUEUE_ARRAY_SIZE = Byte.MAX_VALUE;
+	public static final int MAX_QUEUE_ARRAY_SIZE = 256;
 
 	// Tableau de queues
 	private static Queue[] arrayQueue = new ConcurrentLinkedQueue[MAX_QUEUE_ARRAY_SIZE];
@@ -32,11 +32,11 @@ public class NetQueueEvenement {
 		/*
 		 * // PUTAIN DE GENERIQUES !!!
 		 * Ce truc génère un warning compilateur, mais la, faut pas se foutre de la gueule du monde
-		 * Java est même pas foutu d'implementer les générics correctements, tellement que personne ne
+		 * Java est même pas foutu d'implementer les générics correctement, tellement que personne ne
 		 * peut instancier un tableau de types génériques, quand bien même le type erasure est censé
 		 * donner le même putain de résultat a la compilation
 		 *
-		 * ET LE COMPILO ME DIT DE FAIRE GAFFE ???
+		 * ET LE COMPILO ME DIT DE FAIRE GAFFE ICI , PARCE QUE "ta utilizé dé ro taipss" ???
 		 */
 		
 		//Ce message a ete sponsorise par La Baleine.
@@ -51,10 +51,14 @@ public class NetQueueEvenement {
 	 *
 	 */
 	public static Evenement[] getEvents(int id) throws NullPointerException {
-		Evenement[] evenements = new Evenement[arrayQueue[id].size()];
-		arrayQueue[id].toArray(evenements);
-		arrayQueue[id].clear();
-		return evenements;
+		if (arrayQueue[id]!=null)
+			return null;
+		synchronized (arrayQueue[id]) {
+			Evenement[] evenements = new Evenement[arrayQueue[id].size()];
+			arrayQueue[id].toArray(evenements);
+			arrayQueue[id].clear();
+			return evenements;
+		}
 	}
 
 	/**

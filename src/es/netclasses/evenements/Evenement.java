@@ -8,6 +8,8 @@ import java.io.Serializable;
  * Les sous classes permetteront de modifier l'état du jeu
  *
  * Les sous classes utiliseront leurs propres données qui sera exploité par les classes correspondantes
+ *
+ * Le package ES est commun avec le server
  */
 public class Evenement implements Serializable {
 
