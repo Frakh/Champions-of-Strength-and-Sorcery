@@ -66,4 +66,6 @@ public interface IPosition {
 
 	IPosition copy();
 
+	Vector2i toVector2i();
+
 }
