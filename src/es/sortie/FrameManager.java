@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 public class FrameManager {
 
@@ -15,7 +16,7 @@ public class FrameManager {
 	private int length, height;
 	private int spriteHeigt, spriteLength;
 	private FocusView fw;
-	private MouseAdapter ml;
+	private List<MouseAdapter> listMouseAdapters;
 
 	public static final int DEF_LEN = 1280, DEF_HEI = 720, DEF_SPR_HEI = 32, DEF_SPR_LEN = 32;
 
@@ -78,10 +79,10 @@ public class FrameManager {
 		for (AbstractBufferComposant j : jComponents) {
 			gp.addComponents(j);
 		}
-		if (ml != null) {
-			gp.addMouseListener(ml);
-			gp.addMouseMotionListener(ml);
-			gp.addMouseWheelListener(ml);
+		for (MouseAdapter ma : listMouseAdapters) {
+			gp.addMouseListener(ma);
+			gp.addMouseMotionListener(ma);
+			gp.addMouseWheelListener(ma);
 		}
 		jFrame.add(gp);
 		jFrame.setVisible(true);
@@ -104,7 +105,8 @@ public class FrameManager {
 	}
 
 	public void addMouseListener(MouseAdapter ml) {
-		this.ml = ml;
+		if (ml!=null)
+			this.listMouseAdapters.add(ml);
 	}
 
 	/**
