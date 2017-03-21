@@ -1,5 +1,6 @@
 package es.entree;
 
+import es.sortie.FrameManager;
 import utilitaire.Vector2i;
 
 import java.awt.event.MouseAdapter;
@@ -22,6 +23,16 @@ public class Souris extends MouseAdapter {
 
 	private int lastWheelPos;
 	private double highResLastWheelPos;
+
+	private static Souris souris;
+
+	public static Souris getInstance(FrameManager fm) {
+		if (souris==null) {
+			souris = new Souris();
+			fm.addMouseListener(souris);
+		}
+		return souris;
+	}
 
 	public Souris() {
 		framePosition = new Vector2i(0,0);
