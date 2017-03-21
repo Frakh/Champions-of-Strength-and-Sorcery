@@ -1,14 +1,13 @@
 package es.sortie.composants;
 
-import utilitaire.IPosition;
 import es.sortie.FocusView;
 import es.sortie.FrameManager;
 import game.carte.Carte;
+import utilitaire.IPosition;
 
-import javax.swing.*;
 import java.awt.*;
 
-public class ObjetLayer extends JComponent implements IGoodComp {
+public class ObjetLayer extends AbstractBufferComposant {
 
 	public static class Friend { private Friend(){}}
 	private static Friend friend = new Friend();

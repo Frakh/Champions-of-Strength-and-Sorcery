@@ -6,7 +6,7 @@ import es.interfaces.IFileLoader;
 import es.sortie.FrameManager;
 import es.sortie.composants.CarteLayer;
 import es.sortie.composants.CurseurLayer;
-import es.sortie.composants.IGoodComp;
+import es.sortie.composants.AbstractBufferComposant;
 import game.carte.Carte;
 import org.junit.Test;
 import utilitaire.IPosition;
@@ -31,7 +31,7 @@ public class MapTest {
 		fm.setPositionToFollow(ip);
 		fm.setDimensions(1280,720);
 
-		IGoodComp carteLayer = new CarteLayer(fm, c);
+		AbstractBufferComposant carteLayer = new CarteLayer(fm, c);
 
 		fm.init(carteLayer);
 
@@ -53,8 +53,8 @@ public class MapTest {
 		fm.setDimensions(1280,720);
 
 		Vector2i cursorPos = new Vector2i(0,0);
-		IGoodComp carteLayer = new CarteLayer(fm, c);
-		IGoodComp curseurLayer = new CurseurLayer(fm, "./assets/img/SPRITES/PEUNEUGEU/Curseur.png", cursorPos);
+		AbstractBufferComposant carteLayer = new CarteLayer(fm, c);
+		AbstractBufferComposant curseurLayer = new CurseurLayer(fm, "./assets/img/SPRITES/PEUNEUGEU/Curseur.png", cursorPos);
 		fm.init(carteLayer, curseurLayer);
 
 		IController ic = new ControlleurJoueur();

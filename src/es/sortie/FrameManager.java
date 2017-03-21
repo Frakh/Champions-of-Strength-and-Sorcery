@@ -2,7 +2,7 @@ package es.sortie;
 
 import utilitaire.IPosition;
 import es.sortie.composants.AntiTearBuffer;
-import es.sortie.composants.IGoodComp;
+import es.sortie.composants.AbstractBufferComposant;
 
 import javax.swing.*;
 import java.awt.geom.Point2D;
@@ -54,13 +54,13 @@ public class FrameManager {
 		return spriteLength;
 	}
 
-	public void init(IGoodComp... jComponents) {
+	public void init(AbstractBufferComposant... jComponents) {
 		jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		jFrame.setSize(length, height);
 		screenBuffer = new BufferedImage(length, height, BufferedImage.TYPE_INT_ARGB);
 
 		AntiTearBuffer gp = new AntiTearBuffer(screenBuffer);
-		for (IGoodComp j : jComponents) {
+		for (AbstractBufferComposant j : jComponents) {
 			gp.addComponents(j);
 		}
 		jFrame.add(gp);

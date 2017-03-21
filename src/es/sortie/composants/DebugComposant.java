@@ -1,11 +1,10 @@
 package es.sortie.composants;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class DebugComposant extends JComponent implements IGoodComp {
+public class DebugComposant extends AbstractBufferComposant {
 
 	private java.util.List<Object> debDis = new ArrayList<>();
 	public int startPosX = 1000, startPosY = 20;

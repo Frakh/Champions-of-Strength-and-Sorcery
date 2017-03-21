@@ -1,16 +1,15 @@
 package es.sortie.composants;
 
 import es.dataManager.ImageManager;
-import utilitaire.IPosition;
 import es.interfaces.ISpriteDrawable;
 import es.sortie.FocusView;
 import es.sortie.FrameManager;
 import game.carte.Carte;
+import utilitaire.IPosition;
 
-import javax.swing.*;
 import java.awt.*;
 
-public class CarteLayer extends JComponent implements IGoodComp {
+public class CarteLayer extends AbstractBufferComposant {
 
 	// Friend
 	public static class Friend { private Friend(){}}
