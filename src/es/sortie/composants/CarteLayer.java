@@ -26,7 +26,7 @@ public class CarteLayer extends AbstractBufferComposant {
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		FocusView fw = fm.getFw();
+		FocusView fw = fm.getFocusView();
 
 		int xDecalage = fw.getXDeplacement();
 		int yDecalage = fw.getYDeplacement();
