@@ -38,6 +38,8 @@ public class NetQueueEvenement {
 		 *
 		 * ET LE COMPILO ME DIT DE FAIRE GAFFE ???
 		 */
+		
+		//Ce message a ete sponsorise par La Baleine.
 		arrayQueue[e.getId()].add(e);
 	}
 
