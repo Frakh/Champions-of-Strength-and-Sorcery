@@ -10,6 +10,7 @@ public class DebugLayer extends AbstractBufferComposant {
 	public int startPosX = 20, startPosY = 20;
 
 	public DebugLayer(Object...os) {
+		super(null, null);
 		Collections.addAll(debDis, os);
 	}
 

@@ -11,6 +11,10 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 
 	private Map<Vector2i, String> mapPositionImage;
 
+	public InterfaceUtilisateurLayer() {
+		super(null, null);
+	}
+
 
 	@Override
 	public void paintComponent(Graphics g) {

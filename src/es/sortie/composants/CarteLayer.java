@@ -14,8 +14,7 @@ public class CarteLayer extends AbstractBufferComposant {
 	private static Friend friend = new Friend();
 
 	public CarteLayer(FrameManager fm, Carte c) {
-		this.fm = fm;
-		this.carte = c;
+		super(fm, c);
 	}
 
 	@Override

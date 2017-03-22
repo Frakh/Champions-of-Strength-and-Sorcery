@@ -16,8 +16,7 @@ public class ObjetLayer extends AbstractBufferComposant {
 	private FrameManager fm;
 
 	public ObjetLayer(FrameManager fm, Carte c) {
-		this.fm = fm;
-		this.carte = c;
+		super(fm, c);
 	}
 
 	@Override
