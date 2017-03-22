@@ -13,6 +13,12 @@ import java.util.*;
 
 public interface IFileLoader {
 
+	/**
+	 * Ancien chargeur de carte : ne pas utiliser, utilisez loadCarte à la place
+	 * @param path : pas touche
+	 * @return : j'ai dit pas touche, utilisez loadCarte
+	 * @throws IOException : METHODE MECHANTE PAS TOUCHER
+	 */
 	@Deprecated
 	static Case[][] loadCarteFile(String path) throws IOException {
 		FileInputStream fis = new FileInputStream(path);
@@ -50,10 +56,12 @@ public interface IFileLoader {
 		return tab;
 	}
 
-	char DATA_TYPE_SEPARATOR = '!';
-	char NEXT_CASE = ',';
-	char NEXT_LINE = ';';
-
+	/**
+	 * Methode permettant de charger un fichier texte de 64k maximum en totalité
+	 * @param filepath : l'endroit sur le disque ou se situe le fichier
+	 * @return : la chaine de charactere tel qu'elle est dans le fichier
+	 * @throws IOException : En cas de problème ( fichier non trouvé, problème de lecture )
+	 */
 	static String fullyReadFile(String filepath) throws IOException {
 		File fichier = new File(filepath);
 		FileInputStream fis = new FileInputStream(fichier);
@@ -65,6 +73,12 @@ public interface IFileLoader {
 		return new String(texte);
 	}
 
+	/**
+	 * S'applique uniquement aux fichiers censé représenter les cartes
+	 * Prends une chaine de charactère représentant le fichier de la carte
+	 * @param file_content : le fichier contenant les données de la carte
+	 * @return : le tableau des lignes de la carte
+	 */
 	static String[] getFileMapLines(String file_content) {
 		int line_num;
 		List<String> strings = new ArrayList<>();
@@ -80,6 +94,11 @@ public interface IFileLoader {
 		return starr;
 	}
 
+	/**
+	 * Methode permettant de mettre sous forme matricielle les données extraites d'un fichier représentant la carte
+	 * @param lines : le tableau des lignes de la carte
+	 * @return : la matrice représentant sous forme de string chaque element de la carte
+	 */
 	static String[][] getFileMapMatrix(String[] lines) {
 
 		int hauteurMatrice = lines.length;
@@ -109,6 +128,12 @@ public interface IFileLoader {
 		return matrice;
 	}
 
+	/**
+	 * Methode permettant de charger la carte
+	 * @param filename : le nom du fichier
+	 * @return : la carte
+	 * @throws IOException en cas de problème ( fichier non trouvé, problème de lecture )
+	 */
 	static Carte loadCarte(String filename) throws IOException {
 
 		String[][] carte_objs = getFileMapMatrix(getFileMapLines(fullyReadFile(filename)));
