@@ -2,6 +2,8 @@ package es.interfaces;
 
 import game.carte.Carte;
 import game.carte.Case;
+import game.carte.IElement;
+import game.carte.elements.ElementFactory;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -65,11 +67,10 @@ public interface IFileLoader {
 	static String[] getFileMapLines(String file_content) {
 		int line_num;
 		List<String> strings = new ArrayList<>();
-		int current_string_pos = 0;
-		while (current_string_pos<file_content.length()) {
-			int next_semicolon_pos = file_content.indexOf(';', current_string_pos);
-			strings.add(file_content.substring(current_string_pos, next_semicolon_pos));
-			current_string_pos = next_semicolon_pos+1;
+		StringTokenizer stoken = new StringTokenizer(file_content, "\n\t\r;");
+		while (stoken.hasMoreTokens()) {
+			String token = stoken.nextToken();
+			strings.add(token);
 		}
 		/*JAVA ET LA GENERICITE, TU FAIS CHIER
 		return strings.toArray();*/
@@ -109,10 +110,34 @@ public interface IFileLoader {
 
 	static Carte loadCarte(String filename) throws IOException {
 
-		String file_content = fullyReadFile(filename);
+		String[][] carte_objs = getFileMapMatrix(getFileMapLines(fullyReadFile(filename)));
 
+		Case[][] listeCases = new Case[carte_objs.length][carte_objs[0].length];
+		IElement[][] elements = new IElement[carte_objs.length][carte_objs[0].length];
 
-		return null;
+		for (int y = 0; y < carte_objs[0].length; ++y) {
+			for (int x = 0; x < carte_objs.length; ++x) {
+				StringTokenizer stoken = new StringTokenizer(carte_objs[x][y], "!");
+				String lacase = null, lobjet = null;
+
+				int count = stoken.countTokens();
+				switch (count) {
+					default:
+						throw new RuntimeException("Erreur lors de la lecture de la carte stoken.countTokens = " + count);
+					case 1:
+						lacase = stoken.nextToken();
+						break;
+					case 2:
+						lacase = stoken.nextToken();
+						lobjet = stoken.nextToken();
+						break;
+				}
+				listeCases[x][y] = Case.valueOf(lacase);
+				elements[x][y] = ElementFactory.getIelement(lobjet);
+			}
+		}
+
+		return new Carte(listeCases, elements);
 	}
 
 }
