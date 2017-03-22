@@ -13,6 +13,11 @@ public class ElementFactory {
 
 	static {
 		//A remplir pour creer les elements
+		/*
+		Exemple :
+
+		cont_gen.add_set_Attribut(<nom_du_monstre>, <methode_charger_de_creer_le_dit_monstre>);
+		 */
 	}
 
 	public static IElement getIelement(String nomIelement) {
