@@ -49,7 +49,7 @@ public class ImageManager {
 	 */
 	public static BufferedImage getImage(String url) {
 		if (url == null)
-			throw new IllegalArgumentException("URL NULL");
+			return getImage("./asset/img/err.png");
 		if (!imageMap.containsKey(url)) {
 			if (url.contains("_flip.")) {
 				String newUrl = url.replace("_flip.", ".");
