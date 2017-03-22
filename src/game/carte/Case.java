@@ -13,7 +13,7 @@ public enum Case implements es.interfaces.ISpriteDrawable{
 	SABLE("SABLE.png",150),
 	NEIGE("NEIGE.png",150),
 	MARAIS("",175),
-	EAU("",0);
+	EAU("EAU.png",0);
 
 	private String sprite;
 	private int mvtCost = 0;
