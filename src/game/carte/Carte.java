@@ -85,7 +85,7 @@ public class Carte {
 		 	return null;
 		}
 	
-	public PFUtil[][] pathfinding(int coordHerosH, int coordHerosL, int nbPointsMouv){ // renvoie un tableau de bools, représentant les cases accessibles par un monstre qui marche par terre
+	public PFUtil[][] pathfinding(int coordHerosL, int coordHerosH, int nbPointsMouv){ // renvoie un tableau de bools, représentant les cases accessibles par un monstre qui marche par terre
 		// case non visitée = -1
 		// case accessible = + de 0
 		int k;
@@ -98,17 +98,17 @@ public class Carte {
 				truc[i][j]=0;
 			}
 		}
-		trucARetourner[coordHerosH][coordHerosL].setCoord(0);
+		trucARetourner[coordHerosL][coordHerosH].setCoord(0);
 		int mouvement = 1000;// = case[coordHerosH][coordHerosL].getHeros.getMouvement;
 		boolean Continue=true;
 		while (Continue){//while for for if if while if while if. bon appétit bien sûr.
 			for(int i=0; i<getHeight(); i++){
 				for (int j=0; j<getWidth(); j++){
-					if (trucARetourner[coordHerosH][coordHerosL].getCoord()!=-1 && !trucARetourner[coordHerosH][coordHerosL].isEvent()){
+					if (trucARetourner[coordHerosL][coordHerosH].getCoord()!=-1 && !trucARetourner[coordHerosL][coordHerosH].isEvent()){
 						k=i-1;
 						if (k<0) {k=0;}
 						while (k <= i+1 && k<getHeight()){//double boucle while parce que for me faisait sortir du tableau
-							l=j-1;
+							l=j-1;						  //talent
 							if (l<0) {l=0;}
 							while (l <= j+1 && l<getWidth()){	
 								if (canMove(new Vector2i(k,l)) && (trucARetourner[k][l].getCoord()<trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost())&&(trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost()<mouvement)){
@@ -133,7 +133,7 @@ public class Carte {
 		return trucARetourner;
 	}
 	
-	public void deplacer(HerosMap heros, int coordHerosH, int coordHerosL, Vector2i pos) throws Exception {
+	public void deplacer(HerosMap heros, int coordHerosL, int coordHerosH, Vector2i pos) throws Exception {
 		PFUtil [][] tabDep = pathfinding(coordHerosH, coordHerosL, heros.getHeros().getPtDeplacement());
 		PFUtil caseCible = tabDep[pos.getX()][pos.getY()];
 		int coutDep = caseCible.getCoord();
