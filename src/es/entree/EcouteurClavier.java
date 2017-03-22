@@ -22,7 +22,8 @@ public class EcouteurClavier implements KeyEventDispatcher{
 			_instance = new EcouteurClavier();
 		}
 	}
-
+	
+	//Commenter
 	public static boolean justPressed(int keycode) {
 		boolean t = tabKeyOld[keycode]!=tabKeys[keycode];
 		if (t)

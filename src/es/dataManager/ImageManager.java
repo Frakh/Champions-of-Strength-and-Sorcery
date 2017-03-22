@@ -29,7 +29,7 @@ public class ImageManager {
 		try {
 			BufferedImage img = ImageIO.read(new File(imageURL));
 			imageMap.put(imageURL, img);
-			LogSys.log("Image charée a : " + imageURL);
+			LogSys.log("Image chargée a : " + imageURL);
 			if (CREATE_FLIPPED_IMG_ON_LOAD)
 				flipImage(imageURL);
 			return true;
