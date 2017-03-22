@@ -2,7 +2,7 @@ package game;
 
 import game.carte.Carte;
 
-public class Jeu {
+public class Jeu implements Runnable{
 	private Carte surface, souterrain;
 	private Joueur[] joueurs;
 	
@@ -14,5 +14,14 @@ public class Jeu {
 
 	public static boolean estGagne() {
 		return false;
+	}
+
+	@Override
+	public void run() {
+		//charger des trucs
+		//lancer partie
+		while (estGagne()){
+			//tour de jeu
+		}
 	}
 }
