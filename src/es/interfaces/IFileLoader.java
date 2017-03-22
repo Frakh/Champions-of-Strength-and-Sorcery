@@ -13,6 +13,7 @@ import java.util.*;
 
 public interface IFileLoader {
 
+	@Deprecated
 	static Case[][] loadCarteFile(String path) throws IOException {
 		FileInputStream fis = new FileInputStream(path);
 		// Utilisez les Buffered bidules
