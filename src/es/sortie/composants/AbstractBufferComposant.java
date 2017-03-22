@@ -11,8 +11,6 @@ import java.awt.image.*;
 
 public abstract class AbstractBufferComposant extends JComponent {
 
-	abstract void dessiner(Graphics g);
-
 	protected GraphicDataBlock gdb;
 	protected FrameManager fm;
 	protected Carte carte;
@@ -74,4 +72,6 @@ public abstract class AbstractBufferComposant extends JComponent {
 		ImageProducer ip = new FilteredImageSource(im.getSource(), filter);
 		return Toolkit.getDefaultToolkit().createImage(ip);
 	}
+
+	abstract void dessiner(Graphics g);
 }

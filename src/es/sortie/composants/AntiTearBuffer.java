@@ -30,15 +30,12 @@ public class AntiTearBuffer extends JComponent {
 
 		RENDERED_IMAGES = 0;
 
-
-
-
-
 		Graphics2D imgGraph = screenBuffer.createGraphics();
 
 		imgGraph.setBackground(new Color(0,0,0,0));
 		imgGraph.clearRect(0,0,screenBuffer.getWidth(), screenBuffer.getHeight());
 		for (AbstractBufferComposant jc: components) {
+			jc.setDataBlock();
 			jc.dessiner(screenBuffer.getGraphics());
 		}
 		g.drawImage(screenBuffer, 0,0,this);
