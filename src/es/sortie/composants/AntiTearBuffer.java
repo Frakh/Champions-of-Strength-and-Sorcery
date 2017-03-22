@@ -12,6 +12,7 @@ public class AntiTearBuffer extends JComponent {
 
 	private java.util.List<AbstractBufferComposant> components;
 	private BufferedImage screenBuffer;
+	private GraphicDataBlock gdb = new GraphicDataBlock();
 
 	public AntiTearBuffer(BufferedImage sb) {
 		components = new ArrayList<>();
@@ -28,7 +29,13 @@ public class AntiTearBuffer extends JComponent {
 	public void paintComponent(Graphics g) {
 
 		RENDERED_IMAGES = 0;
+
+
+
+
+
 		Graphics2D imgGraph = screenBuffer.createGraphics();
+
 		imgGraph.setBackground(new Color(0,0,0,0));
 		imgGraph.clearRect(0,0,screenBuffer.getWidth(), screenBuffer.getHeight());
 		for (AbstractBufferComposant jc: components) {

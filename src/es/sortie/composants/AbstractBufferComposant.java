@@ -1,5 +1,10 @@
 package es.sortie.composants;
 
+import es.sortie.FocusView;
+import es.sortie.FrameManager;
+import game.carte.Carte;
+import utilitaire.IPosition;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.*;
@@ -8,9 +13,48 @@ public abstract class AbstractBufferComposant extends JComponent {
 
 	abstract void dessiner(Graphics g);
 
+	protected GraphicDataBlock gdb;
+	protected FrameManager fm;
+	protected Carte carte;
+
+	public void setDataBlock() {
+
+		GraphicDataBlock gdb = new GraphicDataBlock();
+
+		FocusView fw = fm.getFocusView();
+
+		gdb.xDecalage = fw.getXDeplacement();
+		gdb.yDecalage = fw.getYDeplacement();
+
+		gdb.spriteWidth = fm.getSpriteLength();
+		gdb.spriteHeight = fm.getSpriteHeigt();
+
+		IPosition centre = fw.getCentralPos();
+		int halfBlockLen = fm.getLength()/fm.getSpriteLength(); // Nb de blocks affichables a l'écran
+		halfBlockLen/=2;	// Num de block entre le milieu de l'écran et un coté de l'écran
+		int halfBlockHeight = fm.getHeight()/fm.getSpriteHeigt();
+		halfBlockHeight/=2;
+
+		// Obtention des limites pour le cadre de dessin
+		gdb.iStartPos = (int) centre.deplace(-halfBlockLen,0).getX()-1;
+		gdb.iEndPos = (int) centre.deplace(halfBlockLen,0).getX()+2;
+		gdb.jStartPos = (int) centre.deplace(0,-halfBlockHeight).getY()-1;
+		gdb.jEndPos = (int) centre.deplace(0,halfBlockHeight).getY()+2;
+		if (gdb.iStartPos<0)
+			gdb.iStartPos = 0;
+		if (gdb.jStartPos<0)
+			gdb.jStartPos = 0;
+		if (gdb.iEndPos>carte.getWidth())
+			gdb.iEndPos = carte.getWidth();
+		if (gdb.jEndPos> carte.getHeight())
+			gdb.jEndPos = carte.getHeight();
+
+		this.gdb = gdb;
+	}
+
 	// Pour la transparence
 	// CC de Stack Overflow
-	static Image makeColorTransparent(BufferedImage im, final Color color) {
+	public static Image makeColorTransparent(BufferedImage im, final Color color) {
 		ImageFilter filter = new RGBImageFilter() {
 
 			// the color we are looking for... Alpha bits are set to opaque
