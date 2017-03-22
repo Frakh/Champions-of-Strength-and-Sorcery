@@ -19,9 +19,6 @@ public class Jeu implements Runnable{
 	@Override
 	public void run() {
 		//charger des trucs
-		//lancer cinématique d'intro stylée
-		//lancer menu principal
-		
 		//lancer partie
 		while (estGagne()){
 			//tour de jeu
