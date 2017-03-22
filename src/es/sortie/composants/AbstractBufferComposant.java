@@ -15,39 +15,47 @@ public abstract class AbstractBufferComposant extends JComponent {
 	protected FrameManager fm;
 	protected Carte carte;
 
+	public AbstractBufferComposant(FrameManager fm, Carte c) {
+		this.fm = fm;
+		this.carte = c;
+	}
+
 	public void setDataBlock() {
 
-		GraphicDataBlock gdb = new GraphicDataBlock();
+		if (fm != null) {
+			GraphicDataBlock gdb = new GraphicDataBlock();
 
-		FocusView fw = fm.getFocusView();
+			FocusView fw = fm.getFocusView();
+			gdb.xDecalage = fw.getXDeplacement();
+			gdb.yDecalage = fw.getYDeplacement();
 
-		gdb.xDecalage = fw.getXDeplacement();
-		gdb.yDecalage = fw.getYDeplacement();
+			gdb.spriteWidth = fm.getSpriteLength();
+			gdb.spriteHeight = fm.getSpriteHeigt();
 
-		gdb.spriteWidth = fm.getSpriteLength();
-		gdb.spriteHeight = fm.getSpriteHeigt();
+			IPosition centre = fw.getCentralPos();
+			int halfBlockLen = fm.getLength() / fm.getSpriteLength(); // Nb de blocks affichables a l'écran
+			halfBlockLen /= 2;    // Num de block entre le milieu de l'écran et un coté de l'écran
+			int halfBlockHeight = fm.getHeight() / fm.getSpriteHeigt();
+			halfBlockHeight /= 2;
 
-		IPosition centre = fw.getCentralPos();
-		int halfBlockLen = fm.getLength()/fm.getSpriteLength(); // Nb de blocks affichables a l'écran
-		halfBlockLen/=2;	// Num de block entre le milieu de l'écran et un coté de l'écran
-		int halfBlockHeight = fm.getHeight()/fm.getSpriteHeigt();
-		halfBlockHeight/=2;
+			// Obtention des limites pour le cadre de dessin
+			gdb.iStartPos = (int) centre.deplace(-halfBlockLen, 0).getX() - 1;
+			gdb.iEndPos = (int) centre.deplace(halfBlockLen, 0).getX() + 2;
+			gdb.jStartPos = (int) centre.deplace(0, -halfBlockHeight).getY() - 1;
+			gdb.jEndPos = (int) centre.deplace(0, halfBlockHeight).getY() + 2;
+			if (gdb.iStartPos < 0)
+				gdb.iStartPos = 0;
+			if (gdb.jStartPos < 0)
+				gdb.jStartPos = 0;
+			if (carte!=null) {
+				if (gdb.iEndPos > carte.getWidth())
+					gdb.iEndPos = carte.getWidth();
+				if (gdb.jEndPos > carte.getHeight())
+					gdb.jEndPos = carte.getHeight();
+			}
 
-		// Obtention des limites pour le cadre de dessin
-		gdb.iStartPos = (int) centre.deplace(-halfBlockLen,0).getX()-1;
-		gdb.iEndPos = (int) centre.deplace(halfBlockLen,0).getX()+2;
-		gdb.jStartPos = (int) centre.deplace(0,-halfBlockHeight).getY()-1;
-		gdb.jEndPos = (int) centre.deplace(0,halfBlockHeight).getY()+2;
-		if (gdb.iStartPos<0)
-			gdb.iStartPos = 0;
-		if (gdb.jStartPos<0)
-			gdb.jStartPos = 0;
-		if (gdb.iEndPos>carte.getWidth())
-			gdb.iEndPos = carte.getWidth();
-		if (gdb.jEndPos> carte.getHeight())
-			gdb.jEndPos = carte.getHeight();
-
-		this.gdb = gdb;
+			this.gdb = gdb;
+		}
 	}
 
 	// Pour la transparence

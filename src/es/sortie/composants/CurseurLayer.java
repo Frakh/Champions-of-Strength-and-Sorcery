@@ -12,6 +12,7 @@ public class CurseurLayer extends AbstractBufferComposant {
 	private String sprite;
 
 	public CurseurLayer(FrameManager fm, String sprite, Vector2i vs) {
+		super(fm, null);
 		this.sprite = sprite;
 		this.curseurPos = vs;
 		this.fm = fm;
