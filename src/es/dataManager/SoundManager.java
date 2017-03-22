@@ -28,7 +28,7 @@ public class SoundManager {
 		if (m==null)
 			throw new RuntimeException("M EST NULL");
 		return m;
-	}
+	} 
 
 	private static boolean mediaLoad(String url) {
 		Media tempMedia = new Media(Paths.get(url).toUri().toString());
