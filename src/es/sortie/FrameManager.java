@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FrameManager {
@@ -26,6 +27,7 @@ public class FrameManager {
 		height = DEF_HEI;
 		spriteHeigt = DEF_SPR_HEI;
 		spriteLength = DEF_SPR_LEN;
+		listMouseAdapters = new ArrayList<>();
 		//Permet de mettre en fullscreen
 		//GraphicsEnvironment.getLocalGraphicsEnvironment().
 		//		getDefaultScreenDevice().setFullScreenWindow(jFrame);

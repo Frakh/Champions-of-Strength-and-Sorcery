@@ -54,7 +54,7 @@ public class MapTest {
 
 		Vector2i cursorPos = new Vector2i(0,0);
 		AbstractBufferComposant carteLayer = new CarteLayer(fm, c);
-		AbstractBufferComposant curseurLayer = new CurseurLayer(fm, "./assets/img/Curseur.png", cursorPos);
+		AbstractBufferComposant curseurLayer = new CurseurLayer(fm, "./assets/img/SPRITES/PEUNEUGEU/Curseur.png", cursorPos);
 		fm.init(carteLayer, curseurLayer);
 
 		IController ic = new ControlleurJoueur();
