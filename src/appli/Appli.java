@@ -5,6 +5,6 @@ public class Appli {
 		//charger des trucs
 		//lancer cinématique d'intro stylée
 		//lancer menu principal
-				
+		
 	}
 }
