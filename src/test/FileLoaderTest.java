@@ -46,11 +46,6 @@ public class FileLoaderTest {
 	}
 
 	@Test
-	public void testMapLoad2() {
-
-	}
-
-	@Test
 	public void conteneurGenericTest() {
 		ConteneurGeneric cg = new ConteneurGeneric();
 		cg.add_set_Attribut("test", 16);

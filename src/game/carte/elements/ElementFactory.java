@@ -1,5 +1,6 @@
 package game.carte.elements;
 
+import es.eventlogger.LogSys;
 import game.carte.IElement;
 import utilitaire.ConteneurGeneric;
 
@@ -14,8 +15,14 @@ public class ElementFactory {
 		//A remplir pour creer les elements
 	}
 
-	public IElement getIelement(String nomIelement) throws InvocationTargetException, IllegalAccessException {
-		return (IElement) ((Method)cont_gen.getAttribut(nomIelement)).invoke(null);
+	public static IElement getIelement(String nomIelement) {
+		if (nomIelement==null)
+			return null;
+		try {
+			return (IElement) ((Method)cont_gen.getAttribut(nomIelement)).invoke(null);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			LogSys.log(e, "Erreur ElementFactory.getIelement");
+			return null;
+		}
 	}
-
 }
