@@ -29,7 +29,7 @@ public class Unit implements IUnit {
 	
 	public Unit(int id, int nombre) throws FileNotFoundException{
 		this.id=id;
-		String nomFichierSource = "C:\\Users\\Ereshkigal\\git\\Champions-of-Strength-and-Sorcery2\\assets\\data\\combat\\descriptionUnit" +id + ".txt";
+		String nomFichierSource = "./assets/data/combat/descriptionUnit" +id + ".txt";
 		Scanner sc = new Scanner (new FileInputStream(new File(nomFichierSource)));
 		this.attaque=Integer.parseInt(sc.nextLine());
 		this.defense=Integer.parseInt(sc.nextLine());
