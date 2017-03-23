@@ -39,7 +39,7 @@ public class Combat {
 		for(int i=0; i<LARGEURTERRAIN;i++)
 			for(int j=0; j<HAUTEURTERRAIN;j++)
 				terrainCombat[i][j]=new CaseCombat();
-		String nomFichierSource = "C:\\Users\\Ereshkigal\\git\\Champions-of-Strength-and-Sorcery2\\assets\\data\\combat\\terrain" +typeterrain + ".txt";
+		String nomFichierSource = "./assets/data/combat/terrain" +typeterrain + ".txt";
 		Scanner sc = new Scanner (new FileInputStream(new File(nomFichierSource)));
 		String straingue=sc.nextLine();
 		sc.close();
