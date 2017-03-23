@@ -11,9 +11,6 @@ public class ObjetLayer extends AbstractBufferComposant {
 
 	public static class Friend { private Friend(){}}
 	private static Friend friend = new Friend();
-	private Carte carte;
-
-	private FrameManager fm;
 
 	public ObjetLayer(FrameManager fm, Carte c) {
 		super(fm, c);
@@ -35,21 +32,21 @@ public class ObjetLayer extends AbstractBufferComposant {
 		for (int i = gdb.iStartPos; i < gdb.iEndPos; ++i) {
 			for (int j = gdb.jStartPos; j < gdb.jEndPos; ++j) {
 
-				if (elementMap[i][j]==null)
-					continue;
+				if (elementMap[i][j]!=null) {
 
-				int xDrawCoord = i*gdb.spriteWidth + gdb.xDecalage,
-						yDrawCoord = j*gdb.spriteHeight + gdb.yDecalage;
+					int xDrawCoord = i * gdb.spriteWidth + gdb.xDecalage,
+							yDrawCoord = j * gdb.spriteHeight + gdb.yDecalage;
 
-				g2.drawImage(
-						ImageManager.getImage(elementMap[i][j].getImage()),
-						xDrawCoord,
-						yDrawCoord,
-						gdb.spriteWidth,
-						gdb.spriteHeight,
-						this
-				);
-				++AntiTearBuffer.RENDERED_IMAGES;
+					g2.drawImage(
+							ImageManager.getImage(elementMap[i][j].getImage()),
+							xDrawCoord,
+							yDrawCoord,
+							gdb.spriteWidth,
+							gdb.spriteHeight,
+							this
+					);
+					++AntiTearBuffer.RENDERED_IMAGES;
+				}
 			}
 		}
 

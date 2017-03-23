@@ -7,6 +7,7 @@ import es.sortie.FrameManager;
 import es.sortie.composants.AbstractBufferComposant;
 import es.sortie.composants.CarteLayer;
 import es.sortie.composants.CurseurLayer;
+import es.sortie.composants.ObjetLayer;
 import game.Heros;
 import game.Joueur;
 import game.carte.Carte;
@@ -94,6 +95,8 @@ public class MapTest {
 		noxus.addHeros(new Heros()); //on créé un héros sans nom parce que balek
 		HerosMap darius=noxus.getHerosMap(0); //idéalement faudrait pouvoir get le heros avec son nom aussi, parce que là on triche un peu
 
+		if (darius==null)
+			throw new RuntimeException("Darius est null");
 		
 		c.addElement(darius, 0, 0); //on fait démarrer le héros en 0,0
 		System.out.println("oui");
@@ -108,7 +111,8 @@ public class MapTest {
 
 		AbstractBufferComposant carteLayer = new CarteLayer(fm, c);
 		AbstractBufferComposant curseurLayer = new CurseurLayer(fm, "./assets/img/SPRITES/PEUNEUGEU/Curseur.png", curseur);
-		fm.init(carteLayer, curseurLayer);
+		AbstractBufferComposant elemLayer = new ObjetLayer(fm, c);
+		fm.init(carteLayer, elemLayer, curseurLayer);
 
 		
 

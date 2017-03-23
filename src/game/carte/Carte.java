@@ -134,6 +134,12 @@ public class Carte {
 	}
 	
 	public void deplacer(HerosMap heros, int coordHerosL, int coordHerosH, Vector2i pos) throws Exception {
+
+		if (heros==null)
+			throw new NullPointerException("heros est null");
+		if (pos==null)
+			throw new NullPointerException("pos est null");
+
 		PFUtil [][] tabDep = pathfinding(coordHerosH, coordHerosL, heros.getHeros().getPtDeplacement());
 		PFUtil caseCible = tabDep[pos.getX()][pos.getY()];
 		int coutDep = caseCible.getCoord();
@@ -151,13 +157,13 @@ public class Carte {
 	}
 	
 	public void addElement(IElement e,int x,int y){
-		if(elements[x][y]!=null) elements[x][y]=e;
+		if(elements[x][y]==null) elements[x][y]=e;
 	}
 	
 	public Vector2i getCoordHeros(HerosMap h){
 		for(int i=0;i<elements.length;++i){
-			for(int j=0;i<elements[0].length;++j){
-				if (elements[i][j].equals(h)){ //on cherche le heros dans la carte
+			for(int j=0;j<elements[0].length;++j){
+				if (elements[i][j] != null && elements[i][j].equals(h)){ //on cherche le heros dans la carte
 					return new Vector2i(i,j);  //et on renvoie ses coordonnées, où apparemment i=largeur et j=hauteur
 				}
 			}

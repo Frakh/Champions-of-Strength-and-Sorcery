@@ -1,17 +1,15 @@
 package game;
 
-import java.util.ArrayList;
-
 import com.sun.glass.events.KeyEvent;
-
 import es.entree.ControlleurJoueur;
 import es.interfaces.IControllable;
 import es.interfaces.IController;
 import game.carte.elements.Batiment;
 import game.carte.elements.HerosMap;
-import javafx.scene.input.KeyCode;
 import utilitaire.IPosition;
 import utilitaire.Vector2i;
+
+import java.util.ArrayList;
 
 public class Joueur implements IControllable{
 	private ArrayList<Batiment> batiments;
