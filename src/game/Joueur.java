@@ -8,18 +8,32 @@ import es.entree.ControlleurJoueur;
 import es.interfaces.IControllable;
 import es.interfaces.IController;
 import game.carte.elements.Batiment;
+import game.carte.elements.HerosMap;
 import javafx.scene.input.KeyCode;
 import utilitaire.IPosition;
+import utilitaire.Vector2i;
 
 public class Joueur implements IControllable{
 	private ArrayList<Batiment> batiments;
-	private ArrayList<Heros> heros;
+	private ArrayList<HerosMap> herosMap; //herosMap est la représentation graphique et contient Heros
 	//private ArrayList<Chateau> chateaux;
 	private ControlleurJoueur controleur;
+	Vector2i curseur = new Vector2i(0,0);
 	
+	private HerosMap herosSelectionne; //le heros actuellement sélectionné
+	
+	
+	public HerosMap getHerosSelectionne() {
+		return herosSelectionne;
+	}
+
+	public void setHerosSelectionne(HerosMap herosSelectionne) {
+		this.herosSelectionne = herosSelectionne;
+	}
+
 	public Joueur(){
 		batiments = new ArrayList<Batiment>();
-		heros = new ArrayList<Heros>();
+		herosMap = new ArrayList<HerosMap>();
 		//chateaux = new ArrayList<Chateau>();
 		controleur = new ControlleurJoueur();
 		controleur.setActionMap(2, KeyEvent.VK_2);
@@ -35,11 +49,28 @@ public class Joueur implements IControllable{
 	}
 
 	@Override
-	public IPosition getPosition() {
+	public IPosition getPosition() { //pourquoi c'est là ça putain ?
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
+	public void addHeros(Heros h){
+		herosMap.add(new HerosMap(h));
+	}
+	
+	public Heros getHeros(int i){
+		return herosMap.get(i).getHeros();
+	}
+
+	public HerosMap getHerosMap(int i) {
+		return herosMap.get(i);
+	}
+	
+	public boolean herosContains(HerosMap h){
+		return herosMap.contains(h);
+	}
+	
+	/* c'est peut-être pas ici qu'on le fait en fait
 	public void deplacerCurseur(int action){
 		switch (action){
 		case 2: ;//faire des collages en bas
@@ -51,6 +82,27 @@ public class Joueur implements IControllable{
 	
 	public void validerCurseur(){
 		//valider les collages
+	}
+	*/
+	
+	public void curseurUp(){
+		curseur.x--;
+	}
+	
+	public void curseurDown(){
+		curseur.x++;
+	}
+	
+	public void curseurLeft(){
+		curseur.y--;
+	}
+	
+	public void curseurRight(){
+		curseur.y++;
+	}
+	
+	public Vector2i getCurseur(){
+		return curseur;
 	}
 	
 }

@@ -149,4 +149,19 @@ public class Carte {
 			}
 		}
 	}
+	
+	public void addElement(IElement e,int x,int y){
+		if(elements[x][y]!=null) elements[x][y]=e;
+	}
+	
+	public Vector2i getCoordHeros(HerosMap h){
+		for(int i=0;i<elements.length;++i){
+			for(int j=0;i<elements[0].length;++j){
+				if (elements[i][j].equals(h)){ //on cherche le heros dans la carte
+					return new Vector2i(i,j);  //et on renvoie ses coordonnées, où apparemment i=largeur et j=hauteur
+				}
+			}
+		}
+		return null; //le heros n'est pas dans la carte
+	}
 }
