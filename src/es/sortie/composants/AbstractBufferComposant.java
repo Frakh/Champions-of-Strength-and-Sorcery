@@ -26,6 +26,10 @@ public abstract class AbstractBufferComposant extends JComponent {
 			GraphicDataBlock gdb = new GraphicDataBlock();
 
 			FocusView fw = fm.getFocusView();
+
+			gdb.winWidth = fm.getLength();
+			gdb.winHeight = fm.getHeight();
+
 			gdb.xDecalage = fw.getXDeplacement();
 			gdb.yDecalage = fw.getYDeplacement();
 
@@ -33,9 +37,9 @@ public abstract class AbstractBufferComposant extends JComponent {
 			gdb.spriteHeight = fm.getSpriteHeigt();
 
 			IPosition centre = fw.getCentralPos();
-			int halfBlockLen = fm.getLength() / fm.getSpriteLength(); // Nb de blocks affichables a l'écran
+			int halfBlockLen = gdb.winWidth / gdb.spriteWidth; // Nb de blocks affichables a l'écran
 			halfBlockLen /= 2;    // Num de block entre le milieu de l'écran et un coté de l'écran
-			int halfBlockHeight = fm.getHeight() / fm.getSpriteHeigt();
+			int halfBlockHeight = gdb.winHeight / gdb.spriteHeight;
 			halfBlockHeight /= 2;
 
 			// Obtention des limites pour le cadre de dessin
