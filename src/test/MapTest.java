@@ -7,7 +7,11 @@ import es.sortie.FrameManager;
 import es.sortie.composants.AbstractBufferComposant;
 import es.sortie.composants.CarteLayer;
 import es.sortie.composants.CurseurLayer;
+import game.Heros;
+import game.Joueur;
 import game.carte.Carte;
+import game.carte.elements.HerosMap;
+
 import org.junit.Test;
 import utilitaire.IPosition;
 import utilitaire.Position;
@@ -75,6 +79,69 @@ public class MapTest {
 			if (ic.isJustPress(1) && cursorPos.y < c.getHeight()-1)
 				cursorPos.y++;
 			fm.setPositionToFollow(new Position(cursorPos.x, cursorPos.y));
+
+			Thread.sleep(16);
+		}
+	}
+	
+	@Test
+	public void testDeplacerHeros() throws IOException, InterruptedException {
+		Carte c = IFileLoader.loadCarte("./ressources/map/nexttest.gameres");
+		
+		Joueur noxus = new Joueur();
+		Vector2i curseur=noxus.getCurseur();
+		IController ic=noxus.getController();
+		noxus.addHeros(new Heros()); //on créé un héros sans nom parce que balek
+		HerosMap darius=noxus.getHerosMap(0); //idéalement faudrait pouvoir get le heros avec son nom aussi, parce que là on triche un peu
+		
+		c.addElement(darius, 0, 0); //on fait démarrer le héros en 0,0
+												  
+
+		FrameManager fm = new FrameManager();
+		IPosition ip = new Position(0,0);
+
+		fm.setSpriteDim(32, 32);
+		fm.setPositionToFollow(ip);
+		fm.setDimensions(1280,720);
+
+		AbstractBufferComposant carteLayer = new CarteLayer(fm, c);
+		AbstractBufferComposant curseurLayer = new CurseurLayer(fm, "./assets/img/SPRITES/PEUNEUGEU/Curseur.png", curseur);
+		fm.init(carteLayer, curseurLayer);
+
+		
+
+		while (true) {
+			fm.repaint();
+
+			if (ic.isJustPress(2) && curseur.x < c.getWidth()-1)
+				noxus.curseurDown();;
+			if (ic.isJustPress(4) && curseur.x>0)
+				noxus.curseurLeft();;
+			if (ic.isJustPress(6) && curseur.y>0)
+				noxus.curseurRight();
+			if (ic.isJustPress(8) && curseur.y < c.getHeight()-1)
+				noxus.curseurUp();
+			if (ic.isJustPress(5)){
+				if (c.getElement(curseur.x,curseur.y)!=null){ //si la case n'est pas vide
+					if(c.getElement(curseur.x,curseur.y).getClass().getName()=="HerosMap"){ //est-ce un héros ?
+						HerosMap sousLeCurseur = (HerosMap) c.getElement(curseur.x,curseur.y);
+						if(noxus.herosContains(sousLeCurseur)){ //est-ce que ce héros est à moi ?
+							noxus.setHerosSelectionne(sousLeCurseur);
+						}
+					}
+				}
+				//si la case est vide
+				else{
+					Vector2i coord=c.getCoordHeros(noxus.getHerosSelectionne());
+					try {
+						c.deplacer(noxus.getHerosSelectionne(), coord.x, coord.y, noxus.getCurseur());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			
+			fm.setPositionToFollow(new Position(noxus.getCurseur().x, noxus.getCurseur().y));
 
 			Thread.sleep(16);
 		}

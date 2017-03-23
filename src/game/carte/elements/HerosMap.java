@@ -7,6 +7,10 @@ import game.carte.IElement;
 public class HerosMap implements IElement, ISpriteDrawable {
 
 	private Heros heros; //le héros auquel l'élément de map correspond
+	
+	public HerosMap(Heros h){
+		heros=h;
+	}
 
 	public Heros getHeros() {
 		return heros;
@@ -14,7 +18,7 @@ public class HerosMap implements IElement, ISpriteDrawable {
 
 	@Override
 	public String getImage() {
-		return "./assets/img/heros";
+		return "./assets/img/heros.jpg";
 	}
 
 	@Override
