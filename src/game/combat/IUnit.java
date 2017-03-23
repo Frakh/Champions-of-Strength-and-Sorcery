@@ -1,8 +1,9 @@
 package game.combat;
 
+import es.interfaces.ISpriteDrawable;
 import utilitaire.Vector2i;
 
-public interface IUnit {
+public interface IUnit extends ISpriteDrawable {
 	int getId();
 	boolean getArmeeGauche();
 	void setArmeeGauche(boolean armeeGauche);
