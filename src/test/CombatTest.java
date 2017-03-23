@@ -1,11 +1,14 @@
 package test;
 
-import game.combat.Combat;
-import utilitaire.Vector2i;
-
-import org.junit.Test;
+import es.sortie.FrameManager;
+import es.sortie.composants.CombatLayer;
 import game.Heros;
 import game.Unite;
+import game.carte.CaseDejaPriseException;
+import game.combat.Combat;
+import org.junit.Test;
+
+import java.io.FileNotFoundException;
 
 public class CombatTest {
 
@@ -52,5 +55,32 @@ public class CombatTest {
 		
 		//MapTest testDispAndMove
 	}  
-	
+
+
+	@Test
+	public void testScreenCombat() throws CaseDejaPriseException, FileNotFoundException, InterruptedException {
+
+		System.out.println("TestJFRAME");
+		Heros heros = new Heros();
+		heros.addTroupe(new Unite(11, 30), 1);
+		Heros Mechaaaaaaaaant = new Heros();
+		Mechaaaaaaaaant.addTroupe(new Unite(11, 50), 0);
+		Mechaaaaaaaaant.addTroupe(new Unite(11, 75), 4);
+		Combat c = new Combat(heros, Mechaaaaaaaaant, 10);
+		c.initialiserCombat();
+
+		FrameManager fm = new FrameManager();
+		fm.setDimensions(1280,720);
+		fm.setSpriteDim(64,55);
+
+		CombatLayer cl = new CombatLayer(fm,c);
+
+		fm.init(cl);
+
+		while (true) {
+			fm.repaint();
+			Thread.sleep(5000);
+		}
+
+	}
 }
