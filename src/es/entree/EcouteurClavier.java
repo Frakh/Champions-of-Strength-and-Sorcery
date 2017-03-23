@@ -26,6 +26,7 @@ public class EcouteurClavier implements KeyEventDispatcher{
 	//Commenter
 	public static boolean justPressed(int keycode) {
 		boolean t = tabKeyOld[keycode]!=tabKeys[keycode];
+		t = t && tabKeyOld[keycode] && !tabKeys[keycode];
 		if (t)
 			System.arraycopy(tabKeys, 0, tabKeyOld, 0, 256);
 		return t;
