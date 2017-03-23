@@ -10,11 +10,21 @@ import game.Unite;
 public class CombatTest {
 
 	/**
-	 * Ceci est le test qui affiche les index ou seront placÃ© les unitÃ©s, pour les nombres de 1 Ã  7
+	 * Ceci est le test qui permet d essayer le systeme de combat au tour par tour
 	 * @throws Throwable 
 	 */
 	@Test
-	public void UniteTest() throws Throwable{  //teste la crï¿½ation de hï¿½ros, d'unitï¿½s, et l'initialisation du combat
+	public void UniteTest() throws Throwable{  //teste la creation de heros, d'unites, et l'initialisation du combat
+		System.out.println("Attention: cette interface n'est là que pour tester le systeme de combat au tour par tour, une interface plus agreable et des graphismes seront rajoutes ulterieurement.");
+		System.out.println("Legende:");
+		System.out.println("");
+		System.out.println("Premier schema: (représente la carte)");
+		System.out.println("o: case libre");
+		System.out.println("x: case avec un obstacle (infranchissable)");
+		System.out.println("chiffre: emplacement de l'unite correspondante au chiffre");
+		System.out.println("Deuxieme schema: (represente le pathfinding)");
+		System.out.println("o: case ou l'unite dont c'est le tour peut aller");
+		System.out.println("x: case ou l'unite dont c'est le tour est, ou ne peut pas acceder.");
 		Heros Heros = new Heros();
 		Heros.addTroupe(new Unite(11, 30), 1);
 		Heros Mechaaaaaaaaant = new Heros();
@@ -22,7 +32,12 @@ public class CombatTest {
 		Mechaaaaaaaaant.addTroupe(new Unite(11, 75), 4);
 		Combat c = new Combat(Heros, Mechaaaaaaaaant, 10);
 		c.initialiserCombat();
-		System.out.println(c.toString());
+		c.fight();
+		
+		
+		
+		
+		/*System.out.println(c.toString());
 		System.out.println(c.toStringPathFinding(new Vector2i(0,6)));
 		System.out.println("\n\nDeplacement du gobelin 0 de 3 cases en avant:\n");
 		assert (c.pathfinding(0,6)[5][6]);
@@ -33,7 +48,9 @@ public class CombatTest {
 		System.out.println("le gobelin 0 attaque le gobelin 7");
 		System.out.println("il devrait faire entre "+degats.getX()+" et "+degats.getY()+ " degats. Un gobelin a "+ c.terrainCombat[c.getCoordTroupes(0).getX()][c.getCoordTroupes(0).getY()].getUnit().getPvMax()+" PV.");
 		c.terrainCombat[c.getCoordTroupes(0).getX()][c.getCoordTroupes(0).getY()].getUnit().combattre(c.terrainCombat[c.getCoordTroupes(7).getX()][c.getCoordTroupes(7).getY()].getUnit());
-		System.out.println(c.toString());
+		System.out.println(c.toString());*/
+		
+		//MapTest testDispAndMove
 	}  
 	
 }
