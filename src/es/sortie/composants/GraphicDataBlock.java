@@ -9,4 +9,6 @@ class GraphicDataBlock {
 	int yDecalage;
 	int spriteWidth;
 	int spriteHeight;
+	int winWidth;
+	int winHeight;
 }
