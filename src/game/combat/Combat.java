@@ -39,7 +39,7 @@ public class Combat {
 		for(int i=0; i<LARGEURTERRAIN;i++)
 			for(int j=0; j<HAUTEURTERRAIN;j++)
 				terrainCombat[i][j]=new CaseCombat();
-		String nomFichierSource = "C:\\Users\\Ereshkigal\\git\\Champions-of-Strength-and-Sorcery\\assets\\data\\combat\\terrain" +typeterrain + ".txt";
+		String nomFichierSource = "C:\\Users\\Ereshkigal\\git\\Champions-of-Strength-and-Sorcery2\\assets\\data\\combat\\terrain" +typeterrain + ".txt";
 		Scanner sc = new Scanner (new FileInputStream(new File(nomFichierSource)));
 		String straingue=sc.nextLine();
 		sc.close();
@@ -344,7 +344,8 @@ public class Combat {
 							coordy=sc.nextInt();
 							System.out.println("tapez le numero de l'unite a attaquer");
 							taper=sc.nextInt();
-							if (deplacement1Case(coordTroupes[CestSonTour].getX(), coordTroupes[CestSonTour].getY(),coordTroupes[taper].getX(), coordTroupes[taper].getY())) {
+							if (pathfinding(coordTroupes[CestSonTour].getX(), coordTroupes[CestSonTour].getY())[coordx][coordy] && deplacement1Case(coordx, coordy,coordTroupes[taper].getX(), coordTroupes[taper].getY())) {
+								teleporterTroupe(new Vector2i(coordTroupes[CestSonTour].getX(), coordTroupes[CestSonTour].getY()), new Vector2i(coordx, coordy));
 								terrainCombat[coordTroupes[CestSonTour].getX()][ coordTroupes[CestSonTour].getY()].getUnit().combattre(terrainCombat[coordTroupes[taper].getX()][ coordTroupes[taper].getY()].getUnit());
 								ordreFini=true;
 								idJoueurEnCours=-1;
@@ -388,7 +389,8 @@ public class Combat {
 							coordy=sc.nextInt();
 							System.out.println("tapez le numero de l'unite a attaquer");
 							taper=sc.nextInt();
-							if (deplacement1Case(coordTroupes[CestSonTour].getX(), coordTroupes[CestSonTour].getY(),coordTroupes[taper].getX(), coordTroupes[taper].getY())) {
+							if (pathfinding(coordTroupes[CestSonTour].getX(), coordTroupes[CestSonTour].getY())[coordx][coordy] && deplacement1Case(coordx, coordy,coordTroupes[taper].getX(), coordTroupes[taper].getY())) {
+								teleporterTroupe(new Vector2i(coordTroupes[CestSonTour].getX(), coordTroupes[CestSonTour].getY()), new Vector2i(coordx, coordy));
 								terrainCombat[coordTroupes[CestSonTour].getX()][ coordTroupes[CestSonTour].getY()].getUnit().combattre(terrainCombat[coordTroupes[taper].getX()][ coordTroupes[taper].getY()].getUnit());
 								ordreFini=true;
 								idJoueurEnCours=-1;
