@@ -129,7 +129,7 @@ public class MapTest {
 				noxus.curseurUp();
 			if (ic.isJustPress(5)){
 				if (c.getElement(curseur.x,curseur.y)!=null){ //si la case n'est pas vide
-					if(c.getElement(curseur.x,curseur.y).getClass().getName()=="HerosMap"){ //est-ce un héros ?
+					if(c.getElement(curseur.x,curseur.y).getClass().getName().equals("HerosMap")){ //est-ce un héros ?
 						HerosMap sousLeCurseur = (HerosMap) c.getElement(curseur.x,curseur.y);
 						if(noxus.herosContains(sousLeCurseur)){ //est-ce que ce héros est à moi ?
 							noxus.setHerosSelectionne(sousLeCurseur);
