@@ -116,7 +116,7 @@ public class Combat {
 		}
 	}
 	
-	private boolean deplacement1Case(int hauteur, int largeur, int hauteurVoulue, int largeurVoulue){//indique si un déplacement est légal
+	private boolean deplacement1Case(int hauteur, int largeur, int hauteurVoulue, int largeurVoulue){//indique si un dï¿½placement est lï¿½gal
 		if (hauteur == hauteurVoulue){
 			if (largeurVoulue==largeur+1 ||largeurVoulue == largeur-1){
 				return true;
@@ -152,17 +152,17 @@ public class Combat {
 		}
 	}
 	
-	public boolean[][] pathfinding(int coordUniteL, int coordUniteH){ // renvoie un tableau de bools, représentant les cases accessibles par un monstre qui marche par terre
-		// case non visitée = null
+	public boolean[][] pathfinding(int coordUniteL, int coordUniteH){ // renvoie un tableau de bools, reprï¿½sentant les cases accessibles par un monstre qui marche par terre
+		// case non visitï¿½e = null
 		// case accessible = true
-		// case à accéder = false
+		// case ï¿½ accï¿½der = false
 		boolean volant = false;
 		// On ne compare pas les string avec == bordel
 		if (Objects.equals(terrainCombat[coordUniteL][coordUniteH].getUnit().getPouvoir(), "Volant")) volant = true;
 		int k;
 		int l;
 		boolean trucARetourner[][] = new boolean[LARGEURTERRAIN][HAUTEURTERRAIN];
-		int truc[][]=new int[LARGEURTERRAIN][HAUTEURTERRAIN]; // ai besoin de truc pour avoir faux, vrai et à rendre vrai
+		int truc[][]=new int[LARGEURTERRAIN][HAUTEURTERRAIN]; // ai besoin de truc pour avoir faux, vrai et ï¿½ rendre vrai
 		for(int i=0; i<LARGEURTERRAIN; i++){
 			for (int j=0; j<HAUTEURTERRAIN; j++){
 				trucARetourner[i][j]=false;
@@ -172,8 +172,8 @@ public class Combat {
 		trucARetourner[coordUniteL][coordUniteH]=true;
 		truc[coordUniteL][coordUniteH]=1;
 		int mouvement = terrainCombat[coordUniteL][coordUniteH].getUnit().getMouvement();
-		while (mouvement !=0){//while for for if if while if while if. bon appétit bien sûr.
-			//trouver les cases à accéder
+		while (mouvement !=0){//while for for if if while if while if. bon appï¿½tit bien sï¿½r.
+			//trouver les cases ï¿½ accï¿½der
 			for(int i=0; i<LARGEURTERRAIN; i++){
 				for (int j=0; j<HAUTEURTERRAIN; j++){
 					if (truc[i][j] == 1){
@@ -184,7 +184,7 @@ public class Combat {
 							if (l<0) {l=0;}
 							while (l <= j+1 && l<HAUTEURTERRAIN){	
 								if (deplacement1Case(j,i,l,k) && truc[k][l] != 1){
-									truc[k][l]=2; // changé juste après, pour éviter que les true créés ici fassent n'importe quoi dans la boucle
+									truc[k][l]=2; // changï¿½ juste aprï¿½s, pour ï¿½viter que les true crï¿½ï¿½s ici fassent n'importe quoi dans la boucle
 								}
 								l++;
 							}
@@ -204,7 +204,7 @@ public class Combat {
 			trucARetourner[coordUniteL][coordUniteH]=false;
 			mouvement--;
 		}
-		if (volant){ // volant: pas de détection des collisions dans la boucle, amis on enlève les cases inaccessibles à la fin
+		if (volant){ // volant: pas de dï¿½tection des collisions dans la boucle, amis on enlï¿½ve les cases inaccessibles ï¿½ la fin
 			for(int i=0; i<LARGEURTERRAIN; i++){
 				for (int j=0; j<HAUTEURTERRAIN; j++){
 					if (truc[i][j]==0 || !(terrainCombat[i][j].getFranchissable() && terrainCombat[i][j].getUnit() == null) ){
@@ -232,8 +232,8 @@ public class Combat {
 			armee2.armee[i].setUnite(null, null);
 		}
 		if (gaucheVainqueur ==1){
-			// Remplacé par un foreach par l'ide
-			for (Vector2i coordTroupe : coordTroupes) { // prend les troupes vivantes sur le terrain et les rend au héros vainqueur
+			// Remplacï¿½ par un foreach par l'ide
+			for (Vector2i coordTroupe : coordTroupes) { // prend les troupes vivantes sur le terrain et les rend au hï¿½ros vainqueur
 				if (coordTroupe.getX() != -1)
 					if (terrainCombat[coordTroupe.getX()][coordTroupe.getY()].getUnit().getArmeeGauche()) {
 						armee1.armee[compteur].setUnite(
@@ -246,8 +246,8 @@ public class Combat {
 			
 		}
 		else if(gaucheVainqueur == 2){
-			// Remplacé par un foreach par l'ide
-			for (Vector2i coordTroupe : coordTroupes) { // prend les troupes vivantes sur le terrain et les rend au héros vainqueur
+			// Remplacï¿½ par un foreach par l'ide
+			for (Vector2i coordTroupe : coordTroupes) { // prend les troupes vivantes sur le terrain et les rend au hï¿½ros vainqueur
 				if (coordTroupe.getX() != -1)
 					if (!terrainCombat[coordTroupe.getX()][coordTroupe.getY()].getUnit().getArmeeGauche()) {
 						armee2.armee[compteur].setUnite(
@@ -300,7 +300,7 @@ public class Combat {
 		boolean ordreFini=false;
 		Scanner sc = new Scanner(System.in);
 		while(!armeeMorte()){
-			for(int i =0; i<coordTroupes.length; i++){//choisir l'unité dont c'est le tour, mettre son id dans CestSonTour
+			for(int i =0; i<coordTroupes.length; i++){//choisir l'unitï¿½ dont c'est le tour, mettre son id dans CestSonTour
 				if (coordTroupes[i].getX()>=0)
 					if (terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getInitiative()<initMin && !terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getAJoue()){
 						initMin=terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getInitiative();//si l'unite a l'initiative la plus elevee et n'a pas encore joue...
@@ -419,7 +419,7 @@ public class Combat {
 			CestSonTour=-1;
 			initMin=1000;
 		}
-		for (int i =0; i<coordTroupes.length; i++){//regarder quelle armée est morte
+		for (int i =0; i<coordTroupes.length; i++){//regarder quelle armï¿½e est morte
 			if (coordTroupes[i].getX()!=-1){
 				if (!terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getMort()){
 					if(i<7)
