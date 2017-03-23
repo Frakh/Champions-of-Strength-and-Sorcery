@@ -223,4 +223,10 @@ public class Unit implements IUnit {
 		return mort;
 	}
 
+
+	@Override
+	public String getImage() {
+		return "./assets/data/img/heros.jpg";
+	}
+
 }
