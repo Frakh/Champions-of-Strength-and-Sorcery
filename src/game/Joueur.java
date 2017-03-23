@@ -36,11 +36,11 @@ public class Joueur implements IControllable{
 		herosMap = new ArrayList<HerosMap>();
 		//chateaux = new ArrayList<Chateau>();
 		controleur = new ControlleurJoueur();
-		controleur.setActionMap(2, KeyEvent.VK_2);
-		controleur.setActionMap(8, KeyEvent.VK_8);
-		controleur.setActionMap(4, KeyEvent.VK_4);
-		controleur.setActionMap(6, KeyEvent.VK_6);
-		controleur.setActionMap(5, KeyEvent.VK_5);
+		controleur.setActionMap(2, KeyEvent.VK_DOWN);
+		controleur.setActionMap(8, KeyEvent.VK_UP);
+		controleur.setActionMap(4, KeyEvent.VK_LEFT);
+		controleur.setActionMap(6, KeyEvent.VK_RIGHT);
+		controleur.setActionMap(5, KeyEvent.VK_ENTER);
 	}
 		
 	@Override
@@ -86,19 +86,19 @@ public class Joueur implements IControllable{
 	*/
 	
 	public void curseurUp(){
-		curseur.x--;
-	}
-	
-	public void curseurDown(){
-		curseur.x++;
-	}
-	
-	public void curseurLeft(){
 		curseur.y--;
 	}
 	
-	public void curseurRight(){
+	public void curseurDown(){
 		curseur.y++;
+	}
+	
+	public void curseurLeft(){
+		curseur.x--;
+	}
+	
+	public void curseurRight(){
+		curseur.x++;
 	}
 	
 	public Vector2i getCurseur(){

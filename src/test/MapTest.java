@@ -93,8 +93,10 @@ public class MapTest {
 		IController ic=noxus.getController();
 		noxus.addHeros(new Heros()); //on créé un héros sans nom parce que balek
 		HerosMap darius=noxus.getHerosMap(0); //idéalement faudrait pouvoir get le heros avec son nom aussi, parce que là on triche un peu
+
 		
 		c.addElement(darius, 0, 0); //on fait démarrer le héros en 0,0
+		System.out.println("oui");
 												  
 
 		FrameManager fm = new FrameManager();
@@ -113,13 +115,13 @@ public class MapTest {
 		while (true) {
 			fm.repaint();
 
-			if (ic.isJustPress(2) && curseur.x < c.getWidth()-1)
+			if (ic.isJustPress(2) && curseur.y < c.getHeight()-1)
 				noxus.curseurDown();;
 			if (ic.isJustPress(4) && curseur.x>0)
 				noxus.curseurLeft();;
-			if (ic.isJustPress(6) && curseur.y>0)
+			if (ic.isJustPress(6) && curseur.x<c.getWidth())
 				noxus.curseurRight();
-			if (ic.isJustPress(8) && curseur.y < c.getHeight()-1)
+			if (ic.isJustPress(8) && curseur.y >0)
 				noxus.curseurUp();
 			if (ic.isJustPress(5)){
 				if (c.getElement(curseur.x,curseur.y)!=null){ //si la case n'est pas vide
