@@ -12,12 +12,22 @@ public class FocusView {
 
 	// Position a suivre. Est censé être une référence vers la position qui peut être modifié
 	private IPosition followPos;
+	// Le frame manager
 	private FrameManager frameManager;
 
+	/**
+	 * Permet de construire le focus view avec le frame manager
+	 * @param frame
+	 */
 	FocusView(FrameManager frame) {
 		this.frameManager = frame;
 	}
 
+	/**
+	 * Constructeur avec le manager et la position a suivre
+	 * @param manager : le frame manager
+	 * @param ip la position a suivre
+	 */
 	FocusView(FrameManager manager, IPosition ip) {
 		this(manager);
 		this.followPos = ip;
