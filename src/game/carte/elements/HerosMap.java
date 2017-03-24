@@ -26,6 +26,10 @@ public class HerosMap implements IElement, ISpriteDrawable {
 		// baston(this, oui);
 	}
 
+	public void setPtMouvement(int ptMouvement) {
+		heros.setPtDeplacement(ptMouvement);
+	}
+
 	@Override
 	public String decrire() {
 		return heros.getNom();
