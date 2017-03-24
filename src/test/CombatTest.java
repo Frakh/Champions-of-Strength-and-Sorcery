@@ -7,6 +7,7 @@ import game.Unite;
 import game.carte.CaseDejaPriseException;
 import game.combat.Combat;
 import org.junit.Test;
+import utilitaire.Position;
 
 import java.io.FileNotFoundException;
 
@@ -72,6 +73,7 @@ public class CombatTest {
 		FrameManager fm = new FrameManager();
 		fm.setDimensions(1280,720);
 		fm.setSpriteDim(64,55);
+		fm.setPositionToFollow(new Position(0,0));
 
 		CombatLayer cl = new CombatLayer(fm,c);
 

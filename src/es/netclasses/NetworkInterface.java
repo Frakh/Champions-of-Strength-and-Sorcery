@@ -2,7 +2,6 @@ package es.netclasses;
 
 import es.eventlogger.LogSys;
 import es.netclasses.evenements.Evenement;
-import es.netclasses.evenements.NetQueueEvenement;
 
 import java.io.*;
 import java.net.Socket;
@@ -10,12 +9,12 @@ import java.net.Socket;
 /**
  * Classe d'interface réseau
  *
- * Reçois et mets l'evenement reçu automatiquement sur la pile de gestion d'evenets
+ * Reçois et mets l'evenement reçu automatiquement sur la pile de gestion d'events
  */
 public class NetworkInterface {
 
 	private static Socket streamSocket = null;
-	private static Thread threceiver;
+	private static Receiver threceiver;
 	private static ObjectOutputStream oos;
 	private static ObjectInputStream ois;
 	private static boolean should_run = true;
@@ -28,6 +27,12 @@ public class NetworkInterface {
 		oos.flush();
 	}
 
+	/**
+	 * Permet de bind la socket au port et d'ouvrir les stream
+	 * @param addr : l'adresse
+	 * @param port : le port du serveur
+	 * @return un boolean, si ça c'est bien passé, true, sinon false
+	 */
 	public static boolean bind(String addr, int port) {
 		try {
 			streamSocket = new Socket(addr, port);
@@ -36,23 +41,9 @@ public class NetworkInterface {
 			oos = new ObjectOutputStream(new BufferedOutputStream(streamSocket.getOutputStream()));
 			ois = new ObjectInputStream(new BufferedInputStream(streamSocket.getInputStream()));
 
-			threceiver = new Thread(() -> {
-				// Thread reçevant les objets
-				while (should_run) {
-					try {
-						Evenement rObj = (Evenement) ois.readObject();
-						NetQueueEvenement.addEvenement(rObj);
-
-					} catch (IOException e) {
-						e.printStackTrace();
-						throw new RuntimeException(e);
-					} catch (ClassNotFoundException | ClassCastException e) {
-						LogSys.log(e);
-					}
-				}
-			});
-
+			threceiver = new Receiver(ois);
 			threceiver.start();
+
 		} catch (IOException e) {
 			LogSys.log(e);
 			return false;

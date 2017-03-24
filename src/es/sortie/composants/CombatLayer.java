@@ -38,7 +38,8 @@ public class CombatLayer extends AbstractBufferComposant {
 						gdb.spriteHeight,
 						this
 				);
-			} catch (RuntimeException ignored) {
+			} catch (RuntimeException e) {
+				e.printStackTrace();
 			}
 		}
 
