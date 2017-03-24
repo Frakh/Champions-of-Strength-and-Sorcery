@@ -6,11 +6,20 @@ import utilitaire.Vector2i;
 
 import java.awt.*;
 
+/**
+ * Le
+ */
 public class CurseurLayer extends AbstractBufferComposant {
 
 	private Vector2i curseurPos;
 	private String sprite;
 
+	/**
+	 * Constructeur du curseur layer
+	 * @param fm : le frame manager
+	 * @param sprite : le sprite qui va servir pour dessiner
+	 * @param vs : le pointeur vers l'objet ou le sprite va être dessiné
+	 */
 	public CurseurLayer(FrameManager fm, String sprite, Vector2i vs) {
 		super(fm, null);
 		this.sprite = sprite;
@@ -18,7 +27,10 @@ public class CurseurLayer extends AbstractBufferComposant {
 		this.fm = fm;
 	}
 
-	//Non thread safe
+	/**
+	 * Methode pour dessiner dans l'objet Graphics passé
+	 * @param g = l'objet graphics
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
@@ -37,10 +49,7 @@ public class CurseurLayer extends AbstractBufferComposant {
 		++AntiTearBuffer.RENDERED_IMAGES;
 	}
 
-	/**
-	 * Methode pour dessiner dans l'objet Graphics passé
-	 * @param g = l'objet graphics
-	 */
+	//Voir javadoc dans la super classe abstraite
 	@Override
 	public void dessiner(final Graphics g) {
 		this.paintComponent(g);
