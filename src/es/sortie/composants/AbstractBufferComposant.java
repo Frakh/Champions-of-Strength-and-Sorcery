@@ -11,15 +11,27 @@ import java.awt.image.*;
 
 public abstract class AbstractBufferComposant extends JComponent {
 
+	//Le block de donnée graphique qui peut être utilisé dans les layers
 	protected GraphicDataBlock gdb;
+	//Le manager de jframe
 	protected FrameManager fm;
+	//La carte du jeu
 	protected Carte carte;
 
+	/**
+	 * Seul et unique CTOR
+	 * A noter que les paramètres passés peuvent être null, la fonction de calcul du block de donnée graphique ( setDataBlock ) sera différente
+	 * @param fm le frame manager
+	 * @param c la carte
+	 */
 	public AbstractBufferComposant(FrameManager fm, Carte c) {
 		this.fm = fm;
 		this.carte = c;
 	}
 
+	/**
+	 * Methode permettant de calculer le block de donné, pouvant être utilisé par les layers
+	 */
 	public void setDataBlock() {
 
 		if (fm != null) {
@@ -62,8 +74,13 @@ public abstract class AbstractBufferComposant extends JComponent {
 		}
 	}
 
-	// Pour la transparence
-	// CC de Stack Overflow
+	/**
+	 * Fonction permettant de rendre transparent les images
+	 * Copié collé de stackoverflow, magie vaudou, ne pas toucher
+	 * @param im : l'image a rendre transparente
+	 * @param color : la couleur
+	 * @return : l'image transparente
+	 */
 	public static Image makeColorTransparent(BufferedImage im, final Color color) {
 		ImageFilter filter = new RGBImageFilter() {
 
@@ -85,5 +102,9 @@ public abstract class AbstractBufferComposant extends JComponent {
 		return Toolkit.getDefaultToolkit().createImage(ip);
 	}
 
+	/**
+	 * Methode a implémenter pour dessiner sur l'objet graphics passé
+	 * @param g l'objet graphique dans lequel il faut dessiner
+	 */
 	abstract void dessiner(Graphics g);
 }

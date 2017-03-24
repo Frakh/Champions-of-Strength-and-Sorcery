@@ -6,17 +6,31 @@ import game.combat.Combat;
 
 import java.awt.*;
 
+/**
+ * Classe permettant de dessiner la scène de combat
+ */
 public class CombatLayer extends AbstractBufferComposant {
 
+	//L'objet représentant le combat
 	private Combat combat;
 
+	//L'image du fond du combat
 	public static String fondCombat = "./assets/img/bg_plaine.jpg";
 
+	/**
+	 * Constructeur du CombatLayer
+	 * @param fm : le frame manager
+	 * @param combat : l'objet de type combat
+	 */
 	public CombatLayer(FrameManager fm, Combat combat) {
 		super(fm, null);
 		this.combat = combat;
 	}
 
+	/**
+	 * Methode permettant de dessiner la scène de combat dans l'objet de type combat
+	 * @param g : l'objet graphique
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
@@ -45,6 +59,7 @@ public class CombatLayer extends AbstractBufferComposant {
 
 	}
 
+	//Voir javadoc de la super classe abstraite
 	@Override
 	void dessiner(final Graphics g) {
 		paintComponent(g);
