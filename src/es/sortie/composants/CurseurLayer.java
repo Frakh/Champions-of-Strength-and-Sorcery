@@ -37,6 +37,10 @@ public class CurseurLayer extends AbstractBufferComposant {
 		++AntiTearBuffer.RENDERED_IMAGES;
 	}
 
+	/**
+	 * Methode pour dessiner dans l'objet Graphics passé
+	 * @param g = l'objet graphics
+	 */
 	@Override
 	public void dessiner(final Graphics g) {
 		this.paintComponent(g);

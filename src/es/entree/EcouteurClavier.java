@@ -1,5 +1,7 @@
 package es.entree;
 
+import es.exception.UnititializedEcouteurClavierException;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
@@ -17,14 +19,24 @@ public class EcouteurClavier implements KeyEventDispatcher{
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
 	}
 
+	/**
+	 * Fonction d'initialisation de l'écouteur clavier
+	 */
 	public static void init() {
 		if (_instance==null) {
 			_instance = new EcouteurClavier();
 		}
 	}
-	
-	//Commenter
-	public static boolean justPressed(int keycode) {
+
+	/**
+	 * Methode permettant de savoir si oui ou non une touché vient d'être relaché
+	 * @param keycode : le code de la touche
+	 * @return : true si
+	 * @throws UnititializedEcouteurClavierException si l'écouteur clavier n'est pas initialisé ( voir la fonction init() )
+	 */
+	public static boolean justPressed(int keycode) throws UnititializedEcouteurClavierException{
+		if (_instance==null)
+			throw new UnititializedEcouteurClavierException();
 		boolean t = tabKeyOld[keycode]!=tabKeys[keycode];
 		t = t && tabKeyOld[keycode] && !tabKeys[keycode];
 		if (t)
@@ -32,10 +44,23 @@ public class EcouteurClavier implements KeyEventDispatcher{
 		return t;
 	}
 
-	public static boolean isPressed(int keyCode) {
+	/**
+	 * Methode permettant de savoir si actuellement, une touche est enfoncé
+	 * @param keyCode : le code de la dite touche
+	 * @return : true si la touche est enfoncé, false sinon
+	 * @throws UnititializedEcouteurClavierException si l'écouteur clavier n'est pas initialisé ( voir la fonction init() )
+	 */
+	public static boolean isPressed(int keyCode) throws UnititializedEcouteurClavierException {
+		if (_instance==null)
+			throw new UnititializedEcouteurClavierException("Erreur : uninitialized keyboard");
 		return tabKeys[keyCode];
 	}
 
+	/**
+	 * Methode qui n'est pas censé être utilisé par l'exterieur
+	 * @param e : le code de la touche
+	 * @return : semble retourner false constamment
+	 */
 	@Override
 	public boolean dispatchKeyEvent(final KeyEvent e) {
 		synchronized (EcouteurClavier.class) {

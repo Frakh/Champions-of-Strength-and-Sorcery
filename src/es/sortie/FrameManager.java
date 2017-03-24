@@ -1,5 +1,6 @@
 package es.sortie;
 
+import es.exception.FrameManagerInitializedException;
 import es.sortie.composants.AbstractBufferComposant;
 import es.sortie.composants.AntiTearBuffer;
 import utilitaire.IPosition;
@@ -18,6 +19,7 @@ public class FrameManager {
 	private int spriteHeigt, spriteLength;
 	private FocusView fw;
 	private List<MouseAdapter> listMouseAdapters;
+	private boolean is_initialized;
 
 	public static final int DEF_LEN = 1280, DEF_HEI = 720, DEF_SPR_HEI = 32, DEF_SPR_LEN = 32;
 
@@ -28,6 +30,7 @@ public class FrameManager {
 		spriteHeigt = DEF_SPR_HEI;
 		spriteLength = DEF_SPR_LEN;
 		listMouseAdapters = new ArrayList<>();
+		is_initialized = false;
 		//Permet de mettre en fullscreen
 		//GraphicsEnvironment.getLocalGraphicsEnvironment().
 		//		getDefaultScreenDevice().setFullScreenWindow(jFrame);
@@ -73,6 +76,8 @@ public class FrameManager {
 	 * @param jComponents liste des composants
 	 */
 	public void init(AbstractBufferComposant... jComponents) {
+		if (is_initialized)
+			throw new FrameManagerInitializedException("");
 		jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		jFrame.setSize(length, height);
 		BufferedImage screenBuffer = new BufferedImage(length, height, BufferedImage.TYPE_INT_ARGB);
@@ -88,6 +93,7 @@ public class FrameManager {
 		}
 		jFrame.add(gp);
 		jFrame.setVisible(true);
+		is_initialized = true;
 	}
 
 	/**
@@ -121,6 +127,10 @@ public class FrameManager {
 			fw.setPositionToFollow(ip);
 	}
 
+	/**
+	 * Methode d'obtention du focus
+	 * @return le focus
+	 */
 	public FocusView getFocusView() {
 		return fw;
 	}

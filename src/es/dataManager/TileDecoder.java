@@ -4,6 +4,12 @@ import java.awt.image.BufferedImage;
 
 public class TileDecoder {
 
+	/**
+	 * Fonction permettant de charger une tilemap
+	 * @param path : l'endroit ou est situé la tilemap
+	 * @param length la taille des sprites
+	 * @param height : la hauteur des sprites
+	 */
 	public static void loadTile(String path, int length, int height) {
 
 		BufferedImage bm = ImageManager.getImage(path);
@@ -18,6 +24,15 @@ public class TileDecoder {
 		}
 	}
 
+	/**
+	 * Formateur de nouvelle url pour les sous images
+	 * @param path : l'endroit ou est stocké l'image
+	 * @param wdt : la longueur de l'image ( nouvelle )
+	 * @param hgt : la hauteur de l'image ( nouvelle )
+	 * @param i : le décalage de l'image sur le plan horizontal ( en nombre d'images )
+	 * @param j : le décalage de l'image sur le plan vertical ( en nombre d'images )
+	 * @return la chaine de charactères
+	 */
 	private static String newURL(String path, int wdt, int hgt, int i, int j) {
 		return path.substring(0, path.lastIndexOf(".png")) + '_' + wdt + 'x' + hgt + '<' + i + '-' + j +'>' + ".png";
 	}

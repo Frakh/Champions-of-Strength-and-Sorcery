@@ -9,4 +9,8 @@ public class IllegalFriendException extends RuntimeException {
 	public IllegalFriendException(String msg) {
 		super(msg);
 	}
+
+	public IllegalFriendException(Throwable t) {
+		super(t);
+	}
 }

@@ -80,7 +80,6 @@ public class Combat {
 			}
 		}
 		placerTroupeV2(nbTroupes1, nbTroupes2);
-		fight();
 	}
 	
 	private void boostStats(IUnit unit, int attaque, int defense, int moral, int chance) { //augmente les stats de unit
