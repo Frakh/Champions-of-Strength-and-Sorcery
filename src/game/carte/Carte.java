@@ -73,27 +73,36 @@ public class Carte {
 		return elements;
 	}
 	
-	public IElement checkElement(int x, int y){
-		 if (elements[x][y]!=null) return elements[x][y];
-		 	for (int i=x-1;i<=x+1;++i){
-		 		for (int j=y-1;j<=y+1;++j){
-		 			if(i!=x&&j!=y){
-		 				if (elements[i][j]!=null) return elements[i][j];
-		 			}
-		 		}
-		 	}
-		 	return null;
+	public IElement checkElement(int x, int y) {
+		try {
+			if (elements[x][y] != null) return elements[x][y];
+			if (x<1) x = 1;
+			if (y<1) y = 1;
+			for (int i = x - 1; i <= x + 1; ++i) {
+				for (int j = y - 1; j <= y + 1; ++j) {
+					if (i != x && j != y) {
+						if (elements[i][j] != null) return elements[i][j];
+					}
+				}
+			}
+			return null;
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.err.println("Erreur lors de la lecture : x=" + x + " - y=" + y);
+			throw new RuntimeException(e);
 		}
+	}
 	
 	public PFUtil[][] pathfinding(int coordHerosL, int coordHerosH, int nbPointsMouv){ // renvoie un tableau de bools, représentant les cases accessibles par un monstre qui marche par terre
 		// case non visitée = -1
 		// case accessible = + de 0
+		System.out.println("Entree pathfinding");
 		int k;
 		int l;
 		PFUtil trucARetourner[][] = new PFUtil[getHeight()][getWidth()];
 		int truc[][]=new int[getHeight()][getWidth()]; // ai besoin de truc pour avoir faux, vrai et à rendre vrai
 		for(int i=0; i<getHeight(); i++){
 			for (int j=0; j<getWidth(); j++){
+				trucARetourner[i][j] = new PFUtil();
 				trucARetourner[i][j].setCoord(-1);
 				truc[i][j]=0;
 			}
@@ -101,16 +110,20 @@ public class Carte {
 		trucARetourner[coordHerosL][coordHerosH].setCoord(0);
 		int mouvement = 1000;// = case[coordHerosH][coordHerosL].getHeros.getMouvement;
 		boolean Continue=true;
+		System.out.println("Avant 1er while");
 		while (Continue){//while for for if if while if while if. bon appétit bien sûr.
 			for(int i=0; i<getHeight(); i++){
 				for (int j=0; j<getWidth(); j++){
 					if (trucARetourner[coordHerosL][coordHerosH].getCoord()!=-1 && !trucARetourner[coordHerosL][coordHerosH].isEvent()){
+						System.out.println("Entree 1er if");
 						k=i-1;
 						if (k<0) {k=0;}
+						System.out.println("Avant 2nd while");
 						while (k <= i+1 && k<getHeight()){//double boucle while parce que for me faisait sortir du tableau
 							l=j-1;						  //talent
 							if (l<0) {l=0;}
-							while (l <= j+1 && l<getWidth()){	
+							System.out.println("Avant 3eme while");
+							while (l <= j+1 && l<getWidth()){
 								if (canMove(new Vector2i(k,l)) && (trucARetourner[k][l].getCoord()<trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost())&&(trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost()<mouvement)){
 									trucARetourner[k][l].setCoord(trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost());
 									if (checkElement(k,l)!=null)
@@ -118,8 +131,10 @@ public class Carte {
 								}
 								l++;
 							}
+							System.out.println("Sortie 3eme while");
 							k++;
 						}
+						System.out.println("Sortie 2eme while");
 					}
 				}
 			}
@@ -130,6 +145,7 @@ public class Carte {
 				}
 			}
 		}
+		System.out.println("Sortie pathfinding");
 		return trucARetourner;
 	}
 	

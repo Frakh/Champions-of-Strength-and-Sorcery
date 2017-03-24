@@ -94,6 +94,7 @@ public class MapTest {
 		IController ic=noxus.getController();
 		noxus.addHeros(new Heros()); //on créé un héros sans nom parce que balek
 		HerosMap darius=noxus.getHerosMap(0); //idéalement faudrait pouvoir get le heros avec son nom aussi, parce que là on triche un peu
+		darius.setPtMouvement(50);
 
 		if (darius==null)
 			throw new RuntimeException("Darius est null");
@@ -129,7 +130,7 @@ public class MapTest {
 				noxus.curseurUp();
 			if (ic.isJustPress(5)){
 				if (c.getElement(curseur.x,curseur.y)!=null){ //si la case n'est pas vide
-					if(c.getElement(curseur.x,curseur.y).getClass().getName().equals("HerosMap")){ //est-ce un héros ?
+					if(c.getElement(curseur.x,curseur.y).getClass().getName().equals("game.carte.elements.HerosMap")){ //est-ce un héros ?
 						HerosMap sousLeCurseur = (HerosMap) c.getElement(curseur.x,curseur.y);
 						if(noxus.herosContains(sousLeCurseur)){ //est-ce que ce héros est à moi ?
 							noxus.setHerosSelectionne(sousLeCurseur);
