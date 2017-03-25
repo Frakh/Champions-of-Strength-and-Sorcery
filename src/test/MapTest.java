@@ -62,6 +62,8 @@ public class MapTest {
 		AbstractBufferComposant curseurLayer = new CurseurLayer(fm, "./assets/img/SPRITES/PEUNEUGEU/Curseur.png", cursorPos);
 		fm.init(carteLayer, curseurLayer);
 
+		fm.setFrameRateLimit(60);
+
 		IController ic = new ControlleurJoueur();
 		ic.setActionMap(0, VK_D);
 		ic.setActionMap(1, VK_S);
@@ -69,7 +71,6 @@ public class MapTest {
 		ic.setActionMap(3, VK_Z);
 
 		while (true) {
-			fm.repaint();
 
 			if (ic.isJustPress(0) && cursorPos.x < c.getWidth()-1)
 				cursorPos.x++;
