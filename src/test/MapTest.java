@@ -80,7 +80,7 @@ public class MapTest {
 				cursorPos.y--;
 			if (ic.isJustPress(1) && cursorPos.y < c.getHeight()-1)
 				cursorPos.y++;
-			fm.setPositionToFollow(new Position(cursorPos.x, cursorPos.y));
+			fm.setPositionToFollow(cursorPos.toPosition());
 
 			Thread.sleep(16);
 		}
@@ -97,6 +97,7 @@ public class MapTest {
 		HerosMap darius=noxus.getHerosMap(0); //idéalement faudrait pouvoir get le heros avec son nom aussi, parce que là on triche un peu
 		darius.setPtMouvement(50);
 
+		//IntelliJ a dit "Condition "darius==null" is always false
 		if (darius==null)
 			throw new RuntimeException("Darius est null");
 		
