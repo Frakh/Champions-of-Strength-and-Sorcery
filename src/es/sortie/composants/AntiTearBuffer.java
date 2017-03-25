@@ -1,5 +1,7 @@
 package es.sortie.composants;
 
+import es.sortie.FrameManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -16,14 +18,17 @@ public class AntiTearBuffer extends JComponent {
 	private BufferedImage screenBuffer;
 	//Le block de donnée graphique
 	private GraphicDataBlock gdb = new GraphicDataBlock();
+	//Le frame manager
+	private FrameManager fm;
 
 	/**
 	 * Le constructeur
 	 * @param sb : l'image qui servira de tampon
 	 */
-	public AntiTearBuffer(BufferedImage sb) {
+	public AntiTearBuffer(FrameManager fm, BufferedImage sb) {
 		components = new ArrayList<>();
 		screenBuffer = sb;
+		this.fm = fm;
 	}
 
 	/**
@@ -44,7 +49,7 @@ public class AntiTearBuffer extends JComponent {
 	public void paintComponent(Graphics g) {
 
 		RENDERED_IMAGES = 0;
-
+		//screenBuffer = new BufferedImage(fm.getWidth(), fm.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D imgGraph = screenBuffer.createGraphics();
 
 		imgGraph.setBackground(new Color(0,0,0,0));
@@ -53,7 +58,7 @@ public class AntiTearBuffer extends JComponent {
 			jc.setDataBlock();
 			jc.dessiner(screenBuffer.getGraphics());
 		}
-		g.drawImage(screenBuffer, 0,0,this);
+		g.drawImage(screenBuffer, 0,0, fm.getCurrentWidth(), fm.getCurrentHeight(),this);
 		g.drawString("Numb of rendered component : " + RENDERED_IMAGES,10,20);
 
 	}
