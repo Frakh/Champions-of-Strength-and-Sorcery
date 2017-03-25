@@ -1,5 +1,6 @@
 package es.dataManager;
 
+import es.exception.DisposedMediaException;
 import es.exception.MediaNonTrouveException;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -11,11 +12,50 @@ import java.util.concurrent.ConcurrentHashMap;
 //UNSTABLE CLASS DO NOT USE
 public class SoundManager {
 
+
+	static class MediaPlayerConteneur {
+
+		private MediaPlayer mediaPlayer;
+		private boolean isDisposed;
+
+		public MediaPlayerConteneur(final Media strack) {
+			mediaPlayer = new MediaPlayer(strack);
+			isDisposed = false;
+		}
+
+		private void checkDispose() {
+			if (isDisposed)
+				throw new DisposedMediaException("Ce media player est disposed, donc inutilisable");
+		}
+
+		public void play() {
+			checkDispose();
+			mediaPlayer.play();
+		}
+
+		public void pause() {
+			checkDispose();
+			mediaPlayer.pause();
+		}
+
+		public void stop() {
+			checkDispose();
+			mediaPlayer.stop();
+		}
+
+		public void dispose() {
+			checkDispose();
+			this.mediaPlayer.dispose();
+			isDisposed = true;
+		}
+	}
+
+
 	// La map de fichier sonores
 	private static Map<String, Media> soundMap;
 
 	// Joueur de media en cours
-	private static MediaPlayer mediaPlayer = null;
+	private static MediaPlayerConteneur mediaPlayer = null;
 
 	static {
 		soundMap = new ConcurrentHashMap<>();
@@ -59,7 +99,7 @@ public class SoundManager {
 	 */
 	public static void playMedia(String url) {
 		Media strack = getMedia(url);
-		MediaPlayer mPlayer = new MediaPlayer(strack);
+		MediaPlayerConteneur mPlayer = new MediaPlayerConteneur(strack);
 		if (mediaPlayer!=null) {
 			stopMedia();
 		}
@@ -90,5 +130,4 @@ public class SoundManager {
 		mediaPlayer.dispose();
 		mediaPlayer = null;
 	}
-
 }
