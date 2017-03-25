@@ -35,7 +35,7 @@ public class MouseTest {
 			fm.repaint();
 
 			Vector2i autrePos = souris.getFramePosition();
-			cPos.set(autrePos.x/fm.getSpriteLength(), autrePos.y/fm.getSpriteHeigt());
+			cPos.set(autrePos.x/fm.getSpriteWidth(), autrePos.y/fm.getSpriteHeigt());
 			Thread.sleep(16);
 
 		}

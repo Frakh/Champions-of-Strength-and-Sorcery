@@ -38,7 +38,7 @@ public class FocusView {
 	 * @return la quantité de pixel sur le plan horizontal a déplacer pour placer l'image au bon endroit
 	 */
 	public int getXDeplacement() {
-		return (int) ((frameManager.getLength()/2)-(frameManager.getSpriteLength()*this.followPos.getX()));
+		return (int) ((frameManager.getWidth()/2)-(frameManager.getSpriteWidth()*this.followPos.getX()));
 	}
 
 	/**

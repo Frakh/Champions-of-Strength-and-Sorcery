@@ -39,13 +39,13 @@ public abstract class AbstractBufferComposant extends JComponent {
 
 			FocusView fw = fm.getFocusView();
 
-			gdb.winWidth = fm.getLength();
+			gdb.winWidth = fm.getWidth();
 			gdb.winHeight = fm.getHeight();
 
 			gdb.xDecalage = fw.getXDeplacement();
 			gdb.yDecalage = fw.getYDeplacement();
 
-			gdb.spriteWidth = fm.getSpriteLength();
+			gdb.spriteWidth = fm.getSpriteWidth();
 			gdb.spriteHeight = fm.getSpriteHeigt();
 
 			IPosition centre = fw.getCentralPos();

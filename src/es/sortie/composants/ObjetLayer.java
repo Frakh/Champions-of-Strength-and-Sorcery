@@ -61,16 +61,5 @@ public class ObjetLayer extends AbstractBufferComposant {
 				}
 			}
 		}
-
-		/*for (IPosition ip : positions) {
-
-			int xCoordImgDraw = (int) (fm.getSpriteLength() * ip.getX() + xDecalage),
-					yCoordImgDraw = (int) (fm.getSpriteHeigt() * ip.getY() + yDecalage);
-
-			BufferedImage bi = ImageManager.getImage(elementMap.get(ip).getImage());
-			g2.drawImage(bi, xCoordImgDraw, yCoordImgDraw, fm.getSpriteLength(), fm.getSpriteHeigt(), this);
-		}*/
-
 	}
-
 }

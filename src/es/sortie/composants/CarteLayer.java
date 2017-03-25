@@ -30,15 +30,13 @@ public class CarteLayer extends AbstractBufferComposant {
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
-		int nbOfRenderedBlocks = 0;
 		ISpriteDrawable[][] tableau = carte.getSol(friend);
 
 		for (int i = gdb.iStartPos; i < gdb.iEndPos; ++i) {
 			for (int j = gdb.jStartPos; j < gdb.jEndPos; ++j) {
 
-				int xCoordImgDraw = fm.getSpriteLength() * i + gdb.xDecalage,
-						yCoordImgDraw = fm.getSpriteHeigt() * j + gdb.yDecalage;
-				nbOfRenderedBlocks++;
+				int xCoordImgDraw = gdb.spriteWidth * i + gdb.xDecalage,
+						yCoordImgDraw = gdb.spriteHeight * j + gdb.yDecalage;
 				g2.drawImage(ImageManager.getImage(tableau[i][j].getImage()),
 						xCoordImgDraw,
 						yCoordImgDraw,

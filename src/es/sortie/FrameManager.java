@@ -14,22 +14,29 @@ import java.util.List;
 
 public class FrameManager {
 
+	//La jframe qui servira a dessiner dans
 	private JFrame jFrame;
-	private int length, height;
-	private int spriteHeigt, spriteLength;
+	//Les dimensions de la fenêtre
+	private int width, height;
+	//Les dimensions des sprites
+	private int spriteHeigt, spriteWidth;
+	//Le focus
 	private FocusView fw;
+	//La liste des mouse adapter
 	private List<MouseAdapter> listMouseAdapters;
+	//Un boolean pour savoir si la frame manager est initialized
 	private boolean is_initialized;
+	//Le thread qui permet de rafrashir automatiquement la fenêtre
 	private FrameRefresherThread frt;
 
 	public static final int DEF_LEN = 1280, DEF_HEI = 720, DEF_SPR_HEI = 32, DEF_SPR_LEN = 32;
 
 	public FrameManager() {
 		jFrame = new JFrame("Champions of strength and sorcery");
-		length = DEF_LEN;
+		width = DEF_LEN;
 		height = DEF_HEI;
 		spriteHeigt = DEF_SPR_HEI;
-		spriteLength = DEF_SPR_LEN;
+		spriteWidth = DEF_SPR_LEN;
 		listMouseAdapters = new ArrayList<>();
 		is_initialized = false;
 		frt = new FrameRefresherThread();
@@ -38,21 +45,39 @@ public class FrameManager {
 		//		getDefaultScreenDevice().setFullScreenWindow(jFrame);
 	}
 
-	public int getLength() {
-		return length;
+	/**
+	 * Permet d'obtenir la longueur de la fenêtre ( x )
+	 * Prends en compte les bordures windows
+	 * @return la longueur de la fenêtre
+	 */
+	public int getWidth() {
+		return width;
 	}
 
+	/**
+	 * Permet d'obtenir la hauteur de la fenêtre
+	 * Prends en compte les bordures windows
+	 * @return la hauteur de la fenêtre
+	 */
 	public int getHeight() {
 		return height;
 	}
 
+	public int getCurrentWidth() {
+		return jFrame.getWidth();
+	}
+
+	public int getCurrentHeight() {
+		return jFrame.getHeight();
+	}
+
 	/**
 	 * Permet de paramétrer la taille de la fenêtre. PRENDS EN COMPTE LES BORDURES WINDOWS
-	 * @param l : length ( width )
+	 * @param l : width ( width )
 	 * @param h : height
 	 */
 	public void setDimensions(int l, int h) {
-		length = l;
+		width = l;
 		height = h;
 	}
 
@@ -61,16 +86,24 @@ public class FrameManager {
 	 * Vas automatiquement redimensionner la taille des sprites au drawtime
 	 */
 	public void setSpriteDim(int height, int len) {
-		this.spriteLength = len;
+		this.spriteWidth = len;
 		this.spriteHeigt = height;
 	}
 
+	/**
+	 * Permet d'obtenir la hauteur ( y ) des sprites a dessiner
+	 * @return la hauteur du sprite
+	 */
 	public int getSpriteHeigt() {
 		return spriteHeigt;
 	}
 
-	public int getSpriteLength() {
-		return spriteLength;
+	/**
+	 * Permet d'obtenir la longueur ( x ) des sprites a dessiner
+	 * @return la largeur du sprite
+	 */
+	public int getSpriteWidth() {
+		return spriteWidth;
 	}
 
 	/**
@@ -81,10 +114,10 @@ public class FrameManager {
 		if (is_initialized)
 			throw new FrameManagerInitializedException("");
 		jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		jFrame.setSize(length, height);
-		BufferedImage screenBuffer = new BufferedImage(length, height, BufferedImage.TYPE_INT_ARGB);
+		jFrame.setSize(width, height);
+		BufferedImage screenBuffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-		AntiTearBuffer gp = new AntiTearBuffer(screenBuffer);
+		AntiTearBuffer gp = new AntiTearBuffer(this, screenBuffer);
 		for (AbstractBufferComposant j : jComponents) {
 			gp.addComponents(j);
 		}
@@ -111,9 +144,13 @@ public class FrameManager {
 	 * @return le point 2d
 	 */
 	public Point2D getPoint2DFromIPos(IPosition ip) {
-		return new Point2D.Double(ip.getX()*spriteLength, ip.getY()*spriteHeigt);
+		return new Point2D.Double(ip.getX()* spriteWidth, ip.getY()*spriteHeigt);
 	}
 
+	/**
+	 * Ajout d'un mouse adaptater à la JFrame
+	 * @param ml : le mouse adapter
+	 */
 	public void addMouseListener(MouseAdapter ml) {
 		if (ml!=null)
 			this.listMouseAdapters.add(ml);
@@ -183,12 +220,11 @@ public class FrameManager {
 		public void run() {
 			double frametime;
 			while (can_continue) {
-				frametime = 1.0/((double)frameRate);
-				FrameManager.this.repaint();
 				try {
+					frametime = 1.0/((double)frameRate);
+					FrameManager.this.repaint();
 					Thread.sleep((int)(1000*frametime));
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				} catch (Exception e) {
 					can_continue = false;
 				}
 			}
