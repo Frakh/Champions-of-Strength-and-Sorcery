@@ -13,40 +13,76 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SoundManager {
 
 
+	/**
+	 * Classe static qui permet de manager un peu plus efficacement le mediaplayer
+	 */
 	static class MediaPlayerConteneur {
 
+		//Le media player
 		private MediaPlayer mediaPlayer;
+
+		//Si a true, alors le mediaplayer est disposé, et donc inutilisable
 		private boolean isDisposed;
 
+		/**
+		 * Le constructeur
+		 * @param strack : la soundtrack ( la musique )
+		 */
 		public MediaPlayerConteneur(final Media strack) {
 			mediaPlayer = new MediaPlayer(strack);
 			isDisposed = false;
 		}
 
-		private void checkDispose() {
+		/**
+		 * Methode qui verifi que le media n'est pas disposed. Si il l'est, il lance une DisposedMediaException
+		 * @throws DisposedMediaException : l'exception rejeté si il est disposed
+		 */
+		private void checkDispose() throws DisposedMediaException{
 			if (isDisposed)
 				throw new DisposedMediaException("Ce media player est disposed, donc inutilisable");
 		}
 
+		/**
+		 * Methode encapsulant la verification et la mise en marche de la musique
+		 */
 		public void play() {
 			checkDispose();
 			mediaPlayer.play();
 		}
 
+		/**
+		 * Methode encapsulant la verification et la mise en pause de la musique
+		 */
 		public void pause() {
 			checkDispose();
 			mediaPlayer.pause();
 		}
 
+		/**
+		 * Methode permettant d'arrêter la musique ( tout en verifiant )
+		 */
 		public void stop() {
 			checkDispose();
 			mediaPlayer.stop();
 		}
 
+		/**
+		 * Methode permettant de liberer les ressources de la classe
+		 */
 		public void dispose() {
 			checkDispose();
 			this.mediaPlayer.dispose();
 			isDisposed = true;
+		}
+
+		@Override
+		protected void finalize() throws Throwable {
+			super.finalize();
+			if (!isDisposed) {
+				mediaPlayer.dispose();
+				mediaPlayer = null;
+				isDisposed = true;
+			}
 		}
 	}
 
