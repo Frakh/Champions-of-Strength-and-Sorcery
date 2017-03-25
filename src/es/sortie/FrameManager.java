@@ -20,6 +20,7 @@ public class FrameManager {
 	private FocusView fw;
 	private List<MouseAdapter> listMouseAdapters;
 	private boolean is_initialized;
+	private FrameRefresherThread frt;
 
 	public static final int DEF_LEN = 1280, DEF_HEI = 720, DEF_SPR_HEI = 32, DEF_SPR_LEN = 32;
 
@@ -31,6 +32,7 @@ public class FrameManager {
 		spriteLength = DEF_SPR_LEN;
 		listMouseAdapters = new ArrayList<>();
 		is_initialized = false;
+		frt = new FrameRefresherThread();
 		//Permet de mettre en fullscreen
 		//GraphicsEnvironment.getLocalGraphicsEnvironment().
 		//		getDefaultScreenDevice().setFullScreenWindow(jFrame);
@@ -135,6 +137,20 @@ public class FrameManager {
 		return fw;
 	}
 
+	/**
+	 * Methode permettant de donner le frame rate limite
+	 * @param frameRateLimit : la limite
+	 */
+	public void setFrameRateLimit(int frameRateLimit) {
+		if (frameRateLimit>0) {
+			frt.frameRate = frameRateLimit;
+			if (frt.thread==null)
+				frt.start();
+		}
+		else
+			frt.can_continue = false;
+	}
+
 
 	/**
 	 * Inner class permettant de faire rafraichir l'image de manière automatique
@@ -154,7 +170,7 @@ public class FrameManager {
 		 * Methode permettant de démarrer le rafraichisseur dans un autre thread
 		 */
 		void start() {
-			if (thread==null) {
+			if (thread==null && FrameManager.this.is_initialized) {
 				thread = new Thread(this);
 				thread.start();
 			}
