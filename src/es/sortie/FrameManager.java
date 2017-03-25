@@ -134,4 +134,49 @@ public class FrameManager {
 	public FocusView getFocusView() {
 		return fw;
 	}
+
+
+	/**
+	 * Inner class permettant de faire rafraichir l'image de manière automatique
+	 */
+	class FrameRefresherThread implements Runnable {
+
+		//Le framerate a faire rafraishir
+		int frameRate = 60;
+
+		//Le thread dans lequel le rafraichisseur s'execute
+		Thread thread;
+
+		//Un boolean pour savoir si il peut continuer
+		boolean can_continue = true;
+
+		/**
+		 * Methode permettant de démarrer le rafraichisseur dans un autre thread
+		 */
+		void start() {
+			if (thread==null) {
+				thread = new Thread(this);
+				thread.start();
+			}
+		}
+
+		/**
+		 * La methode run que tous le monde connait ( voir javadoc de l'interface java.lang.Runnable )
+		 */
+		@Override
+		public void run() {
+			double frametime;
+			while (can_continue) {
+				frametime = 1.0/((double)frameRate);
+				FrameManager.this.repaint();
+				try {
+					Thread.sleep((int)(1000*frametime));
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+					can_continue = false;
+				}
+			}
+			thread = null;
+		}
+	}
 }
