@@ -8,11 +8,14 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-// Cette classe est mal conçue, a revoir
+//UNSTABLE CLASS DO NOT USE
 public class SoundManager {
 
 	// La map de fichier sonores
 	private static Map<String, Media> soundMap;
+
+	// Joueur de media en cours
+	private static MediaPlayer mediaPlayer = null;
 
 	static {
 		soundMap = new ConcurrentHashMap<>();
@@ -56,16 +59,36 @@ public class SoundManager {
 	 */
 	public static void playMedia(String url) {
 		Media strack = getMedia(url);
-		MediaPlayer mediaPlayer = new MediaPlayer(strack);
+		MediaPlayer mPlayer = new MediaPlayer(strack);
+		if (mediaPlayer!=null) {
+			stopMedia();
+		}
+		mediaPlayer = mPlayer;
+		mediaPlayer.play();
+	}
+
+	/**
+	 * Permet de mettre en pause le média.
+	 * Utiliser resumeMedia pour le remettre en route
+	 */
+	public static void pauseMedia() {
+		mediaPlayer.pause();
+	}
+
+	/**
+	 * Permet de continuer a jouer la musique
+	 */
+	public static void resumeMedia() {
 		mediaPlayer.play();
 	}
 
 	/**
 	 * Methode permettant de stopper la musique
-	 * @param url : l'url
 	 */
-	public static void stopMedia(String url) {
-
+	public static void stopMedia() {
+		mediaPlayer.stop();
+		mediaPlayer.dispose();
+		mediaPlayer = null;
 	}
 
 }
