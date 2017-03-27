@@ -1,5 +1,6 @@
 package appli;
 
+import utilitaire.CommandReader;
 import utilitaire.SocketFlux;
 
 import java.io.IOException;
@@ -12,8 +13,8 @@ public class MainApp {
 	public static void main(String[] args) throws IOException {
 
 		System.out.println("Server : Champion of strengh and sorcery");
-		System.out.println("Setting up");
 
+		new CommandReader().start();
 		ServerSocket waiter = new ServerSocket(CONNECT_PORT);
 
 		System.out.println("Ready to receive player");

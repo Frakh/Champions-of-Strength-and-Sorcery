@@ -131,4 +131,16 @@ public class Partie extends BaseThread {
 	public static void killPartie(int id) {
 		getPartieById(id).killPartie();
 	}
+
+	/**
+	 * Permet de tuer toutes les parties
+	 */
+	public static void killAll() {
+		for (Partie p : partiesAttente) {
+			p.killPartie();
+		}
+		for (Partie p : partiesEnCours) {
+			p.killPartie();
+		}
+	}
 }
