@@ -126,7 +126,7 @@ public class MapTest {
 				noxus.curseurDown();;
 			if (ic.isJustPress(4) && curseur.x>0)
 				noxus.curseurLeft();;
-			if (ic.isJustPress(6) && curseur.x<c.getWidth())
+			if (ic.isJustPress(6) && curseur.x<c.getWidth()-1)
 				noxus.curseurRight();
 			if (ic.isJustPress(8) && curseur.y >0)
 				noxus.curseurUp();
@@ -141,11 +141,13 @@ public class MapTest {
 				}
 				//si la case est vide
 				else{
-					Vector2i coord=c.getCoordHeros(noxus.getHerosSelectionne());
-					try {
-						c.deplacer(noxus.getHerosSelectionne(), coord.x, coord.y, noxus.getCurseur());
-					} catch (Exception e) {
-						e.printStackTrace();
+					if (noxus.getHerosSelectionne()!=null){ //dans le vrai jeu t'auras toujours un héros sélectionné, mais bon
+						Vector2i coord=c.getCoordHeros(noxus.getHerosSelectionne());
+						try {
+							c.deplacer(noxus.getHerosSelectionne(), coord.x, coord.y, noxus.getCurseur());
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
