@@ -28,6 +28,8 @@ public class FrameManager {
 	private boolean is_initialized;
 	//Le thread qui permet de rafrashir automatiquement la fenêtre
 	private FrameRefresherThread frt;
+	//Le buffer d'affichage
+	private AntiTearBuffer atb;
 
 	public static final int DEF_LEN = 1280, DEF_HEI = 720, DEF_SPR_HEI = 32, DEF_SPR_LEN = 32;
 
@@ -134,6 +136,7 @@ public class FrameManager {
 			gp.addMouseMotionListener(ma);
 			gp.addMouseWheelListener(ma);
 		}
+		this.atb = gp;
 		jFrame.add(gp);
 		jFrame.setVisible(true);
 		is_initialized = true;
@@ -194,6 +197,15 @@ public class FrameManager {
 		}
 		else
 			frt.can_continue = false;
+	}
+
+	/**
+	 * Permet de mettre une certaine quantité de layers visibles ou non visibles
+	 * @param clname : le nom de la classe du layer
+	 * @param isVisible : si oui ou non ils sont visibles
+	 */
+	public void setLayerVisibility(String clname, boolean isVisible) {
+		this.atb.setDisplayable(clname, isVisible);
 	}
 
 
