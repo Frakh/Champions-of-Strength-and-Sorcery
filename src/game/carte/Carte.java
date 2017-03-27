@@ -113,6 +113,8 @@ public class Carte {
 		System.out.println("Avant 1er while");
 		while (Continue){//while for for if if while if while if. bon appétit bien sûr.
 			for(int i=0; i<getHeight(); i++){
+				//on passe ici à l'infini
+				
 				for (int j=0; j<getWidth(); j++){
 					if (trucARetourner[coordHerosL][coordHerosH].getCoord()!=-1 && !trucARetourner[coordHerosL][coordHerosH].isEvent()){
 						System.out.println("Entree 1er if");
