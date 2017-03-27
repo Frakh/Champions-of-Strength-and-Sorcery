@@ -1,9 +1,5 @@
 package es.netclasses;
 
-import es.eventlogger.LogSys;
-import es.netclasses.evenements.eventimpl.ServerStopEvenement;
-
-import java.io.IOException;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -57,36 +53,6 @@ public class NetQueueEvenement {
 			arrayQueue[id].toArray(evenements);
 			arrayQueue[id].clear();
 			return evenements;
-		}
-	}
-
-	/**
-	 * Methode permettant de vider le contenu de la queue désigné
-	 * @param id : identifiant de la queue d'évenement
-	 * @return -1 en cas de queue nulle, le nombre d'évenements supprimés sinon
-	 */
-	public static int clearQueue(int id) {
-		Queue clq = arrayQueue[id];
-		if (clq==null)
-			return -1;
-		int s = clq.size();
-		clq.clear();
-		return s;
-	}
-
-	/**
-	 * Methode permettant de switcher le blocage d'evenement d'un certain id entre le client et le serveur
-	 * @param id_event_to_block : id de l'evenement a bloquer
-	 * @return true si l'envoie de la donné a réussie, false sinon
-	 */
-	public static boolean switchEventBlock(int id_event_to_block) {
-		Evenement e = new ServerStopEvenement(id_event_to_block);
-		try {
-			NetworkInterface.send(e);
-			return true;
-		} catch (IOException e1) {
-			LogSys.log(e1);
-			return false;
 		}
 	}
 }
