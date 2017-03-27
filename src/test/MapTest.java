@@ -69,7 +69,9 @@ public class MapTest {
 		ic.setActionMap(1, VK_S);
 		ic.setActionMap(2, VK_Q);
 		ic.setActionMap(3, VK_Z);
+		ic.setActionMap(4, VK_A);
 
+		boolean b = true;
 		while (true) {
 
 			if (ic.isJustPress(0) && cursorPos.x < c.getWidth()-1)
@@ -80,6 +82,10 @@ public class MapTest {
 				cursorPos.y--;
 			if (ic.isJustPress(1) && cursorPos.y < c.getHeight()-1)
 				cursorPos.y++;
+			if (ic.isJustPress(4)) {
+				b = !b;
+				fm.setLayerVisibility("es.sortie.composants.CarteLayer", b);
+			}
 			fm.setPositionToFollow(cursorPos.toPosition());
 
 			Thread.sleep(16);
