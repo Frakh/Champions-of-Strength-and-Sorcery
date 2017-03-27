@@ -21,20 +21,31 @@ public class NewPlayerService implements Runnable {
 		return thread;
 	}
 
-	public void processGameEvenement(JeuEvenement e) {
-
-	}
 
 	@Override
 	public void run() {
 
 		System.out.println("New Player " + "Etablished Connection");
 
-		JeuEvenement jev = (JeuEvenement) joueur.getSocketFlux().readEvenement();
+		JeuEvenement jevent = (JeuEvenement) joueur.getSocketFlux().readEvenement();
 
-		switch (jev.getMessageId()) {
+		switch (jevent.getMessageId()) {
 			case JeuEvenement.GAME_LIST:
 				joueur.getSocketFlux().writeEvenement(new JeuEvenement(JeuEvenement.GAME_LIST, Partie.getPartiesJoinable()));
+				break;
+			case JeuEvenement.CREATE_GAME:
+				Partie.creerPartie(joueur, jevent.getDetail());
+				return;
+			case JeuEvenement.JOIN_GAME:
+				try {
+					Partie.rejoindre(Integer.parseInt(jevent.getDetail()), joueur);
+					return;
+				} catch (Exception e) {
+					joueur.getSocketFlux().writeEvenement(new JeuEvenement(JeuEvenement.NOT_FOUND_GAME, ""));
+				}
+				break;
+			default:
+				break;
 		}
 	}
 }
