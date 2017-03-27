@@ -38,6 +38,7 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 	 */
 	public void ajouterImageUI(ImageConteneur ic) {
 		imgConteneur.add(ic);
+		imgConteneur.sort(ImageConteneur::compareTo);
 	}
 
 	/**
@@ -56,8 +57,6 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-
-		imgConteneur.sort(ImageConteneur::compareTo);
 
 		for (ImageConteneur ic : imgConteneur) {
 			g2.drawImage(
