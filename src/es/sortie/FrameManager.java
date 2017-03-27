@@ -82,6 +82,14 @@ public class FrameManager {
 	}
 
 	/**
+	 * Permet d'obtenir les souris
+	 * @return la liste des souris
+	 */
+	public List<MouseAdapter> getMouseAdapters() {
+		return this.listMouseAdapters;
+	}
+
+	/**
 	 * Permet de paramétrer la dimension des sprites.
 	 * Vas automatiquement redimensionner la taille des sprites au drawtime
 	 */
