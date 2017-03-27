@@ -1,7 +1,6 @@
-package es.netclasses.evenements;
+package es.netclasses;
 
 import es.eventlogger.LogSys;
-import es.netclasses.NetworkInterface;
 import es.netclasses.evenements.eventimpl.ServerStopEvenement;
 
 import java.io.IOException;

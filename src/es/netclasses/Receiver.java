@@ -1,8 +1,6 @@
 package es.netclasses;
 
 import es.eventlogger.LogSys;
-import es.netclasses.evenements.Evenement;
-import es.netclasses.evenements.NetQueueEvenement;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

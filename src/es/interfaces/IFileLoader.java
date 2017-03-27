@@ -1,6 +1,6 @@
 package es.interfaces;
 
-import game.carte.Carte;
+import game.Carte;
 import game.carte.Case;
 import game.carte.IElement;
 import game.carte.elements.ElementFactory;

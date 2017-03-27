@@ -1,7 +1,6 @@
 package es.netclasses;
 
 import es.eventlogger.LogSys;
-import es.netclasses.evenements.Evenement;
 
 import java.io.*;
 import java.net.Socket;

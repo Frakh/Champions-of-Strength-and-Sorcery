@@ -40,6 +40,12 @@ public class Heros {
 		}
 		for (int i = 0; i<NBCAPACITES; i++)
 			capacites[i]=null;
+		ptDeplacement=500; //tg
+	}
+	
+	public Heros(String nom){
+		this();
+		this.nom=nom;
 	}
 	
 	
