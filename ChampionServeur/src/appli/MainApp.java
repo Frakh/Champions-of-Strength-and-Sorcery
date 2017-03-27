@@ -1,5 +1,7 @@
 package appli;
 
+import utilitaire.SocketFlux;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 
@@ -15,6 +17,9 @@ public class MainApp {
 		ServerSocket waiter = new ServerSocket(CONNECT_PORT);
 
 		System.out.println("Ready to receive player");
+		while (true) {
+			new NewPlayerService(new SocketFlux(waiter.accept())).start();
+		}
 	}
 
 }

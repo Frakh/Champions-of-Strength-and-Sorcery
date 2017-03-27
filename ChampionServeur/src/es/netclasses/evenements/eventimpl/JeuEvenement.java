@@ -14,6 +14,8 @@ public class JeuEvenement extends Evenement{
 	public static final byte NOT_FOUND_GAME = 3;
 	//Detail a fournir : rien / doit être donné par le server a tous le monde
 	public static final byte RUN_GAME = 4;
+	//Detail a fournir : rien ?
+	public static final byte PARTIE_KILLED = 5;
 
 	private byte messageId;
 	private String detail;
