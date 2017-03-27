@@ -49,6 +49,6 @@ public class CommandReader extends BaseThread {
 	}
 
 	public void stopServer() {
-
+		Partie.killAll();
 	}
 }
