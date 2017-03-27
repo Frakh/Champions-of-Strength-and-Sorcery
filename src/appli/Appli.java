@@ -1,12 +1,9 @@
 package appli;
 
 import es.sortie.FrameManager;
-import es.sortie.composants.AbstractBufferComposant;
-import es.sortie.composants.CarteLayer;
 import es.sortie.composants.InterfaceUtilisateurLayer;
 import utilitaire.IPosition;
 import utilitaire.Position;
-import utilitaire.Vector2i;
 
 public class Appli {
 	public static void main (String[] args){
@@ -22,7 +19,6 @@ public class Appli {
 		fm.setDimensions(1280,720);
 
 		InterfaceUtilisateurLayer menu = new InterfaceUtilisateurLayer();
-		menu.ajouterImageUI(new Vector2i(0,0),"assets/img/ui/menu_fond.jpg");
 
 		fm.init(menu); 
 		fm.setFrameRateLimit(60);
