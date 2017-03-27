@@ -1,9 +1,11 @@
 package appli;
 
 import es.sortie.FrameManager;
+import es.sortie.ImageConteneur;
 import es.sortie.composants.InterfaceUtilisateurLayer;
 import utilitaire.IPosition;
 import utilitaire.Position;
+import utilitaire.Vector2i;
 
 public class Appli {
 	public static void main (String[] args){
@@ -19,7 +21,11 @@ public class Appli {
 		fm.setDimensions(1280,720);
 
 		InterfaceUtilisateurLayer menu = new InterfaceUtilisateurLayer();
-
+		
+		menu.ajouterImageUI(new ImageConteneur("./assets/img/ui/menu_fond.jpg",new Vector2i(1280,720),new Vector2i(0,0),-69));
+		menu.ajouterImageUI(new ImageConteneur("./assets/img/ui/create.jpg",new Vector2i(205,100),new Vector2i(740,200),9));
+		menu.ajouterImageUI(new ImageConteneur("./assets/img/ui/join.jpg",new Vector2i(205,100),new Vector2i(740,400),9));
+		
 		fm.init(menu); 
 		fm.setFrameRateLimit(60);
 		
