@@ -1,11 +1,11 @@
 package es.sortie.composants;
 
 import es.dataManager.ImageManager;
+import es.sortie.ImageConteneur;
 import utilitaire.Vector2i;
 
 import java.awt.*;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Classe permettant de contenir les informations par rapport a l'UI
@@ -14,8 +14,9 @@ import java.util.Set;
 public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 
 	//La position en pixels des images sur la carte
-	private Map<Vector2i, String> mapPositionImage;
-	private Map<Vector2i, Object> donnes_pos_img;
+	private java.util.List<ImageConteneur> imgConteneur = new ArrayList<>();
+	//Les strings a ajouter, appelera la methode toString
+	private Map<Vector2i, Object> iObjectMap = new HashMap<>();
 
 	/**
 	 * Constructeur de l'UILayer
@@ -27,18 +28,16 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 	/**
 	 * Permet de vider les cartes
 	 */
-	public void emptyMaps() {
-		mapPositionImage.clear();
-		donnes_pos_img.clear();
+	public void emptyContainers() {
+		imgConteneur.clear();
 	}
 
 	/**
 	 * Permet d'ajouter une image sur l'ecran de l'ui
-	 * @param v : la position en pixel
-	 * @param s : l'adresse sur le disque de l'image
+	 * @param ic : le conteneur d'image
 	 */
-	public void ajouterImageUI(Vector2i v, String s) {
-		mapPositionImage.put(v,s);
+	public void ajouterImageUI(ImageConteneur ic) {
+		imgConteneur.add(ic);
 	}
 
 	/**
@@ -47,7 +46,7 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 	 * @param o : l'objet ( methode toString appelé )
 	 */
 	public void ajouterDonnesUI(Vector2i v, Object o) {
-		donnes_pos_img.put(v, o);
+		iObjectMap.put(v, o);
 	}
 
 	/**
@@ -58,23 +57,30 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
-		// Pas optimisé au niveau mémoire
-		Set<Vector2i> coorset = mapPositionImage.keySet();
+		imgConteneur.sort(ImageConteneur::compareTo);
 
-		for (Vector2i vi : coorset) {
+		for (ImageConteneur ic : imgConteneur) {
 			g2.drawImage(
-					ImageManager.getImage(mapPositionImage.get(vi)),
-					vi.x,
-					vi.y,
+					ImageManager.getImage(ic.getImagePath()),
+					ic.getImgDisp00Point().x,
+					ic.getImgDisp00Point().y,
+					ic.getImgDispSize().x,
+					ic.getImgDispSize().y,
 					this
 			);
 			++AntiTearBuffer.RENDERED_IMAGES;
+		}
+
+		//Memory Unoptimized
+		Set<Vector2i> vector2is = iObjectMap.keySet();
+		for (Vector2i vi : vector2is) {
+			g2.drawString(iObjectMap.get(vi).toString(), vi.x, vi.y);
 		}
 	}
 
 	//Voir la javadoc de la super classe abstraite
 	@Override
 	void dessiner(final Graphics g) {
-
+		paintComponent(g);
 	}
 }

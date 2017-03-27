@@ -65,4 +65,21 @@ public class AntiTearBuffer extends JComponent {
 
 	}
 
+	/**
+	 * Permet de mettre "affichable" ou non un layer
+	 * @param clname : le nom de la classe a afficher
+	 * @param candisp : si il peut être affiché
+	 */
+	public void setDisplayable(String clname, boolean candisp) {
+		if (!clname.startsWith("es.sortie.composants.")) {
+			clname = "es.sortie.composants." + clname;
+		}
+
+		for (AbstractBufferComposant abc : components) {
+			if (abc.getClass().getName().equals(clname)) {
+				abc.setAbilityToDisplay(candisp);
+			}
+		}
+	}
+
 }
