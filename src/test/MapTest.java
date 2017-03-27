@@ -8,9 +8,9 @@ import es.sortie.composants.AbstractBufferComposant;
 import es.sortie.composants.CarteLayer;
 import es.sortie.composants.CurseurLayer;
 import es.sortie.composants.ObjetLayer;
+import game.Carte;
 import game.Heros;
 import game.Joueur;
-import game.carte.Carte;
 import game.carte.elements.HerosMap;
 
 import org.junit.Test;
@@ -93,7 +93,7 @@ public class MapTest {
 		Joueur noxus = new Joueur();
 		Vector2i curseur=noxus.getCurseur();
 		IController ic=noxus.getController();
-		noxus.addHeros(new Heros()); //on créé un héros sans nom parce que balek
+		noxus.addHeros(new Heros("dar kwadeaure")); //on créé un héros sans nom parce que balek
 		HerosMap darius=noxus.getHerosMap(0); //idéalement faudrait pouvoir get le heros avec son nom aussi, parce que là on triche un peu
 		darius.setPtMouvement(50);
 

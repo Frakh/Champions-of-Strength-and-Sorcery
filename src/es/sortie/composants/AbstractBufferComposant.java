@@ -2,7 +2,7 @@ package es.sortie.composants;
 
 import es.sortie.FocusView;
 import es.sortie.FrameManager;
-import game.carte.Carte;
+import game.Carte;
 import utilitaire.IPosition;
 
 import javax.swing.*;

@@ -1,6 +1,6 @@
-package es.netclasses.evenements.eventimpl;
+package es.netclasses.evenements;
 
-import es.netclasses.evenements.Evenement;
+import es.netclasses.Evenement;
 
 public class NetSystemMessageEvenement extends Evenement{
 

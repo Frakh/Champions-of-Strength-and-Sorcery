@@ -2,7 +2,7 @@ package es.sortie.composants;
 
 import es.dataManager.ImageManager;
 import es.sortie.FrameManager;
-import game.carte.Carte;
+import game.Carte;
 import game.carte.IElement;
 
 import java.awt.*;

@@ -1,7 +1,5 @@
 package game;
 
-import game.carte.Carte;
-
 public class Jeu implements Runnable{
 	private Carte surface, souterrain;
 	private Joueur[] joueurs;

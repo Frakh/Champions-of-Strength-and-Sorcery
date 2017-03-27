@@ -3,7 +3,7 @@ package es.sortie.composants;
 import es.dataManager.ImageManager;
 import es.interfaces.ISpriteDrawable;
 import es.sortie.FrameManager;
-import game.carte.Carte;
+import game.Carte;
 
 import java.awt.*;
 
