@@ -17,6 +17,8 @@ public abstract class AbstractBufferComposant extends JComponent {
 	protected FrameManager fm;
 	//La carte du jeu
 	protected Carte carte;
+	//Si oui ou non il faut afficher données
+	protected boolean be_disp = true;
 
 	/**
 	 * Seul et unique CTOR
@@ -100,6 +102,14 @@ public abstract class AbstractBufferComposant extends JComponent {
 
 		ImageProducer ip = new FilteredImageSource(im.getSource(), filter);
 		return Toolkit.getDefaultToolkit().createImage(ip);
+	}
+
+	public void setAbilityToDisplay(boolean b) {
+		this.be_disp = b;
+	}
+
+	public boolean ableToDisplay() {
+		return this.be_disp;
 	}
 
 	/**
