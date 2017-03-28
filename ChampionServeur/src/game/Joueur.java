@@ -32,6 +32,7 @@ public class Joueur extends BaseThread {
 	public Evenement[] getEvenementArray() {
 		Evenement[] earr = new Evenement[queue.size()];
 		queue.toArray(earr);
+		queue.clear();
 		return earr;
 	}
 
