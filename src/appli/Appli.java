@@ -50,7 +50,6 @@ public class Appli {
 
 		while(true){
 			//if (mickey.mousePressed())
-			System.out.print("");
 			if (mickey.getUsedButton()==MouseEvent.BUTTON1 && boutonCreer.getImageDrawingArea().contains(mickey.getInGamePosition())){
 				//créer une partie
 				System.out.println("ta maman sent bon");

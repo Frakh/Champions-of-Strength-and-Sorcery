@@ -4,7 +4,6 @@ import es.entree.ControlleurJoueur;
 import es.interfaces.IController;
 import es.interfaces.IFileLoader;
 import es.sortie.FrameManager;
-import es.sortie.ImageConteneur;
 import es.sortie.composants.AbstractBufferComposant;
 import es.sortie.composants.CarteLayer;
 import es.sortie.composants.CurseurLayer;
@@ -19,9 +18,6 @@ import utilitaire.Position;
 import utilitaire.Vector2i;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import static java.awt.event.KeyEvent.*;
 
@@ -167,21 +163,4 @@ public class MapTest {
 		}
 	}
 
-	@Test
-	public void testLayerUI() {
-
-		ImageConteneur ic1 = new ImageConteneur("", null, null, 2),
-				ic2 = new ImageConteneur("", null, null, 5),
-				ic3 = new ImageConteneur("", null, null, 4);
-
-		List<ImageConteneur> ics = new ArrayList<>();
-		Collections.addAll(ics, ic1, ic2, ic3);
-		for (ImageConteneur c : ics) {
-			System.out.println(c.getPriority());
-		}
-		ics.sort(ImageConteneur::compareTo);
-		for (ImageConteneur c : ics) {
-			System.out.println(c.getPriority());
-		}
-	}
 }
