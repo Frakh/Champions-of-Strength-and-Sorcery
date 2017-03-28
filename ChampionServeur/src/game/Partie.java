@@ -1,9 +1,12 @@
 package game;
 
+import es.netclasses.evenements.Evenement;
 import es.netclasses.evenements.eventimpl.JeuEvenement;
 import utilitaire.BaseThread;
 
+import java.util.Queue;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Partie extends BaseThread {
 
@@ -23,6 +26,10 @@ public class Partie extends BaseThread {
 	private String map;
 	//Id de la partie
 	private int id;
+	//La queue qui va servir de redispacther d'évenement
+	private Queue<EvenementConteneur> queueDevent;
+	//La queue qui va gérer les évenements destinés au serveur
+	private Queue<EvenementConteneur> servEvenements;
 
 	/**
 	 * CTOR unique
@@ -35,6 +42,8 @@ public class Partie extends BaseThread {
 		this.map = map;
 		joueurs = new Vector<>();
 		this.id = id_cpt++;
+		this.queueDevent = new ConcurrentLinkedQueue<>();
+		this.servEvenements = new ConcurrentLinkedQueue<>();
 	}
 
 	/**
@@ -63,6 +72,24 @@ public class Partie extends BaseThread {
 	 */
 	@Override
 	public void run() {
+
+		while (conti_run) {
+
+			for (Joueur j : joueurs) {
+				Evenement[] evenements = j.getEvenementArray();
+				if (evenements.length>0) {
+					for (Evenement e : evenements) {
+						if (e.isDispachtable()) {
+							this.queueDevent.add(new EvenementConteneur(e, j));
+						} else {
+							this.servEvenements.add(new EvenementConteneur(e,j));
+						}
+					}
+				}
+			}
+
+
+		}
 
 	}
 
