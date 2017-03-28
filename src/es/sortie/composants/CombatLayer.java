@@ -5,6 +5,7 @@ import es.sortie.FrameManager;
 import game.combat.Combat;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Classe permettant de dessiner la scène de combat
@@ -35,15 +36,27 @@ public class CombatLayer extends AbstractBufferComposant {
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
+		//Fond d'écran
 		g2.drawImage(
 				ImageManager.getImage(fondCombat),
 				0,0,gdb.winWidth, gdb.winHeight, this	);
 
+		//Affichage des unités
 		for (int i = 0; i <= 13; ++i) {
-			try {
-				int x = combat.getCoordTroupes(i).x;
-				int y = combat.getCoordTroupes(i).y;
+			int x = combat.getCoordTroupes(i).x;
+			int y = combat.getCoordTroupes(i).y;
+			if (x>=0 && y>=0) {
 				String urlimage = combat.terrainCombat[x][y].getUnit().getImage();
+				boolean[][] path = combat.pathfinding(x,y);
+				for (int b = 0; b < 13; ++b) {
+					for (int a = 0; a < 20; a++) {
+						Rectangle2D.Double rdouble = new Rectangle2D.Double(
+								a*gdb.spriteWidth, b*gdb.spriteHeight,
+								gdb.spriteWidth, gdb.spriteHeight
+						);
+						g2.fill(rdouble);
+					}
+				}
 				g2.drawImage(
 						ImageManager.getImage(urlimage),
 						x * gdb.spriteWidth,
@@ -52,8 +65,6 @@ public class CombatLayer extends AbstractBufferComposant {
 						gdb.spriteHeight,
 						this
 				);
-			} catch (RuntimeException e) {
-				e.printStackTrace();
 			}
 		}
 
