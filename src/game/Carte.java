@@ -1,11 +1,8 @@
-package game;
+package game.carte;
 
 import es.exception.IllegalFriendException;
 import es.sortie.composants.CarteLayer;
 import es.sortie.composants.ObjetLayer;
-import game.carte.Case;
-import game.carte.IElement;
-import game.carte.PFUtil;
 import game.carte.elements.HerosMap;
 import utilitaire.Vector2i;
 
@@ -23,7 +20,7 @@ public class Carte {
 		this.sol = sol;
 		this.elements = elements;
 	}
-	
+
 	//le constructeur du debug wesh
 	public Carte(int largeur, int hauteur, Case[][] sol, IElement[][] elements){
 		sol = new Case[largeur][hauteur];
@@ -33,19 +30,18 @@ public class Carte {
 		this.sol=sol;
 		this.elements = elements;
 	}
-	
+
 	//le constructeur du fichier texte
 	//public Carte(String path) mais j'ai la flemme pour l'instant
-	
+
 	public boolean canMove(Vector2i pos){
-		// Code simplifié par l'ide
 		return sol[pos.getX()][pos.getY()].getMvtCost() != 0;
 	}
-	
+
 	public Case getCase(int x, int y){
 		return sol[x][y];
 	}
-	
+
 	public IElement getElement(int x, int y){
 		return elements[x][y];
 	}
@@ -57,7 +53,7 @@ public class Carte {
 	public int getWidth() {
 		return this.sol.length;
 	}
-	
+
 	public Vector2i getDimensions() {
 		return new Vector2i(this.sol.length, this.sol[0].length);
 	}
@@ -75,18 +71,24 @@ public class Carte {
 			throw new IllegalFriendException();
 		return elements;
 	}
-	
+
 	public IElement checkElement(int x, int y) {
 		try {
 			if (elements[x][y] != null) return elements[x][y];
-			if (x<1) x = 1;
-			if (y<1) y = 1;
-			for (int i = x - 1; i <= x + 1; ++i) {
-				for (int j = y - 1; j <= y + 1; ++j) {
+			int i = x-1;
+			int j = y-1;
+			if (i<0) i=0;
+			if (j<0) j=0;
+			if (x == elements.length-1) x=x-1;
+			if (y == elements[0].length-1) y=y-1;
+			while (i <= x+1){
+				while (j <= y+1){
 					if (i != x && j != y) {
 						if (elements[i][j] != null) return elements[i][j];
 					}
+					j++;
 				}
+				i++;
 			}
 			return null;
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -94,91 +96,94 @@ public class Carte {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
+
 	public PFUtil[][] pathfinding(int coordHerosL, int coordHerosH, int nbPointsMouv){ // renvoie un tableau de bools, représentant les cases accessibles par un monstre qui marche par terre
-		// case non visitée = -1
-		// case accessible = + de 0
-		System.out.println("Entree pathfinding");
-		int k;
-		int l;
-		PFUtil trucARetourner[][] = new PFUtil[getHeight()][getWidth()];
-		int truc[][]=new int[getHeight()][getWidth()]; // ai besoin de truc pour avoir faux, vrai et à rendre vrai
-		for(int i=0; i<getHeight(); i++){
-			for (int j=0; j<getWidth(); j++){
-				trucARetourner[i][j] = new PFUtil();
-				trucARetourner[i][j].setCoord(-1);
-				truc[i][j]=0;
+		int k=-1;
+		int l=-1;
+		PFUtil trucARetourner[][] = new PFUtil[getWidth()][getHeight()];
+		int truc[][] = new int[getWidth()][getHeight()]; // ai besoin de truc pour avoir faux, vrai et a rendre vrai
+		for(int i=0; i<getWidth(); i++){
+			for (int j=0; j<getHeight(); j++){
+				trucARetourner[i][j] = new PFUtil();		// case non visitee = -1
+				truc[i][j]=0;								// case accessible = + de 0
 			}
 		}
 		trucARetourner[coordHerosL][coordHerosH].setCoord(0);
-		int mouvement = 1000;// = case[coordHerosH][coordHerosL].getHeros.getMouvement;
+		truc[coordHerosL][coordHerosH]=0;
+		int mouvement = nbPointsMouv;
 		boolean Continue=true;
-		System.out.println("Avant 1er while");
-		while (Continue){//while for for if if while if while if. bon appétit bien sûr.
-			for(int i=0; i<getHeight(); i++){
-				for (int j=0; j<getWidth(); j++){
-					if (trucARetourner[coordHerosL][coordHerosH].getCoord()!=-1 && !trucARetourner[coordHerosL][coordHerosH].isEvent()){
-						System.out.println("Entree 1er if");
+		while (Continue){//while for for if if while if while if. bon appetit bien sur.
+			for(int i=0; i<getWidth(); i++){
+				for (int j=0; j<getHeight(); j++){
+					if (trucARetourner[i][j].getCoord() != -1
+							&& !trucARetourner[i][j].isEvent()){
 						k=i-1;
 						if (k<0) {k=0;}
-						System.out.println("Avant 2nd while");
-						while (k <= i+1 && k<getHeight()){//double boucle while parce que for me faisait sortir du tableau
+						while (k <= i+1 && k<getWidth()){//double boucle while parce que for me faisait sortir du tableau
 							l=j-1;						  //talent
 							if (l<0) {l=0;}
-							System.out.println("Avant 3eme while");
-							while (l <= j+1 && l<getWidth()){
-								if (canMove(new Vector2i(k,l)) && (trucARetourner[k][l].getCoord()<trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost())&&(trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost()<mouvement)){
-									trucARetourner[k][l].setCoord(trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost());
-									if (checkElement(k,l)!=null)
-										trucARetourner[k][l].setEvent(true);
-								}
+							while (l <= j+1 && l<getHeight()){
+								if ((trucARetourner[k][l].getCoord()>trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost())
+										|| trucARetourner[k][l].getCoord()==-1)
+									if(canMove(new Vector2i(k,l))
+											&& (trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost()<mouvement)){
+										trucARetourner[k][l].setCoord(trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost());
+										if (elements[k][l]!=null)
+											trucARetourner[k][l].setEvent(true);
+									}
 								l++;
 							}
-							System.out.println("Sortie 3eme while");
 							k++;
 						}
-						System.out.println("Sortie 2eme while");
 					}
 				}
 			}
 			Continue=false;
-			for(int i=0; i<getHeight(); i++){
-				for (int j=0; j<getWidth(); j++){
-					if (trucARetourner[i][j].getCoord()!=truc[i][j]) Continue = true;
+			for(int aa=0; aa<getWidth(); aa++){
+				for (int bb=0; bb<getHeight(); bb++){
+					if (trucARetourner[aa][bb].getCoord()!=truc[aa][bb]){
+						Continue = true;
+						truc[aa][bb]=trucARetourner[aa][bb].getCoord();
+					}
 				}
 			}
 		}
-		System.out.println("Sortie pathfinding");
+		trucARetourner[coordHerosL][coordHerosH].setEvent(true);
 		return trucARetourner;
 	}
-	
-	public void deplacer(HerosMap heros, int coordHerosL, int coordHerosH, Vector2i pos) throws Exception {
 
+
+
+
+	public boolean deplacer(HerosMap heros, int coordHerosL, int coordHerosH, Vector2i pos) throws Exception {
 		if (heros==null)
 			throw new NullPointerException("heros est null");
 		if (pos==null)
 			throw new NullPointerException("pos est null");
-
-		PFUtil [][] tabDep = pathfinding(coordHerosH, coordHerosL, heros.getHeros().getPtDeplacement());
+		PFUtil [][] tabDep = pathfinding(coordHerosL, coordHerosH, heros.getHeros().getPtDeplacement());
+		toStringPF(coordHerosL, coordHerosH, heros.getHeros().getPtDeplacement());
 		PFUtil caseCible = tabDep[pos.getX()][pos.getY()];
 		int coutDep = caseCible.getCoord();
 		if(coutDep < 0) {
-			//throw new Exception("impossible de se deplacer la-bas");
+			System.out.println("Case trop loin du heros");
+			return false;
 		}
 		else {
 			heros.getHeros().setPtDeplacement(heros.getHeros().getPtDeplacement() - coutDep);
 			elements[pos.getX()][pos.getY()] = heros;
-			elements[coordHerosH][coordHerosL] = null;
+			elements[coordHerosL][coordHerosH] = null;
 			if(caseCible.isEvent()) {
 				elements[pos.getX()][pos.getY()].interagir(heros.getHeros());
 			}
+			return true;
 		}
 	}
-	
+
 	public void addElement(IElement e,int x,int y){
 		if(elements[x][y]==null) elements[x][y]=e;
 	}
-	
+
 	public Vector2i getCoordHeros(HerosMap h){
 		for(int i=0;i<elements.length;++i){
 			for(int j=0;j<elements[0].length;++j){
@@ -189,4 +194,31 @@ public class Carte {
 		}
 		return null; //le heros n'est pas dans la carte
 	}
+
+
+
+	public void toStringPF(int coordHerosL, int coordHerosH, int nbPointsMouv){
+		String aaa = "";
+		PFUtil [][] tabDep = pathfinding(coordHerosL, coordHerosH, nbPointsMouv);
+		for(int j=0; j<tabDep[0].length; j++){
+			for(int i=0; i<tabDep.length; i++){
+				aaa+= tabDep[i][j].getCoord();
+				aaa+=" ";
+			}
+			aaa+="\n\n";
+		}
+		aaa+="\n";
+		for(int j=0; j<tabDep[0].length; j++){
+			for(int i=0; i<tabDep.length; i++){
+				if (tabDep[i][j].isEvent())
+					aaa+="o ";
+				else
+					aaa+="x ";
+			}
+			aaa+="\n";
+		}
+		System.out.println(aaa);
+	}
+
+
 }
