@@ -1,27 +1,26 @@
 package es.sortie;
 
 import es.dataManager.ImageManager;
-import utilitaire.Vector2i;
+import utilitaire.IntRect;
 
 public class ImageConteneur implements Comparable {
 
 	private String imagePath;
-	private Vector2i imgDispSize;
-	private Vector2i imgDisp00Point;
+	private IntRect intRect;
 	private int priority;
 
-	public ImageConteneur(String imagePath, Vector2i imgDispSize, Vector2i imgDisp00Point, int priority) {
+	public ImageConteneur(String imagePath, IntRect ir, int priority) {
 		this.imagePath = imagePath;
-		this.imgDispSize = imgDispSize;
-		this.imgDisp00Point = imgDisp00Point;
+		this.intRect = ir;
 		this.priority = priority;
 	}
 
 	public ImageConteneur(String imagePath, int priority) {
 		this(
 				imagePath,
-				new Vector2i(ImageManager.getImage(imagePath).getWidth(), ImageManager.getImage(imagePath).getHeight()),
-				new Vector2i(0,0),
+				new IntRect(
+						0,0,ImageManager.getImage(imagePath).getWidth(), ImageManager.getImage(imagePath).getHeight()
+				),
 				priority
 		);
 	}
@@ -35,12 +34,8 @@ public class ImageConteneur implements Comparable {
 		return imagePath;
 	}
 
-	public Vector2i getImgDispSize() {
-		return imgDispSize;
-	}
-
-	public Vector2i getImgDisp00Point() {
-		return imgDisp00Point;
+	public IntRect getImageDrawingArea() {
+		return this.intRect;
 	}
 
 	public int getPriority() {

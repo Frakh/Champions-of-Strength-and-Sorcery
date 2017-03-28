@@ -2,6 +2,7 @@ package es.sortie.composants;
 
 import es.dataManager.ImageManager;
 import es.sortie.ImageConteneur;
+import utilitaire.IntRect;
 import utilitaire.Vector2i;
 
 import java.awt.*;
@@ -59,12 +60,10 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 		Graphics2D g2 = (Graphics2D) g;
 
 		for (ImageConteneur ic : imgConteneur) {
+			IntRect ir = ic.getImageDrawingArea();
 			g2.drawImage(
 					ImageManager.getImage(ic.getImagePath()),
-					ic.getImgDisp00Point().x,
-					ic.getImgDisp00Point().y,
-					ic.getImgDispSize().x,
-					ic.getImgDispSize().y,
+					ir.x,ir.y,ir.width, ir.height,
 					this
 			);
 			++AntiTearBuffer.RENDERED_IMAGES;
