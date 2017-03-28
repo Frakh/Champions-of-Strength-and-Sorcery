@@ -43,6 +43,15 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 	}
 
 	/**
+	 * Permet de retirer une image du layer de l'ui
+	 * @param ic : l'image en question
+	 * @return true si il a réussi a retirer l'image, false sinon
+	 */
+	public boolean retirerImageUI(ImageConteneur ic) {
+		return this.imgConteneur.remove(ic);
+	}
+
+	/**
 	 * Permet d'ajouter une chaine a écrire sur l'écran :
 	 * @param v : la position en pixel
 	 * @param o : l'objet ( methode toString appelé )
