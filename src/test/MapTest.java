@@ -162,5 +162,4 @@ public class MapTest {
 			Thread.sleep(16);
 		}
 	}
-
 }
