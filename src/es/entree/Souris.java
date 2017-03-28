@@ -23,6 +23,7 @@ public class Souris extends MouseAdapter {
 
 	private int lastWheelPos;
 	private double highResLastWheelPos;
+	private FrameManager currentFm;
 
 	private static Souris souris;
 
@@ -30,17 +31,28 @@ public class Souris extends MouseAdapter {
 		if (souris==null) {
 			souris = new Souris();
 			fm.addMouseListener(souris);
+			souris.currentFm = fm;
 		}
 		return souris;
 	}
 
-	public Souris() {
+	private Souris() {
 		framePosition = new Vector2i(0,0);
 		usedButton = MouseEvent.NOBUTTON;
 		mouseWheelPosition = 0;
 		highResMouseWheelPosition = 0.0;
 		lastWheelPos = 0;
 		highResLastWheelPos = 0;
+	}
+
+	/**
+	 * Permet d'obtenir la position de la souris sur l'écran COMME SI IL N'Y A JAMAIS EU DE REDIMENSIONNEMENT
+	 * @return la position de la souris;
+	 */
+	public Vector2i getInGamePosition() {
+		int x = framePosition.x * currentFm.getWidth() / currentFm.getCurrentWidth();
+		int y = framePosition.y * currentFm.getHeight() / currentFm.getCurrentHeight();
+		return new Vector2i(x,y);
 	}
 
 	/**
