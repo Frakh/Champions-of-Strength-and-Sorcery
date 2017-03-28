@@ -1,11 +1,14 @@
 package appli;
 
+import es.entree.Souris;
 import es.sortie.FrameManager;
 import es.sortie.ImageConteneur;
 import es.sortie.composants.InterfaceUtilisateurLayer;
 import utilitaire.IPosition;
+import utilitaire.IntRect;
 import utilitaire.Position;
 import utilitaire.Vector2i;
+import java.awt.event.MouseEvent;
 
 public class Appli {
 	public static void main (String[] args){
@@ -22,9 +25,18 @@ public class Appli {
 
 		InterfaceUtilisateurLayer menu = new InterfaceUtilisateurLayer();
 		
-		menu.ajouterImageUI(new ImageConteneur("./assets/img/ui/menu_fond.jpg",new Vector2i(1280,720),new Vector2i(0,0),-69));
-		menu.ajouterImageUI(new ImageConteneur("./assets/img/ui/create.jpg",new Vector2i(205,100),new Vector2i(740,200),9));
-		menu.ajouterImageUI(new ImageConteneur("./assets/img/ui/join.jpg",new Vector2i(205,100),new Vector2i(740,400),9));
+		Vector2i tailleBouton=new Vector2i(255,100);
+		Vector2i positionBoutonCreer = new Vector2i(840,150);
+		Vector2i positionBoutonRejoindre=new Vector2i(840,350);
+		
+		ImageConteneur boutonCreer=new ImageConteneur("./assets/img/ui/create.jpg",new IntRect(positionBoutonCreer.x,positionBoutonCreer.y,tailleBouton.x,tailleBouton.y),9);
+		ImageConteneur boutonRejoindre=new ImageConteneur("./assets/img/ui/join.jpg",new IntRect(positionBoutonRejoindre.x,positionBoutonRejoindre.y,tailleBouton.x,tailleBouton.y),9);
+		
+		menu.ajouterImageUI(new ImageConteneur("./assets/img/ui/menu_fond.jpg",new IntRect(0,0,1280,720),-69));
+		menu.ajouterImageUI(boutonCreer);
+		menu.ajouterImageUI(boutonRejoindre);
+		
+		Souris mickey = Souris.getInstance(fm);
 		
 		fm.init(menu); 
 		fm.setFrameRateLimit(60);
@@ -36,12 +48,16 @@ public class Appli {
 		 je sais faire aucun des deux donc bon 
 		*/
 
-		for (int i = 0; i < 10; ++i) {
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		while(true){
+			//if (mickey.mousePressed())
+			System.out.print("");
+			if (mickey.getUsedButton()==MouseEvent.BUTTON1 && boutonCreer.getImageDrawingArea().contains(mickey.getInGamePosition())){
+				//créer une partie
+				System.out.println("ta maman sent bon");
+			}
+			if (mickey.getUsedButton()==MouseEvent.BUTTON1 && boutonRejoindre.getImageDrawingArea().contains(mickey.getInGamePosition())){
+				//rejoindre une partie
+				System.out.println("ah");
 			}
 		}
 		

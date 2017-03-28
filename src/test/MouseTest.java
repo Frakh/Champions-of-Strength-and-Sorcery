@@ -22,19 +22,17 @@ public class MouseTest {
 		fm.setPositionToFollow(ip);
 		fm.setDimensions(1280,720);
 
-		Souris souris = new Souris();
-
+		Souris souris = Souris.getInstance(fm);
 		Vector2i cPos = new Vector2i(0,0);
 		AbstractBufferComposant curseurLayer = new CurseurLayer(fm, "./assets/img/SPRITES/PEUNEUGEU/Curseur.png", cPos);
 		AbstractBufferComposant debugL = new DebugLayer("Go", souris);
-		fm.addMouseListener(souris);
 		fm.init(curseurLayer, debugL);
 
 		while (true) {
 
 			fm.repaint();
 
-			Vector2i autrePos = souris.getFramePosition();
+			Vector2i autrePos = souris.getInGamePosition();
 			cPos.set(autrePos.x/fm.getSpriteWidth(), autrePos.y/fm.getSpriteHeigt());
 			Thread.sleep(16);
 
