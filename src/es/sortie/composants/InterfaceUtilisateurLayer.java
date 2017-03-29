@@ -38,8 +38,10 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 	 * @param ic : le conteneur d'image
 	 */
 	public void ajouterImageUI(ImageConteneur ic) {
-		imgConteneur.add(ic);
-		imgConteneur.sort(ImageConteneur::compareTo);
+		synchronized (imgConteneur) {
+			imgConteneur.add(ic);
+			imgConteneur.sort(ImageConteneur::compareTo);
+		}
 	}
 
 	/**
@@ -48,7 +50,9 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 	 * @return true si il a réussi a retirer l'image, false sinon
 	 */
 	public boolean retirerImageUI(ImageConteneur ic) {
-		return this.imgConteneur.remove(ic);
+		synchronized (imgConteneur) {
+			return this.imgConteneur.remove(ic);
+		}
 	}
 
 	/**
@@ -68,20 +72,24 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
-		for (ImageConteneur ic : imgConteneur) {
-			IntRect ir = ic.getImageDrawingArea();
-			g2.drawImage(
-					ImageManager.getImage(ic.getImagePath()),
-					ir.x,ir.y,ir.width, ir.height,
-					this
-			);
-			++AntiTearBuffer.RENDERED_IMAGES;
+		synchronized (imgConteneur) {
+			for (ImageConteneur ic : imgConteneur) {
+				IntRect ir = ic.getImageDrawingArea();
+				g2.drawImage(
+						ImageManager.getImage(ic.getImagePath()),
+						ir.x, ir.y, ir.width, ir.height,
+						this
+				);
+				++AntiTearBuffer.RENDERED_IMAGES;
+			}
 		}
 
-		//Memory Unoptimized
-		Set<Vector2i> vector2is = iObjectMap.keySet();
-		for (Vector2i vi : vector2is) {
-			g2.drawString(iObjectMap.get(vi).toString(), vi.x, vi.y);
+		synchronized (iObjectMap) {
+			//Memory Unoptimized
+			Set<Vector2i> vector2is = iObjectMap.keySet();
+			for (Vector2i vi : vector2is) {
+				g2.drawString(iObjectMap.get(vi).toString(), vi.x, vi.y);
+			}
 		}
 	}
 
