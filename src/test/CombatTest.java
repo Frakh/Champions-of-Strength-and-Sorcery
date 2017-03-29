@@ -1,5 +1,6 @@
 package test;
 
+import es.entree.Souris;
 import es.sortie.FrameManager;
 import es.sortie.composants.CombatLayer;
 import game.Heros;
@@ -71,17 +72,20 @@ public class CombatTest {
 		c.initialiserCombat();
 
 		FrameManager fm = new FrameManager();
+		Souris souris = Souris.getInstance(fm);
+		fm.addMouseListener(souris);
 		fm.setDimensions(1280,720);
-		fm.setSpriteDim(64,55);
+		fm.setSpriteDim(32,32);
 		fm.setPositionToFollow(new Position(0,0));
 
-		CombatLayer cl = new CombatLayer(fm,c);
+		CombatLayer cl = new CombatLayer(fm,c, souris);
 
 		fm.init(cl);
 
+		fm.setSpriteDim(64,55);
 		while (true) {
 			fm.repaint();
-			Thread.sleep(5000);
+			Thread.sleep(16);
 		}
 
 	}
