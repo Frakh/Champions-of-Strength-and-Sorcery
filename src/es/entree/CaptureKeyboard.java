@@ -68,21 +68,24 @@ public class CaptureKeyboard implements Runnable{
 
 	@Override
 	public void run() {
-		char nextChar = ' ';
+		char currentChar = 0;
 		StringBuilder stbd = new StringBuilder();
 
-		while (nextChar!='\n') {
+		while (currentChar!='\n') {
 			try {
-				char currentChar = keyMapping.get(EcouteurClavier.getLastKey());
-				if (nextChar != currentChar) {
-					nextChar = currentChar;
-					if (nextChar == '\b') {
-						stbd.deleteCharAt(stbd.length() - 1);
-					} else {
-						stbd.append(nextChar);
-					}
-					this.currentString = stbd.toString();
+				Thread.sleep(16);
+				currentChar = keyMapping.get(EcouteurClavier.getLastKey());
+				switch (currentChar) {
+					case 0:
+						break;
+					case '\b':
+						stbd.deleteCharAt(stbd.length()-1);
+						break;
+					default:
+						stbd.append(currentChar);
+						break;
 				}
+				currentString = stbd.toString();
 			}catch (Exception e) {}
 		}
 	}
