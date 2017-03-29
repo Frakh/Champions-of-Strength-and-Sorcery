@@ -3,6 +3,13 @@ package game.carte;
 public class PFUtil {
 	int coord;
 	boolean event;
+	
+	
+	public PFUtil(){
+		coord=-1;
+		event=false;
+	}
+	
 	public int getCoord() {
 		return coord;
 	}

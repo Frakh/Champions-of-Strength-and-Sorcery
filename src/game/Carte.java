@@ -191,7 +191,7 @@ public class Carte {
 		for(int i=0;i<elements.length;++i){
 			for(int j=0;j<elements[0].length;++j){
 				if (elements[i][j] != null && elements[i][j].equals(h)){ //on cherche le heros dans la carte
-					return new Vector2i(i,j);  //et on renvoie ses coordonnées, où apparemment i=largeur et j=hauteur
+					return new Vector2i(i,j);  //et on renvoie ses coordonnees, ou apparemment i=largeur et j=hauteur
 				}
 			}
 		}
@@ -208,7 +208,7 @@ public class Carte {
 				aaa+= tabDep[i][j].getCoord();
 				aaa+=" ";
 			}
-			aaa+="\n\n";
+			aaa+="\n";
 		}
 		aaa+="\n";
 		for(int j=0; j<tabDep[0].length; j++){

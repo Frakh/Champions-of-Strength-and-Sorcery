@@ -98,15 +98,14 @@ public class MapTest {
 		Joueur noxus = new Joueur();
 		Vector2i curseur=noxus.getCurseur();
 		IController ic=noxus.getController();
-		noxus.addHeros(new Heros("dar kwadeaure")); //on créé un héros sans nom parce que balek
-		HerosMap darius=noxus.getHerosMap(0); //idéalement faudrait pouvoir get le heros avec son nom aussi, parce que là on triche un peu
-		darius.setPtMouvement(50);
+		noxus.addHeros(new Heros("dar kwadeaure"));
+		HerosMap darius=noxus.getHerosMap(0);
 
 		//IntelliJ a dit "Condition "darius==null" is always false
 		if (darius==null)
 			throw new RuntimeException("Darius est null");
 		
-		c.addElement(darius, 0, 0); //on fait démarrer le héros en 0,0
+		c.addElement(darius, 2, 2); //on fait demarrer le heros en 2,2
 		System.out.println("oui");
 												  
 
@@ -146,7 +145,7 @@ public class MapTest {
 				}
 				//si la case est vide
 				else{
-					if (noxus.getHerosSelectionne()!=null){ //dans le vrai jeu t'auras toujours un héros sélectionné, mais bon
+					if (noxus.getHerosSelectionne()!=null){ //dans le vrai jeu t'auras toujours un heros selectionne, mais bon
 						Vector2i coord=c.getCoordHeros(noxus.getHerosSelectionne());
 						try {
 							c.deplacer(noxus.getHerosSelectionne(), coord.x, coord.y, noxus.getCurseur());
