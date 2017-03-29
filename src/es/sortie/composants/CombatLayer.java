@@ -18,6 +18,11 @@ public class CombatLayer extends AbstractBufferComposant {
 	//L'image du fond du combat
 	public static String fondCombat = "./assets/img/bg_plaine.jpg";
 
+	public final int DEPLACEMENT_HORIZONTAL_PIXEL;
+	public final int DEPLACEMENT_VERTICAL_PIXEL;
+	public final float REDUCTION_VERTICALE = 0.75f;
+	public final float REDUCTION_HORIZONTALE = 0.85f;
+
 	/**
 	 * Constructeur du CombatLayer
 	 * @param fm : le frame manager
@@ -26,6 +31,8 @@ public class CombatLayer extends AbstractBufferComposant {
 	public CombatLayer(FrameManager fm, Combat combat) {
 		super(fm, null);
 		this.combat = combat;
+		DEPLACEMENT_HORIZONTAL_PIXEL = (int)(((double)fm.getWidth())*0.1);
+		DEPLACEMENT_VERTICAL_PIXEL = 25;
 	}
 
 	/**
@@ -44,9 +51,14 @@ public class CombatLayer extends AbstractBufferComposant {
 		//Affichage des aires
 		for (int b = 0; b < 13; ++b) {
 			for (int a = 0; a < 20; a++) {
+
+				int x_rect_pos = (int) ((a*gdb.spriteWidth+(b%2==0?gdb.spriteWidth/2:0))*this.REDUCTION_HORIZONTALE + this.DEPLACEMENT_HORIZONTAL_PIXEL);
+				int y_rect_pos = (int) ((b*gdb.spriteHeight)*this.REDUCTION_VERTICALE + this.DEPLACEMENT_VERTICAL_PIXEL);
+
 				Rectangle2D.Double rdouble = new Rectangle2D.Double(
-						a*gdb.spriteWidth+(b%2==0?gdb.spriteWidth/2:0), b*gdb.spriteHeight,
-						gdb.spriteWidth, gdb.spriteHeight
+						x_rect_pos, y_rect_pos,
+						gdb.spriteWidth*this.REDUCTION_HORIZONTALE,
+						gdb.spriteHeight*this.REDUCTION_VERTICALE
 				);
 				g2.draw(rdouble);
 			}
@@ -59,12 +71,14 @@ public class CombatLayer extends AbstractBufferComposant {
 			if (x>=0 && y>=0) {
 				String urlimage = combat.terrainCombat[x][y].getUnit().getImage();
 				boolean[][] path = combat.pathfinding(x,y);
+				int dr_x_pos = (int) ((x * gdb.spriteWidth+(y%2==0?gdb.spriteWidth/2:0))*this.REDUCTION_HORIZONTALE + this.DEPLACEMENT_HORIZONTAL_PIXEL);
+				int dr_y_pos = (int) (y * gdb.spriteHeight * this.REDUCTION_VERTICALE) + this.DEPLACEMENT_VERTICAL_PIXEL;
 				g2.drawImage(
 						ImageManager.getImage(urlimage),
-						x * gdb.spriteWidth+(y%2==0?gdb.spriteWidth/2:0),
-						y * gdb.spriteHeight,
-						gdb.spriteWidth,
-						gdb.spriteHeight,
+						dr_x_pos,
+						dr_y_pos,
+						(int) (gdb.spriteWidth*this.REDUCTION_HORIZONTALE),
+						(int) (gdb.spriteHeight*this.REDUCTION_VERTICALE),
 						this
 				);
 			}
