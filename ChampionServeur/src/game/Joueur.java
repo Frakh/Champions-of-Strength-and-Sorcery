@@ -1,7 +1,6 @@
 package game;
 
-import es.netclasses.evenements.Evenement;
-import es.netclasses.evenements.eventimpl.JeuEvenement;
+import es.netclasses.Evenement;
 import utilitaire.BaseThread;
 import utilitaire.SocketFlux;
 
@@ -40,7 +39,7 @@ public class Joueur extends BaseThread {
 		return socketFlux;
 	}
 
-	public void sendEvenement(final JeuEvenement jeuEvenement) {
-		socketFlux.writeEvenement(jeuEvenement);
+	public void sendEvenement(final Evenement evenement) {
+		socketFlux.writeEvenement(evenement);
 	}
 }
