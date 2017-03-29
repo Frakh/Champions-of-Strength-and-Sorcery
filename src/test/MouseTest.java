@@ -1,5 +1,6 @@
 package test;
 
+import es.entree.CaptureKeyboard;
 import es.entree.Souris;
 import es.sortie.FrameManager;
 import es.sortie.composants.AbstractBufferComposant;
@@ -37,6 +38,24 @@ public class MouseTest {
 			Thread.sleep(16);
 
 		}
+	}
+
+	@Test
+	public void testEntreeChaine() throws InterruptedException {
+
+		FrameManager fm = new FrameManager();
+		fm.setDimensions(640,360);
+
+		fm.setPositionToFollow(new Position(0,0));
+
+		CaptureKeyboard ck = new CaptureKeyboard();
+		DebugLayer dl = new DebugLayer(ck);
+		fm.init(dl);
+		fm.setFrameRateLimit(60);
+
+		ck.launchInNewThread();
+
+		Thread.sleep(60000);
 	}
 
 }

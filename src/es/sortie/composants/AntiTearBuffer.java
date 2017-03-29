@@ -35,7 +35,7 @@ public class AntiTearBuffer extends JComponent {
 	 * Ajoute un layer dans la liste des composants qui dessineront
 	 * @param j : le layer
 	 */
-	public void addComponents(AbstractBufferComposant j) {
+	public synchronized void addComponents(AbstractBufferComposant j) {
 		components.add(j);
 	}
 
@@ -54,10 +54,12 @@ public class AntiTearBuffer extends JComponent {
 
 		imgGraph.setBackground(new Color(0,0,0,0));
 		imgGraph.clearRect(0,0,screenBuffer.getWidth(), screenBuffer.getHeight());
-		for (AbstractBufferComposant jc: components) {
-			if (jc.be_disp) {
-				jc.setDataBlock();
-				jc.dessiner(screenBuffer.getGraphics());
+		synchronized (this) {
+			for (AbstractBufferComposant jc : components) {
+				if (jc.be_disp) {
+					jc.setDataBlock();
+					jc.dessiner(screenBuffer.getGraphics());
+				}
 			}
 		}
 		g.drawImage(screenBuffer, 0,0, fm.getCurrentWidth(), fm.getCurrentHeight(),this);

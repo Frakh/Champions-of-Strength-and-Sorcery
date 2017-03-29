@@ -10,8 +10,12 @@ public class EcouteurClavier implements KeyEventDispatcher{
 
 	private static EcouteurClavier _instance;
 
-	private static boolean[] tabKeyOld = new boolean[256];
-	private static boolean[] tabKeys = new boolean[256];
+	public static final int TAB_SIZE = 1024;
+
+	private static boolean[] tabKeyOld = new boolean[TAB_SIZE];
+	private static boolean[] tabKeys = new boolean[TAB_SIZE];
+
+	private static int lastKey;
 
 	private EcouteurClavier() {
 		Arrays.fill(tabKeys, false);
@@ -56,6 +60,10 @@ public class EcouteurClavier implements KeyEventDispatcher{
 		return tabKeys[keyCode];
 	}
 
+	public static int getLastKey() {
+		return lastKey;
+	}
+
 	/**
 	 * Methode qui n'est pas censé être utilisé par l'exterieur
 	 * @param e : le code de la touche
@@ -68,9 +76,11 @@ public class EcouteurClavier implements KeyEventDispatcher{
 			switch (e.getID()) {
 				case KeyEvent.KEY_PRESSED:
 					tabKeys[e.getKeyCode()] = true;
+					lastKey = e.getKeyCode();
 					break;
 				case KeyEvent.KEY_RELEASED:
 					tabKeys[e.getKeyCode()] = false;
+					lastKey = 0;
 					break;
 			}
 		}
