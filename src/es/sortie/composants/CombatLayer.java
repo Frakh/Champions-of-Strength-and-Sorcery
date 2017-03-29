@@ -54,7 +54,7 @@ public class CombatLayer extends AbstractBufferComposant {
 								a*gdb.spriteWidth, b*gdb.spriteHeight,
 								gdb.spriteWidth, gdb.spriteHeight
 						);
-						g2.fill(rdouble);
+						g2.draw(rdouble);
 					}
 				}
 				g2.drawImage(
