@@ -86,12 +86,22 @@ public class CombatLayer extends AbstractBufferComposant {
 				int x_rect_pos = (int) ((a*gdb.spriteWidth+(b%2==0?gdb.spriteWidth/2:0))*this.REDUCTION_HORIZONTALE + this.DEPLACEMENT_HORIZONTAL_PIXEL);
 				int y_rect_pos = (int) ((b*gdb.spriteHeight)*this.REDUCTION_VERTICALE + this.DEPLACEMENT_VERTICAL_PIXEL);
 
+				leRectangle.x = x_rect_pos;
+				leRectangle.y = y_rect_pos;
+
 				Rectangle2D.Double rdouble = new Rectangle2D.Double(
 						x_rect_pos, y_rect_pos,
 						gdb.spriteWidth*this.REDUCTION_HORIZONTALE,
 						gdb.spriteHeight*this.REDUCTION_VERTICALE
 				);
-				g2.draw(rdouble);
+				if (leRectangle.contains(souris.getInGamePosition())) {
+					Color c = g2.getColor();
+					g2.setColor(Color.GRAY);
+					g2.fill(rdouble);
+					g2.setColor(c);
+				} else {
+					g2.draw(rdouble);
+				}
 			}
 		}
 
