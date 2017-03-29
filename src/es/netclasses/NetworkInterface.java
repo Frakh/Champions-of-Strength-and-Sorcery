@@ -57,6 +57,7 @@ public class NetworkInterface {
 	 */
 	public static void send(Evenement e) throws IOException {
 		oos.writeObject(e);
+		oos.flush();
 	}
 
 }

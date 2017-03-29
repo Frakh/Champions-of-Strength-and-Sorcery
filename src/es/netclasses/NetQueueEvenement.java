@@ -35,7 +35,9 @@ public class NetQueueEvenement {
 		 */
 		
 		//Ce message a ete sponsorise par La Baleine.
-		arrayQueue[e.getId()].add(e);
+		synchronized (arrayQueue[e.getId()]) {
+			arrayQueue[e.getId()].add(e);
+		}
 	}
 
 	/**
@@ -44,7 +46,12 @@ public class NetQueueEvenement {
 	 * @return : l'evenement si il y en a un, null sinon
 	 */
 	public static Evenement getEvenement(int id) {
-		return (Evenement) arrayQueue[id].poll();
+		if (arrayQueue[id]==null) {
+			return null;
+		}
+		synchronized (arrayQueue[id]) {
+			return (Evenement) arrayQueue[id].poll();
+		}
 	}
 
 	/**
