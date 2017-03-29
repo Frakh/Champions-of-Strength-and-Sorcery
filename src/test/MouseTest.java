@@ -53,9 +53,7 @@ public class MouseTest {
 		fm.init(dl);
 		fm.setFrameRateLimit(60);
 
-		ck.launchInNewThread();
-
-		Thread.sleep(60000);
+		ck.launchInNewThread().join();
 	}
 
 }

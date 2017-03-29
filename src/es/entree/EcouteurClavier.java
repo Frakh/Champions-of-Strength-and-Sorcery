@@ -15,6 +15,7 @@ public class EcouteurClavier implements KeyEventDispatcher{
 	private static boolean[] tabKeyOld = new boolean[TAB_SIZE];
 	private static boolean[] tabKeys = new boolean[TAB_SIZE];
 
+	private static boolean canResend = true;
 	private static int lastKey;
 
 	private EcouteurClavier() {
@@ -61,7 +62,11 @@ public class EcouteurClavier implements KeyEventDispatcher{
 	}
 
 	public static int getLastKey() {
-		return lastKey;
+		if (canResend) {
+			canResend = false;
+			return lastKey;
+		}
+		return 0;
 	}
 
 	/**
@@ -76,10 +81,12 @@ public class EcouteurClavier implements KeyEventDispatcher{
 			switch (e.getID()) {
 				case KeyEvent.KEY_PRESSED:
 					tabKeys[e.getKeyCode()] = true;
+					canResend = true;
 					lastKey = e.getKeyCode();
 					break;
 				case KeyEvent.KEY_RELEASED:
 					tabKeys[e.getKeyCode()] = false;
+					canResend = true;
 					lastKey = 0;
 					break;
 			}
