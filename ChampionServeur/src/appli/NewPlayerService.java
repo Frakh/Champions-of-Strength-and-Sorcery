@@ -1,7 +1,7 @@
 package appli;
 
 
-import es.netclasses.evenements.eventimpl.JeuEvenement;
+import es.netclasses.evenements.JeuEvenement;
 import game.Joueur;
 import game.Partie;
 import utilitaire.SocketFlux;

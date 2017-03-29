@@ -1,7 +1,7 @@
 package utilitaire;
 
-import es.netclasses.evenements.Evenement;
-import es.netclasses.evenements.eventimpl.NetSystemMessageEvenement;
+import es.netclasses.Evenement;
+import es.netclasses.evenements.NetSystemMessageEvenement;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

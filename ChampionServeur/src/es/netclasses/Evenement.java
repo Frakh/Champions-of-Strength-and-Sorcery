@@ -1,4 +1,4 @@
-package es.netclasses.evenements;
+package es.netclasses;
 
 import java.io.Serializable;
 

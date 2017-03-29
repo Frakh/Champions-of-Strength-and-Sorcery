@@ -1,6 +1,6 @@
 package game;
 
-import es.netclasses.evenements.Evenement;
+import es.netclasses.Evenement;
 
 public class EvenementConteneur {
 
