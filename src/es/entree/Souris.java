@@ -21,6 +21,7 @@ public class Souris extends MouseAdapter {
 	private int mouseWheelPosition;
 	private double highResMouseWheelPosition;
 
+	private int lastUsedButton;
 	private int lastWheelPos;
 	private double highResLastWheelPos;
 	private FrameManager currentFm;
@@ -43,6 +44,7 @@ public class Souris extends MouseAdapter {
 		highResMouseWheelPosition = 0.0;
 		lastWheelPos = 0;
 		highResLastWheelPos = 0;
+		lastUsedButton = 0;
 	}
 
 	/**
@@ -72,6 +74,14 @@ public class Souris extends MouseAdapter {
 	 * @return le code de bouton de souris
 	 */
 	public int getUsedButton() {
+		return usedButton;
+	}
+
+	public int getUniqueUsedButton() {
+		if (lastUsedButton == usedButton) {
+			return 0;
+		}
+		lastUsedButton=usedButton;
 		return usedButton;
 	}
 
