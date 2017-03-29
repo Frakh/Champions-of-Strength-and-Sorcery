@@ -1,6 +1,7 @@
 package es.sortie.composants;
 
 import es.dataManager.ImageManager;
+import es.entree.Souris;
 import es.sortie.FrameManager;
 import game.combat.Combat;
 
@@ -17,11 +18,20 @@ public class CombatLayer extends AbstractBufferComposant {
 
 	//L'image du fond du combat
 	public static String fondCombat = "./assets/img/bg_plaine.jpg";
+	//
+	public static String CURSEUR_SOURIS_IMAGE_PATH = "./assets/img/Curseur.png";
 
 	public final int DEPLACEMENT_HORIZONTAL_PIXEL;
 	public final int DEPLACEMENT_VERTICAL_PIXEL;
 	public final float REDUCTION_VERTICALE = 0.75f;
 	public final float REDUCTION_HORIZONTALE = 0.85f;
+
+	private Souris souris;
+
+	public CombatLayer(FrameManager fm, Combat combat, Souris souris) {
+		this(fm, combat);
+		this.souris = souris;
+	}
 
 	/**
 	 * Constructeur du CombatLayer
@@ -83,6 +93,13 @@ public class CombatLayer extends AbstractBufferComposant {
 				);
 			}
 		}
+
+		g2.drawImage(
+				ImageManager.getImage(CURSEUR_SOURIS_IMAGE_PATH),
+				souris.getInGamePosition().x-16,
+				souris.getInGamePosition().y-16,
+				this
+		);
 
 	}
 
