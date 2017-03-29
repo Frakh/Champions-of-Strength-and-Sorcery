@@ -39,6 +39,15 @@ public class NetQueueEvenement {
 	}
 
 	/**
+	 * Fonction permettant d'obtenir l'evenement stocké qui attends son traitement depuis le plus longtemps
+	 * @param id : l'identifiant d'evenement
+	 * @return : l'evenement si il y en a un, null sinon
+	 */
+	public static Evenement getEvenement(int id) {
+		return (Evenement) arrayQueue[id].poll();
+	}
+
+	/**
 	 * Methode permettant d'obtenir un tableau des évenements selon l'id passé
 	 * @param id : l'identifiant de l'évenement
 	 * @return Le tableau de la queue
@@ -46,7 +55,7 @@ public class NetQueueEvenement {
 	 *
 	 */
 	public static Evenement[] getEvents(int id) throws NullPointerException {
-		if (arrayQueue[id]!=null)
+		if (arrayQueue[id]==null)
 			return null;
 		synchronized (arrayQueue[id]) {
 			Evenement[] evenements = new Evenement[arrayQueue[id].size()];
