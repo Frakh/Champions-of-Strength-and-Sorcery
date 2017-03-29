@@ -3,13 +3,13 @@ package appli;
 import es.entree.Souris;
 import es.sortie.FrameManager;
 import es.sortie.ImageConteneur;
+import es.sortie.composants.DebugLayer;
 import es.sortie.composants.InterfaceUtilisateurLayer;
 import utilitaire.IPosition;
 import utilitaire.IntRect;
 import utilitaire.Position;
 import utilitaire.Vector2i;
 
-import java.awt.TextField;
 import java.awt.event.MouseEvent;
 
 public class Appli {
@@ -39,8 +39,10 @@ public class Appli {
 		menu.ajouterImageUI(boutonRejoindre);
 		
 		Souris mickey = Souris.getInstance(fm);
+
+		DebugLayer dl = new DebugLayer(mickey);
 		
-		fm.init(menu); 
+		fm.init(menu, dl);
 		fm.setFrameRateLimit(60);
 		
 		/*
@@ -53,32 +55,42 @@ public class Appli {
 		while(true){
 			//if (mickey.mousePressed())
 			System.out.print("");
-			if (mickey.getUniqueUsedButton()==MouseEvent.BUTTON1 && boutonCreer.getImageDrawingArea().contains(mickey.getInGamePosition())){
-				//créer une partie
-				ImageConteneur boutonFermer = new ImageConteneur("./assets/img/ui/nope.jpg",new IntRect(770,50,30,30),11);
-				ImageConteneur boutonValider=new ImageConteneur("./assets/img/ui/valider.jpg",new IntRect(550,450,200,90),10);
-				ImageConteneur fenetreCreer=new ImageConteneur("./assets/img/ui/fenetreCreer.jpg",new IntRect(100,50,700,600),10);
-				
-				menu.ajouterImageUI(fenetreCreer);
-				menu.ajouterImageUI(boutonFermer);
-				menu.ajouterImageUI(boutonValider);
-				
-				if (mickey.getUniqueUsedButton()==MouseEvent.BUTTON1 && boutonFermer.getImageDrawingArea().contains(mickey.getInGamePosition())){
-					menu.retirerImageUI(fenetreCreer);
-					menu.retirerImageUI(boutonValider);
-					menu.retirerImageUI(boutonFermer);
-					
-					System.out.println("oui");
-					
-				}
+			int usedButtonUnique = mickey.getUniqueUsedButton();
+			if (usedButtonUnique==MouseEvent.BUTTON1 && boutonCreer.getImageDrawingArea().contains(mickey.getInGamePosition())){
+				gererCreerPartie(menu, mickey);
 				//lorsque taper sur zone de texte, ajouterDonnesUI(Vector2i v, new capturekeyboard)
 			}
-			if (mickey.getUniqueUsedButton()==MouseEvent.BUTTON1 && boutonRejoindre.getImageDrawingArea().contains(mickey.getInGamePosition())){
+			if (usedButtonUnique==MouseEvent.BUTTON1 && boutonRejoindre.getImageDrawingArea().contains(mickey.getInGamePosition())){
 				//rejoindre une partie
 				System.out.println("ah");
 				menu.ajouterImageUI(new ImageConteneur("./assets/img/ui/fenetreRejoindre.jpg",new IntRect(100,50,700,600),10));
 			}
 		}
 		
+	}
+
+	public static void gererCreerPartie(InterfaceUtilisateurLayer menu, Souris mickey) {
+		boolean conti = true;
+
+		ImageConteneur boutonFermer = new ImageConteneur("./assets/img/ui/nope.jpg", new IntRect(770, 50, 30, 30), 11);
+		ImageConteneur boutonValider = new ImageConteneur("./assets/img/ui/valider.jpg", new IntRect(550, 450, 200, 90), 10);
+		ImageConteneur fenetreCreer = new ImageConteneur("./assets/img/ui/fenetreCreer.jpg", new IntRect(100, 50, 700, 600), 10);
+
+		menu.ajouterImageUI(fenetreCreer);
+		menu.ajouterImageUI(boutonFermer);
+		menu.ajouterImageUI(boutonValider);
+
+		while (conti) {
+			//créer une partie
+			int ub = mickey.getUniqueUsedButton();
+			if (ub == MouseEvent.BUTTON1 && boutonFermer.getImageDrawingArea().contains(mickey.getInGamePosition())) {
+				menu.retirerImageUI(fenetreCreer);
+				menu.retirerImageUI(boutonValider);
+				menu.retirerImageUI(boutonFermer);
+				conti = false;
+				System.out.println("oui");
+
+			}
+		}
 	}
 }
