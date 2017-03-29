@@ -8,6 +8,8 @@ import utilitaire.IPosition;
 import utilitaire.IntRect;
 import utilitaire.Position;
 import utilitaire.Vector2i;
+
+import java.awt.TextField;
 import java.awt.event.MouseEvent;
 
 public class Appli {
@@ -50,13 +52,17 @@ public class Appli {
 
 		while(true){
 			//if (mickey.mousePressed())
-			if (mickey.getUsedButton()==MouseEvent.BUTTON1 && boutonCreer.getImageDrawingArea().contains(mickey.getInGamePosition())){
+			System.out.print("");
+			if (mickey.getUniqueUsedButton()==MouseEvent.BUTTON1 && boutonCreer.getImageDrawingArea().contains(mickey.getInGamePosition())){
 				//créer une partie
-				System.out.println("ta maman sent bon");
+				menu.ajouterImageUI(new ImageConteneur("./assets/img/ui/fenetreCreer.jpg",new IntRect(100,50,700,600),10));
+				TextField adresse=new TextField();
+				menu.ajouterDonnesUI(new Vector2i(400,130), adresse);
 			}
-			if (mickey.getUsedButton()==MouseEvent.BUTTON1 && boutonRejoindre.getImageDrawingArea().contains(mickey.getInGamePosition())){
+			if (mickey.getUniqueUsedButton()==MouseEvent.BUTTON1 && boutonRejoindre.getImageDrawingArea().contains(mickey.getInGamePosition())){
 				//rejoindre une partie
 				System.out.println("ah");
+				menu.ajouterImageUI(new ImageConteneur("./assets/img/ui/fenetreRejoindre.jpg",new IntRect(100,50,700,600),10));
 			}
 		}
 		
