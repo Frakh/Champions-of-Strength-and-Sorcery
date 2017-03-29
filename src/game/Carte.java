@@ -1,8 +1,11 @@
-package game.carte;
+package game;
 
 import es.exception.IllegalFriendException;
 import es.sortie.composants.CarteLayer;
 import es.sortie.composants.ObjetLayer;
+import game.carte.Case;
+import game.carte.IElement;
+import game.carte.PFUtil;
 import game.carte.elements.HerosMap;
 import utilitaire.Vector2i;
 
