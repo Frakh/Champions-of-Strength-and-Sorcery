@@ -1,7 +1,7 @@
 package game;
 
-import es.netclasses.evenements.Evenement;
-import es.netclasses.evenements.eventimpl.JeuEvenement;
+import es.netclasses.Evenement;
+import es.netclasses.evenements.JeuEvenement;
 import utilitaire.BaseThread;
 
 import java.util.Queue;
@@ -88,9 +88,14 @@ public class Partie extends BaseThread {
 				}
 			}
 
-
+			//Redispachage des evenements aux autres joueurs
+			for (Joueur j : joueurs) {
+				EvenementConteneur evenement = this.queueDevent.poll();
+				if (j!=evenement.getDeposeur()) {
+					j.sendEvenement(evenement.getEvenement());
+				}
+			}
 		}
-
 	}
 
 	/**

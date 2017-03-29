@@ -41,6 +41,17 @@ public class CombatLayer extends AbstractBufferComposant {
 				ImageManager.getImage(fondCombat),
 				0,0,gdb.winWidth, gdb.winHeight, this	);
 
+		//Affichage des aires
+		for (int b = 0; b < 13; ++b) {
+			for (int a = 0; a < 20; a++) {
+				Rectangle2D.Double rdouble = new Rectangle2D.Double(
+						a*gdb.spriteWidth+(b%2==0?gdb.spriteWidth/2:0), b*gdb.spriteHeight,
+						gdb.spriteWidth, gdb.spriteHeight
+				);
+				g2.draw(rdouble);
+			}
+		}
+
 		//Affichage des unités
 		for (int i = 0; i <= 13; ++i) {
 			int x = combat.getCoordTroupes(i).x;
@@ -48,18 +59,9 @@ public class CombatLayer extends AbstractBufferComposant {
 			if (x>=0 && y>=0) {
 				String urlimage = combat.terrainCombat[x][y].getUnit().getImage();
 				boolean[][] path = combat.pathfinding(x,y);
-				for (int b = 0; b < 13; ++b) {
-					for (int a = 0; a < 20; a++) {
-						Rectangle2D.Double rdouble = new Rectangle2D.Double(
-								a*gdb.spriteWidth, b*gdb.spriteHeight,
-								gdb.spriteWidth, gdb.spriteHeight
-						);
-						g2.draw(rdouble);
-					}
-				}
 				g2.drawImage(
 						ImageManager.getImage(urlimage),
-						x * gdb.spriteWidth,
+						x * gdb.spriteWidth+(y%2==0?gdb.spriteWidth/2:0),
 						y * gdb.spriteHeight,
 						gdb.spriteWidth,
 						gdb.spriteHeight,
