@@ -1,6 +1,5 @@
 package utilitaire;
 
-
 public class IntRect {
 
 	public int x,y,width,height;
