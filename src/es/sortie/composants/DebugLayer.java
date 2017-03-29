@@ -12,7 +12,7 @@ public class DebugLayer extends AbstractBufferComposant {
 	//La liste d'objets a afficher
 	private java.util.List<Object> debDis = new ArrayList<>();
 	//La position en pixel de départ d'affichage à l'écran
-	public int startPosX = 20, startPosY = 20;
+	public static int startPosX = 20, startPosY = 80;
 
 	/**
 	 * Le constructeur de debug layer
@@ -35,7 +35,7 @@ public class DebugLayer extends AbstractBufferComposant {
 		g2.setColor(Color.red);
 		for (Object o : debDis) {
 			g2.drawString(o.toString(), x, y);
-			y+=15;
+			y += 15;
 		}
 		g2.setColor(c);
 	}
