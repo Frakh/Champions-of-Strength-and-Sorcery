@@ -107,7 +107,6 @@ public class CombatLayer extends AbstractBufferComposant {
 						leRectangle.height
 				);
 				if (!leRectangle.contains(souris.getInGamePosition())) {
-					this.sourisCasePos = null;
 					g2.drawImage(
 							ImageManager.getImage("./assets/img/Hexagon90.png"),
 							x_rect_pos, y_rect_pos, leRectangle.width, leRectangle.height,
