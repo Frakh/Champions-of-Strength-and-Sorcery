@@ -52,7 +52,8 @@ public class LogSys {
 	 */
 	public static boolean log(String str) {
 		try {
-			bw.write(str);
+			bw.write(str+'\n');
+			bw.flush();
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();

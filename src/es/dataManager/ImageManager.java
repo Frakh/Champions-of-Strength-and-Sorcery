@@ -31,8 +31,10 @@ public class ImageManager {
 			BufferedImage img = ImageIO.read(new File(imageURL));
 			imageMap.put(imageURL, img);
 			LogSys.log("Image chargée a : " + imageURL);
-			if (CREATE_FLIPPED_IMG_ON_LOAD)
+			if (CREATE_FLIPPED_IMG_ON_LOAD) {
 				flipImage(imageURL);
+				rotate(imageURL, 90.f);
+			}
 			return true;
 		} catch (IOException e) {
 			return false;
@@ -72,7 +74,7 @@ public class ImageManager {
 	 * @param newUrl : la nouvelle url de l'image
 	 * @param bm : l'image
 	 */
-	protected static void createVirtualImage(String newUrl, BufferedImage bm) {
+	public static void createVirtualImage(String newUrl, BufferedImage bm) {
 		LogSys.log("Created virtual image " + newUrl);
 		imageMap.put(newUrl, bm);
 	}
@@ -100,6 +102,7 @@ public class ImageManager {
 	 * @return l'image transformé
 	 */
 	private static BufferedImage createTransform(final BufferedImage image, final AffineTransform at) {
+		LogSys.log("Created Image");
 		BufferedImage nImg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = nImg.createGraphics();
 		g2.transform(at);
@@ -108,4 +111,18 @@ public class ImageManager {
 		return nImg;
 	}
 
+	/**
+	 * Permet de faire une rotation d'un certain nombre de degré de l'image
+	 * @param url : l'url de l'image
+	 * @param degree : le nombre de degré de rotation
+	 * @return : la nouvelle image
+	 */
+	private static void rotate(String url, float degree) {
+		int insertPos = url.lastIndexOf('.');
+		String nUrl = url.substring(0,insertPos) + String.valueOf((int)degree) + url.substring(insertPos);
+		BufferedImage bi = ImageManager.getImage(url);
+		AffineTransform af = new AffineTransform();
+		af.rotate(Math.toRadians(degree), bi.getWidth()/2, bi.getHeight()/2);
+		createVirtualImage(nUrl,createTransform(bi, af));
+	}
 }
