@@ -114,7 +114,6 @@ public class Carte {
 		}
 		trucARetourner[coordHerosL][coordHerosH].setCoord(0);
 		truc[coordHerosL][coordHerosH]=0;
-		int mouvement = nbPointsMouv;
 		boolean Continue=true;
 		while (Continue){//while for for if if while if while if. bon appetit bien sur.
 			for(int i=0; i<getWidth(); i++){
@@ -130,7 +129,7 @@ public class Carte {
 								if ((trucARetourner[k][l].getCoord()>trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost())
 										|| trucARetourner[k][l].getCoord()==-1)
 									if(canMove(new Vector2i(k,l))
-											&& (trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost()<mouvement)){
+											&& (trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost()< nbPointsMouv)){
 										trucARetourner[k][l].setCoord(trucARetourner[i][j].getCoord()+sol[k][l].getMvtCost());
 										if (elements[k][l]!=null)
 											trucARetourner[k][l].setEvent(true);
@@ -204,19 +203,19 @@ public class Carte {
 		String aaa = "";
 		PFUtil [][] tabDep = pathfinding(coordHerosL, coordHerosH, nbPointsMouv);
 		for(int j=0; j<tabDep[0].length; j++){
-			for(int i=0; i<tabDep.length; i++){
-				aaa+= tabDep[i][j].getCoord();
-				aaa+=" ";
+			for (PFUtil[] aTabDep : tabDep) {
+				aaa += aTabDep[j].getCoord();
+				aaa += " ";
 			}
 			aaa+="\n";
 		}
 		aaa+="\n";
 		for(int j=0; j<tabDep[0].length; j++){
-			for(int i=0; i<tabDep.length; i++){
-				if (tabDep[i][j].isEvent())
-					aaa+="o ";
+			for (PFUtil[] aTabDep : tabDep) {
+				if (aTabDep[j].isEvent())
+					aaa += "o ";
 				else
-					aaa+="x ";
+					aaa += "x ";
 			}
 			aaa+="\n";
 		}

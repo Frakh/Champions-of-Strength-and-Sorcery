@@ -1,17 +1,11 @@
 package test;
 
-import es.entree.ControlleurJoueur;
 import es.entree.Souris;
 import es.interfaces.IController;
 import es.interfaces.IFileLoader;
 import es.sortie.FrameManager;
 import es.sortie.ImageConteneur;
-import es.sortie.composants.AbstractBufferComposant;
-import es.sortie.composants.CarteLayer;
-import es.sortie.composants.CurseurLayer;
-import es.sortie.composants.DebugLayer;
-import es.sortie.composants.InterfaceUtilisateurLayer;
-import es.sortie.composants.ObjetLayer;
+import es.sortie.composants.*;
 import game.Carte;
 import game.Heros;
 import game.Joueur;
@@ -23,8 +17,6 @@ import utilitaire.Position;
 import utilitaire.Vector2i;
 
 import java.io.IOException;
-
-import static java.awt.event.KeyEvent.*;
 
 public class MapTest {
 
@@ -105,7 +97,10 @@ public class MapTest {
 		c.addElement(darius, 2, 2); //on fait demarrer le heros en 2,2
 		
 		fm.init(cl, elemLayer, curseurLayer, uil);
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/Frakh/Champions-of-Strength-and-Sorcery.git
 		fm.setFrameRateLimit(30);
 
 		uil.ajouterImageUI(new ImageConteneur("assets/img/ui/fin.jpg", new IntRect(640,10,60,60),42));
@@ -113,7 +108,7 @@ public class MapTest {
 		int truc=-1;
 		int lo=-1;
 		int la=-1;
-		Vector2i coord = new Vector2i(-1,-1);;
+		Vector2i coord = new Vector2i(-1,-1);
 		while (true) {
 			fm.repaint();
 			Vector2i autrePos = souris.getInGamePosition();

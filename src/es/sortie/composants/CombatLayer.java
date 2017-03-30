@@ -19,9 +19,9 @@ public class CombatLayer extends AbstractBufferComposant {
 	private Combat combat;
 
 	//L'image du fond du combat
-	public static String fondCombat = "./assets/img/bg_plaine.jpg";
+	public static final String fondCombat = "./assets/img/bg_plaine.jpg";
 	//
-	public static String CURSEUR_SOURIS_IMAGE_PATH = "./assets/img/Curseur.png";
+	public static final String CURSEUR_SOURIS_IMAGE_PATH = "./assets/img/Curseur.png";
 
 	public final int DEPLACEMENT_HORIZONTAL_PIXEL;
 	public final int DEPLACEMENT_VERTICAL_PIXEL;
@@ -107,13 +107,17 @@ public class CombatLayer extends AbstractBufferComposant {
 						leRectangle.height
 				);
 				if (!leRectangle.contains(souris.getInGamePosition())) {
+<<<<<<< HEAD
+=======
+					sourisCasePos = null;
+>>>>>>> branch 'master' of https://github.com/Frakh/Champions-of-Strength-and-Sorcery.git
 					g2.drawImage(
 							ImageManager.getImage("./assets/img/Hexagon90.png"),
 							x_rect_pos, y_rect_pos, leRectangle.width, leRectangle.height,
 							this
 					);
 				} else {
-					this.sourisCasePos = new Vector2i(a,b);
+					sourisCasePos = new Vector2i(a,b);
 					g2.drawImage(
 							ImageManager.getImage("./assets/img/Hexagon.png"),
 							x_rect_pos,y_rect_pos,leRectangle.width, leRectangle.height, this
