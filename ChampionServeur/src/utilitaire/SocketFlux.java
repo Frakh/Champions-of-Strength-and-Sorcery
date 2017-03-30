@@ -34,6 +34,7 @@ public class SocketFlux {
 		Evenement ev = null;
 		try {
 			ev = (Evenement) oistream.readObject();
+			System.out.println("Reception d'un evenement");
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
