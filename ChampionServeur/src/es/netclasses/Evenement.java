@@ -14,6 +14,7 @@ import java.io.Serializable;
 public class Evenement implements Serializable {
 
 	public static final byte COMBAT_EVENT = 42;
+	public static final byte GAME_ID = 1;
 	/**
 	 * Unique field de la classe Evenement
 	 * Une valeur négative signifie que l'évenement ne doit pas être routé
@@ -39,5 +40,4 @@ public class Evenement implements Serializable {
 
 
 	public static byte NETWORK_RESERVED_ID = 0x00;
-	public static byte GAME_ID = 0x01;
 }
