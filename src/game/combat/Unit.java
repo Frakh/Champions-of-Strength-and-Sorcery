@@ -228,7 +228,7 @@ public class Unit implements IUnit {
 
 	@Override
 	public String getImage() {
-		return "./assets/img/imgUnit11.png";
+		return "./assets/img/imgUnit" + id + ".png";
 	}
 
 }

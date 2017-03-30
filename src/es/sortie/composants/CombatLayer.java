@@ -107,10 +107,6 @@ public class CombatLayer extends AbstractBufferComposant {
 						leRectangle.height
 				);
 				if (!leRectangle.contains(souris.getInGamePosition())) {
-<<<<<<< HEAD
-=======
-					sourisCasePos = null;
->>>>>>> branch 'master' of https://github.com/Frakh/Champions-of-Strength-and-Sorcery.git
 					g2.drawImage(
 							ImageManager.getImage("./assets/img/Hexagon90.png"),
 							x_rect_pos, y_rect_pos, leRectangle.width, leRectangle.height,
