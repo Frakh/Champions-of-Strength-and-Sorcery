@@ -1,5 +1,7 @@
 package appli;
 
+import game.Joueur;
+import game.Partie;
 import utilitaire.CommandReader;
 import utilitaire.SocketFlux;
 
@@ -17,10 +19,19 @@ public class MainApp {
 		new CommandReader().start();
 		ServerSocket waiter = new ServerSocket(CONNECT_PORT);
 
+		boolean b = true;
+
 		System.out.println("Ready to receive player");
 		while (true) {
 			try {
-				new NewPlayerService(new SocketFlux(waiter.accept())).start();
+				Joueur j = new Joueur(new SocketFlux(waiter.accept()));
+				if (b) {
+					Partie.creerPartie(j, "");
+					b = false;
+				} else {
+					Partie.rejoindre(0, j);
+					b = false;
+				}
 			} catch (Exception e) {
 			}
 		}
