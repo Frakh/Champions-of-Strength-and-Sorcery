@@ -26,7 +26,7 @@ public class MapTest {
 	@Test
 	public void testMapDisp() throws IOException, InterruptedException {
 
-		Carte c = IFileLoader.loadCarte("./ressources/map/nexttest.gameres");
+		Carte c = IFileLoader.loadCarte("./ressources/map/map.txt");
 
 		FrameManager fm = new FrameManager();
 		IPosition ip = new Position(0,0);
@@ -47,7 +47,7 @@ public class MapTest {
 
 	@Test
 	public void testDispAndMove() throws IOException, InterruptedException {
-		Carte c = IFileLoader.loadCarte("./ressources/map/nexttest.gameres");
+		Carte c = IFileLoader.loadCarte("./ressources/map/map.txt");
 
 		FrameManager fm = new FrameManager();
 		IPosition ip = new Position(0,0);
