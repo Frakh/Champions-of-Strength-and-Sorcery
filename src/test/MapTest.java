@@ -54,7 +54,7 @@ public class MapTest {
 
 		fm.setSpriteDim(32, 32);
 		fm.setPositionToFollow(ip);
-		fm.setDimensions(1280,720);
+		fm.setDimensions(960, 540);
 
 		Vector2i cursorPos = new Vector2i(0,0);
 		AbstractBufferComposant carteLayer = new CarteLayer(fm, c);
@@ -70,8 +70,12 @@ public class MapTest {
 		ic.setActionMap(3, VK_Z);
 		ic.setActionMap(4, VK_A);
 
-		boolean b = true;
+		boolean lebool = true;
+		boolean testage = false;
 		while (true) {
+			fm.setLayerVisibility(CarteLayer.class.getName(), testage);
+			fm.setLayerVisibility(CurseurLayer.class.getName(), testage);
+			testage = !testage;
 
 			if (ic.isJustPress(0) && cursorPos.x < c.getWidth()-1)
 				cursorPos.x++;
@@ -82,12 +86,12 @@ public class MapTest {
 			if (ic.isJustPress(1) && cursorPos.y < c.getHeight()-1)
 				cursorPos.y++;
 			if (ic.isJustPress(4)) {
-				b = !b;
-				fm.setLayerVisibility("es.sortie.composants.CarteLayer", b);
+				lebool = !lebool;
+				fm.setLayerVisibility("es.sortie.composants.CarteLayer", lebool);
 			}
 			fm.setPositionToFollow(cursorPos.toPosition());
 
-			Thread.sleep(16);
+			Thread.sleep(1000);
 		}
 	}
 	
