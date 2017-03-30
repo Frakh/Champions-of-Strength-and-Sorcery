@@ -3,7 +3,6 @@ package game;
 import es.netclasses.Evenement;
 import es.netclasses.evenements.JeuEvenement;
 import utilitaire.BaseThread;
-import utilitaire.LogSys;
 
 import java.util.Queue;
 import java.util.Vector;
@@ -55,6 +54,7 @@ public class Partie extends BaseThread {
 	 */
 	public static void creerPartie(Joueur j, String map) {
 		new Partie(map, j).start();
+		j.start();
 		System.out.println("Creation de partie");
 	}
 
@@ -75,40 +75,31 @@ public class Partie extends BaseThread {
 	 */
 	@Override
 	public void run() {
-
+		conti_run = true;
 		while (conti_run) {
-
+			System.out.println("Running");
 			for (Joueur j : joueurs) {
-				Evenement[] evenements = j.getEvenementArray();
-				if (evenements.length>0) {
-					for (Evenement e : evenements) {
-						if (e.isDispachtable()) {
-							this.queueDevent.add(new EvenementConteneur(e, j));
-						} else {
-							this.servEvenements.add(new EvenementConteneur(e,j));
-						}
-					}
-				}
+				Evenement eve = null;
+				do {
+					eve = j.readEvenement();
+					if (eve!=null)
+						this.queueDevent.add(new EvenementConteneur(eve, j));
+				} while (eve!=null);
 			}
 
 			//Redispachage des evenements aux autres joueurs
-			for (Joueur j : joueurs) {
-				try {
-					EvenementConteneur evenement = this.queueDevent.poll();
-					if (evenement!=null) {
-						if (j != evenement.getDeposeur()) {
-							j.sendEvenement(evenement.getEvenement());
-						}
-					}
-				} catch (Exception e) {
-					LogSys.log(e);
+			EvenementConteneur redispat = queueDevent.poll();
+			while (redispat!=null) {
+				for (Joueur j : joueurs) {
+					if (!j.equals(redispat.getDeposeur()))
+						j.sendEvenement(redispat.getEvenement());
 				}
+				redispat = queueDevent.poll();
 			}
 
 			try {
 				Thread.sleep(4);
 			} catch (InterruptedException e) {
-				LogSys.log(e);
 			}
 		}
 	}
@@ -129,6 +120,7 @@ public class Partie extends BaseThread {
 	 */
 	public static void rejoindre(final int i, final Joueur joueur) {
 		getPartieById(i).ajouterJoueur(joueur);
+		joueur.start();
 		System.out.println("Partie rejointe");
 	}
 
