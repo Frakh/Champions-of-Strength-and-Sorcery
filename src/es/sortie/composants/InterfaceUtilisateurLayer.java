@@ -15,9 +15,9 @@ import java.util.*;
 public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 
 	//La position en pixels des images sur la carte
-	private java.util.List<ImageConteneur> imgConteneur = new ArrayList<>();
+	private final java.util.List<ImageConteneur> imgConteneur = new ArrayList<>();
 	//Les strings a ajouter, appelera la methode toString
-	private Map<Vector2i, Object> iObjectMap = new HashMap<>();
+	private final Map<Vector2i, Object> iObjectMap = new HashMap<>();
 
 	/**
 	 * Constructeur de l'UILayer
@@ -47,11 +47,10 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 	/**
 	 * Permet de retirer une image du layer de l'ui
 	 * @param ic : l'image en question
-	 * @return true si il a réussi a retirer l'image, false sinon
 	 */
-	public boolean retirerImageUI(ImageConteneur ic) {
+	public void retirerImageUI(ImageConteneur ic) {
 		synchronized (imgConteneur) {
-			return this.imgConteneur.remove(ic);
+			this.imgConteneur.remove(ic);
 		}
 	}
 

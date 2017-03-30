@@ -30,8 +30,8 @@ public class Joueur implements IControllable{
 	}
 
 	public Joueur(){
-		batiments = new ArrayList<Batiment>();
-		herosMap = new ArrayList<HerosMap>();
+		batiments = new ArrayList<>();
+		herosMap = new ArrayList<>();
 		//chateaux = new ArrayList<Chateau>();
 		controleur = new ControlleurJoueur();
 		controleur.setActionMap(2, KeyEvent.VK_DOWN);

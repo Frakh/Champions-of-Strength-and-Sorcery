@@ -104,7 +104,7 @@ public class MapTest {
 		int truc=-1;
 		int lo=-1;
 		int la=-1;
-		Vector2i coord = new Vector2i(-1,-1);;
+		Vector2i coord = new Vector2i(-1,-1);
 		while (true) {
 			fm.repaint();
 			Vector2i autrePos = souris.getInGamePosition();

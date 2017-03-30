@@ -23,8 +23,8 @@ public class FileLoaderTest {
 	public void testDecompMap() throws IOException {
 		String[][] datazs = IFileLoader.getFileMapMatrix(IFileLoader.getFileMapLines(IFileLoader.fullyReadFile("./ressources/map/nexttest.gameres")));
 		for (int i = 0; i < datazs[0].length; ++i) {
-			for (int j = 0; j < datazs.length; ++j) {
-				System.out.print(datazs[j][i]);
+			for (String[] dataz : datazs) {
+				System.out.print(dataz[i]);
 			}
 			System.out.print('\n');
 		}
