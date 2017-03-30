@@ -4,6 +4,8 @@ import es.netclasses.Evenement;
 import es.netclasses.evenements.JeuEvenement;
 import utilitaire.BaseThread;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -77,13 +79,14 @@ public class Partie extends BaseThread {
 	public void run() {
 		conti_run = true;
 		while (conti_run) {
-			System.out.println("Running");
 			for (Joueur j : joueurs) {
 				Evenement eve = null;
 				do {
 					eve = j.readEvenement();
-					if (eve!=null)
+					if (eve!=null) {
 						this.queueDevent.add(new EvenementConteneur(eve, j));
+						System.out.println("Evenement reçu et stacked");
+					}
 				} while (eve!=null);
 			}
 
@@ -91,10 +94,21 @@ public class Partie extends BaseThread {
 			EvenementConteneur redispat = queueDevent.poll();
 			while (redispat!=null) {
 				for (Joueur j : joueurs) {
-					if (!j.equals(redispat.getDeposeur()))
+					if (!j.equals(redispat.getDeposeur())) {
 						j.sendEvenement(redispat.getEvenement());
+						System.out.println("Envoie evenement : " + j.getClass().getName());
+					}
 				}
 				redispat = queueDevent.poll();
+			}
+
+			List<Joueur> toDel = new ArrayList<>();
+			for (Joueur j : joueurs) {
+				if (!j.isValid)
+					toDel.add(j);
+			}
+			for (Joueur j : toDel) {
+				joueurs.remove(j);
 			}
 
 			try {
