@@ -21,25 +21,27 @@ public class Joueur extends BaseThread {
 		this.queue = new ConcurrentLinkedQueue<>();
 	}
 
-	@Override
-	public void run() {
-		while (super.conti_run) {
-			queue.add(socketFlux.readEvenement());
-		}
-	}
-
-	public Evenement[] getEvenementArray() {
-		Evenement[] earr = new Evenement[queue.size()];
-		queue.toArray(earr);
-		queue.clear();
-		return earr;
-	}
-
 	public SocketFlux getSocketFlux() {
 		return socketFlux;
 	}
 
 	public void sendEvenement(final Evenement evenement) {
 		socketFlux.writeEvenement(evenement);
+	}
+
+	public Evenement readEvenement() {
+		return queue.poll();
+	}
+
+	@Override
+	public void run() {
+		while (true) {
+			queue.add(socketFlux.readEvenement());
+		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		return this.id==((Joueur)o).id;
 	}
 }
