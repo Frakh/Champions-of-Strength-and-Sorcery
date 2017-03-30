@@ -5,10 +5,12 @@ import es.entree.Souris;
 import es.interfaces.IController;
 import es.interfaces.IFileLoader;
 import es.sortie.FrameManager;
+import es.sortie.ImageConteneur;
 import es.sortie.composants.AbstractBufferComposant;
 import es.sortie.composants.CarteLayer;
 import es.sortie.composants.CurseurLayer;
 import es.sortie.composants.DebugLayer;
+import es.sortie.composants.InterfaceUtilisateurLayer;
 import es.sortie.composants.ObjetLayer;
 import game.Carte;
 import game.Heros;
@@ -16,6 +18,7 @@ import game.Joueur;
 import game.carte.elements.HerosMap;
 import org.junit.Test;
 import utilitaire.IPosition;
+import utilitaire.IntRect;
 import utilitaire.Position;
 import utilitaire.Vector2i;
 
@@ -85,19 +88,28 @@ public class MapTest {
 
 		Souris souris = Souris.getInstance(fm);
 		Vector2i cPos = new Vector2i(0,0);
+		
+		Carte c = IFileLoader.loadCarte("./ressources/map/map.txt");
+		
 		AbstractBufferComposant curseurLayer = new CurseurLayer(fm, "./assets/img/SPRITES/PEUNEUGEU/Curseur.png", cPos);
 		AbstractBufferComposant debugL = new DebugLayer("Go", souris);
-		Carte c = IFileLoader.loadCarte("./ressources/map/map.txt");
-		CarteLayer cl = new CarteLayer(fm, c);
 		AbstractBufferComposant elemLayer = new ObjetLayer(fm, c);
+		
+		CarteLayer cl = new CarteLayer(fm, c);
+		InterfaceUtilisateurLayer uil= new InterfaceUtilisateurLayer();
+		
 		Joueur noxus = new Joueur();
 		Vector2i curseur=noxus.getCurseur();
 		IController ic=noxus.getController();
 		noxus.addHeros(new Heros("dar kwadeaure"));
 		HerosMap darius=noxus.getHerosMap(0);
 		c.addElement(darius, 2, 2); //on fait demarrer le heros en 2,2
+		
 		fm.init(cl, elemLayer, debugL, curseurLayer);
 		fm.setFrameRateLimit(30);
+		
+		uil.ajouterImageUI(new ImageConteneur("assets/img/ui/fin.jpg", new IntRect(640,10,60,60),42));
+		
 		int truc=-1;
 		int lo=-1;
 		int la=-1;
