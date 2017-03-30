@@ -98,4 +98,8 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 	void dessiner(final Graphics g) {
 		paintComponent(g);
 	}
+
+	public String toString() {
+		return "Taille liste : " + this.imgConteneur.size();
+	}
 }
