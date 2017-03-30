@@ -25,8 +25,8 @@ public class CombatLayer extends AbstractBufferComposant {
 
 	public final int DEPLACEMENT_HORIZONTAL_PIXEL;
 	public final int DEPLACEMENT_VERTICAL_PIXEL;
-	public final float REDUCTION_VERTICALE = 0.75f;
-	public final float REDUCTION_HORIZONTALE = 0.85f;
+	public final float REDUCTION_VERTICALE;// = 0.75f;
+	public final float REDUCTION_HORIZONTALE;// = 0.85f;
 	public final Vector2i[][] rectgls;
 
 	private Souris souris;
@@ -58,6 +58,8 @@ public class CombatLayer extends AbstractBufferComposant {
 		DEPLACEMENT_VERTICAL_PIXEL = 25;
 		rectgls = new Vector2i[20][13];
 
+		REDUCTION_VERTICALE = 0.75f * ((float) fm.getWidth()) / 1280.f;
+		REDUCTION_HORIZONTALE = 0.85f * ((float) fm.getHeight()) / 720.f;
 		this.setDataBlock();
 		for (int b = 0; b < 13; ++b) {
 			for (int a = 0; a < 20; a++) {
@@ -86,6 +88,7 @@ public class CombatLayer extends AbstractBufferComposant {
 		g2.drawImage(
 				ImageManager.getImage(fondCombat),
 				0,0,gdb.winWidth, gdb.winHeight, this	);
+		++AntiTearBuffer.RENDERED_IMAGES;
 
 		Vector2i mousePos = souris.getInGamePosition();
 		//Affichage des aires
@@ -117,6 +120,7 @@ public class CombatLayer extends AbstractBufferComposant {
 							x_rect_pos,y_rect_pos,leRectangle.width, leRectangle.height, this
 					);
 				}
+				++AntiTearBuffer.RENDERED_IMAGES;
 			}
 		}
 
@@ -137,6 +141,7 @@ public class CombatLayer extends AbstractBufferComposant {
 						(int) (gdb.spriteHeight*this.REDUCTION_VERTICALE),
 						this
 				);
+				++AntiTearBuffer.RENDERED_IMAGES;
 			}
 		}
 
