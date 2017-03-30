@@ -12,6 +12,7 @@ public class Joueur extends BaseThread {
 	private SocketFlux socketFlux;
 	private static int id_cpt = 0;
 	private int id;
+	public boolean isValid = true;
 
 	private Queue<Evenement> queue;
 
@@ -35,8 +36,12 @@ public class Joueur extends BaseThread {
 
 	@Override
 	public void run() {
-		while (true) {
-			queue.add(socketFlux.readEvenement());
+		try {
+			while (true) {
+				queue.add(socketFlux.readEvenement());
+			}
+		} catch (Exception e) {
+			isValid = false;
 		}
 	}
 

@@ -73,10 +73,6 @@ public class AntiTearBuffer extends JComponent {
 	 * @param candisp : si il peut être affiché
 	 */
 	public void setDisplayable(String clname, boolean candisp) {
-		if (!clname.startsWith("es.sortie.composants.")) {
-			clname = "es.sortie.composants." + clname;
-		}
-
 		for (AbstractBufferComposant abc : components) {
 			if (abc.getClass().getName().equals(clname)) {
 				abc.setAbilityToDisplay(candisp);
