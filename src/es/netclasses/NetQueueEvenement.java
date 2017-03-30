@@ -49,9 +49,7 @@ public class NetQueueEvenement {
 		if (arrayQueue[id]==null) {
 			return null;
 		}
-		synchronized (arrayQueue[id]) {
-			return (Evenement) arrayQueue[id].poll();
-		}
+		return (Evenement) arrayQueue[id].poll();
 	}
 
 	/**
