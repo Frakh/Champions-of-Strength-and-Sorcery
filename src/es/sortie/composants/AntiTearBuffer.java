@@ -63,7 +63,7 @@ public class AntiTearBuffer extends JComponent {
 			}
 		}
 		g.drawImage(screenBuffer, 0,0, fm.getCurrentWidth(), fm.getCurrentHeight(),this);
-		g.drawString("Numb of rendered component : " + RENDERED_IMAGES,10,20);
+		//g.drawString("Numb of rendered component : " + RENDERED_IMAGES,10,20);
 
 	}
 
