@@ -3,6 +3,7 @@ package game;
 import es.netclasses.Evenement;
 import es.netclasses.evenements.JeuEvenement;
 import utilitaire.BaseThread;
+import utilitaire.LogSys;
 
 import java.util.Queue;
 import java.util.Vector;
@@ -93,12 +94,22 @@ public class Partie extends BaseThread {
 
 			//Redispachage des evenements aux autres joueurs
 			for (Joueur j : joueurs) {
-				EvenementConteneur evenement = this.queueDevent.poll();
-				if (evenement!=null) {
-					if (j != evenement.getDeposeur()) {
-						j.sendEvenement(evenement.getEvenement());
+				try {
+					EvenementConteneur evenement = this.queueDevent.poll();
+					if (evenement!=null) {
+						if (j != evenement.getDeposeur()) {
+							j.sendEvenement(evenement.getEvenement());
+						}
 					}
+				} catch (Exception e) {
+					LogSys.log(e);
 				}
+			}
+
+			try {
+				Thread.sleep(4);
+			} catch (InterruptedException e) {
+				LogSys.log(e);
 			}
 		}
 	}
