@@ -72,7 +72,7 @@ public class IntRect {
 
 	public boolean intersect(IntRect ir) {
 		Vector2i[] irpoints = ir.getAllPoints();
-		Vector2i[] thatpoints = ir.getAllPoints();
+		Vector2i[] thatpoints = getAllPoints();
 		for (Vector2i v : irpoints) {
 			if (contains(v))
 				return true;
