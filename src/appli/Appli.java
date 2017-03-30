@@ -55,7 +55,7 @@ public class Appli {
 
 		while(true){
 			//if (mickey.mousePressed())
-			System.out.print("");
+			System.out.print(""); //pour des raisons étranges, ça ne marche pas sans
 			int usedButtonUnique = mickey.getUniqueUsedButton();
 			if (usedButtonUnique==MouseEvent.BUTTON1 && boutonCreer.getImageDrawingArea().contains(mickey.getInGamePosition())){
 				gererCreerPartie(menu, mickey);
@@ -68,29 +68,35 @@ public class Appli {
 	}
 
 	public static void gererCreerPartie(InterfaceUtilisateurLayer menu, Souris mickey) {
+		System.out.println("creer partie");
 		boolean conti = true;
-		//String nom=null;
+		String nom=null;
 		
 		ImageConteneur fenetreCreer = new ImageConteneur("./assets/img/ui/fenetreCreer.jpg", new IntRect(100, 50, 700, 600), 10);
 		ImageConteneur boutonFermer = new ImageConteneur("./assets/img/ui/nope.jpg", new IntRect(770, 50, 30, 30), 11);
 		ImageConteneur boutonValider = new ImageConteneur("./assets/img/ui/valider.jpg", new IntRect(550, 450, 200, 90), 11);	
-		//ImageConteneur zoneTexteNom=new ImageConteneur("./assets/img/ui/zonetexte.jpg", new IntRect(380, 1230, 300, 30), 11);
-		
+		ImageConteneur zoneTexteNom=new ImageConteneur("./assets/img/ui/zonetexte.jpg", new IntRect(380, 120, 300, 30), 11);
+
 		menu.ajouterImageUI(fenetreCreer);
 		menu.ajouterImageUI(boutonFermer);
 		menu.ajouterImageUI(boutonValider);
+		menu.ajouterImageUI(zoneTexteNom);
 
 		while (conti) {
 			//créer une partie
+			System.out.print(""); //java est un monde étrange
+
 			int ub = mickey.getUniqueUsedButton();
 			if (ub == MouseEvent.BUTTON1 && boutonFermer.getImageDrawingArea().contains(mickey.getInGamePosition())) {
+				System.out.println("retirer image");
 				menu.retirerImageUI(fenetreCreer);
 				menu.retirerImageUI(boutonValider);
 				menu.retirerImageUI(boutonFermer);
+				menu.retirerImageUI(zoneTexteNom);
 				conti = false;
 				System.out.println("oui");
 			}
-			/*if (ub == MouseEvent.BUTTON1 && zoneTexteNom.getImageDrawingArea().contains(mickey.getInGamePosition())){
+			if (ub == MouseEvent.BUTTON1 && zoneTexteNom.getImageDrawingArea().contains(mickey.getInGamePosition())){
 				CaptureKeyboard ck =new CaptureKeyboard();
 				menu.ajouterDonnesUI(zoneTexteNom.getImageDrawingArea().getXY(), ck);
 				try {
@@ -107,7 +113,7 @@ public class Appli {
 					System.out.println("oui");
 				}
 			}
-			*/
+
 		}
 	}
 	public static void gererRejoindrePartie(InterfaceUtilisateurLayer menu, Souris mickey) {
