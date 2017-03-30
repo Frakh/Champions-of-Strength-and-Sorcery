@@ -141,6 +141,7 @@ public interface IFileLoader {
 		Case[][] listeCases = new Case[carte_objs.length][carte_objs[0].length];
 		IElement[][] elements = new IElement[carte_objs.length][carte_objs[0].length];
 
+
 		for (int y = 0; y < carte_objs[0].length; ++y) {
 			for (int x = 0; x < carte_objs.length; ++x) {
 				StringTokenizer stoken = new StringTokenizer(carte_objs[x][y], "!");

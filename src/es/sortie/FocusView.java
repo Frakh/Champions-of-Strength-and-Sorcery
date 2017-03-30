@@ -17,7 +17,7 @@ public class FocusView {
 
 	/**
 	 * Permet de construire le focus view avec le frame manager
-	 * @param frame
+	 * @param frame : la frame
 	 */
 	FocusView(FrameManager frame) {
 		this.frameManager = frame;

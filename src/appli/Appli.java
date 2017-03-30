@@ -1,22 +1,17 @@
 package appli;
 
-import es.entree.CaptureKeyboard;
 import es.entree.Souris;
 import es.interfaces.IController;
 import es.interfaces.IFileLoader;
 import es.netclasses.NetworkInterface;
 import es.sortie.FrameManager;
 import es.sortie.ImageConteneur;
-import es.sortie.composants.AbstractBufferComposant;
-import es.sortie.composants.CarteLayer;
-import es.sortie.composants.CurseurLayer;
-import es.sortie.composants.DebugLayer;
-import es.sortie.composants.InterfaceUtilisateurLayer;
-import es.sortie.composants.ObjetLayer;
+import es.sortie.composants.*;
 import game.Carte;
 import game.Heros;
 import game.Joueur;
 import game.carte.elements.HerosMap;
+import test.MapTest;
 import utilitaire.IPosition;
 import utilitaire.IntRect;
 import utilitaire.Position;
@@ -27,18 +22,26 @@ import java.io.IOException;
 
 public class Appli {
 	public static void main (String[] args){
-		//charger des trucs
-		//lancer cinématique d'intro stylée
-		//lancer menu principal
+		Carte c=null;
+		try {
+			c = IFileLoader.loadCarte("./ressources/map/map.txt");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		FrameManager fm = new FrameManager();
-		IPosition ip = new Position(0,0);
+		IPosition ip = new Position(20,11);
 
 		fm.setSpriteDim(32, 32);
 		fm.setPositionToFollow(ip);
 		fm.setDimensions(1280,720);
 
 		InterfaceUtilisateurLayer menu = new InterfaceUtilisateurLayer();
+		Vector2i cPos = new Vector2i(0,0);
+		AbstractBufferComposant curseurLayer = new CurseurLayer(fm, "./assets/img/SPRITES/PEUNEUGEU/Curseur.png", cPos);
+		AbstractBufferComposant elemLayer = new ObjetLayer(fm, c);
+		
+		CarteLayer cl = new CarteLayer(fm, c);
 		
 		Vector2i tailleBouton=new Vector2i(255,100);
 		Vector2i positionBoutonJouer = new Vector2i(840,150);
@@ -49,36 +52,34 @@ public class Appli {
 		ImageConteneur boutonJouer=new ImageConteneur("./assets/img/ui/play.jpg",new IntRect(positionBoutonJouer.x,positionBoutonJouer.y,tailleBouton.x,tailleBouton.y),9);
 		ImageConteneur boutonCredits=new ImageConteneur("./assets/img/ui/credits.jpg",new IntRect(positionBoutonCredits.x,positionBoutonCredits.y,tailleBouton.x,tailleBouton.y),9);
 		ImageConteneur boutonTest=new ImageConteneur("./assets/img/ui/test.jpg",new IntRect(positionBoutonTest.x,positionBoutonTest.y,tailleBouton.x,tailleBouton.y),9);
+		ImageConteneur fond=new ImageConteneur("./assets/img/ui/menuFond.PNG",new IntRect(0,0,1280,720),-69);
 		
-		
-		menu.ajouterImageUI(new ImageConteneur("./assets/img/ui/menuFond.PNG",new IntRect(0,0,1280,720),-69));
+		menu.ajouterImageUI(fond);
 		menu.ajouterImageUI(boutonJouer);
 		menu.ajouterImageUI(boutonCredits);
 		menu.ajouterImageUI(boutonTest);
 		
 		Souris mickey = Souris.getInstance(fm);
-
-		DebugLayer dl = new DebugLayer(mickey, menu);
 		
-		fm.init(menu, dl);
+		fm.init(cl, elemLayer, curseurLayer,menu);
+		fm.setLayerVisibility(CarteLayer.class.getName(), false);
+		fm.setLayerVisibility(ObjetLayer.class.getName(), false);
+		fm.setLayerVisibility(CurseurLayer.class.getName(), false);
 		fm.setFrameRateLimit(60);
 		
-		/*
-		 là il faut:
-		 -afficher le menu principal
-		 -gérer les clics souris pour sélectionner des options(créer/rejoindre partie, etc)
-		 je sais faire aucun des deux donc bon 
-		*/
 
 		while(true){
-			//if (mickey.mousePressed())
 			System.out.print(""); //pour des raisons étranges, ça ne marche pas sans
 			int usedButtonUnique = mickey.getUniqueUsedButton();
 			if (usedButtonUnique==MouseEvent.BUTTON1 && boutonJouer.getImageDrawingArea().contains(mickey.getInGamePosition())){
 				gererLancementJeu(menu, mickey);
 			}
 			if (usedButtonUnique==MouseEvent.BUTTON1 && boutonTest.getImageDrawingArea().contains(mickey.getInGamePosition())){
-				gererTestJeu(mickey);
+				menu.retirerImageUI(fond);
+				menu.retirerImageUI(boutonJouer);
+				menu.retirerImageUI(boutonCredits);
+				menu.retirerImageUI(boutonTest);
+				gererTestJeu(fm,c,menu,curseurLayer,elemLayer,cl, mickey);
 			}
 			if (usedButtonUnique==MouseEvent.BUTTON1 && boutonCredits.getImageDrawingArea().contains(mickey.getInGamePosition())){
 				gererCredits(menu, mickey);
@@ -87,40 +88,27 @@ public class Appli {
 		
 	}
 
-	private static void gererTestJeu(Souris mickey) {
-		Carte c=null;
-		try {
-			c = IFileLoader.loadCarte("./ressources/map/map.txt");
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
-		FrameManager fm = new FrameManager();
-		IPosition ip = new Position(20,11);
+	private static void gererTestJeu(FrameManager fm, Carte c, InterfaceUtilisateurLayer menu, AbstractBufferComposant curseurLayer, AbstractBufferComposant elemLayer, CarteLayer cl, Souris souris) {
+		fm.setLayerVisibility(CarteLayer.class.getName(), true);
+		fm.setLayerVisibility(ObjetLayer.class.getName(), true);
+		//fm.setLayerVisibility(CurseurLayer.class.getName(), true);
 
-		fm.setSpriteDim(32, 32);
-		fm.setPositionToFollow(ip);
-		fm.setDimensions(1280,720);
-
-		Souris souris = Souris.getInstance(fm);
 		Vector2i cPos = new Vector2i(0,0);
-		AbstractBufferComposant curseurLayer = new CurseurLayer(fm, "./assets/img/SPRITES/PEUNEUGEU/Curseur.png", cPos);
-		AbstractBufferComposant debugL = new DebugLayer("Go", souris);
 		
-		CarteLayer cl = new CarteLayer(fm, c);
-		AbstractBufferComposant elemLayer = new ObjetLayer(fm, c);
 		Joueur noxus = new Joueur();
 		Vector2i curseur=noxus.getCurseur();
 		IController ic=noxus.getController();
 		noxus.addHeros(new Heros("dar kwadeaure"));
 		HerosMap darius=noxus.getHerosMap(0);
 		c.addElement(darius, 2, 2); //on fait demarrer le heros en 2,2
-		fm.init(cl, elemLayer, curseurLayer);
-		fm.setFrameRateLimit(30);
+		
+		
+		menu.ajouterImageUI(new ImageConteneur("assets/img/ui/fin.png", new IntRect(640,10,60,60),42));
+		
 		int truc=-1;
 		int lo=-1;
 		int la=-1;
-		Vector2i coord = new Vector2i(-1,-1);;
+		Vector2i coord = new Vector2i(-1,-1);
 		while (true) {
 			fm.repaint();
 			Vector2i autrePos = souris.getInGamePosition();
@@ -128,8 +116,10 @@ public class Appli {
 			truc=souris.getUniqueUsedButton();
 			lo = souris.getInGamePosition().getX()*c.getWidth()/1280;
 			la = souris.getInGamePosition().getY()*c.getHeight()/720;
-		//	if 
-			if (truc==1){
+			if (truc==1 && lo<22 && lo > 19 && la < 2){
+				darius.setPtMouvement(1500);
+			}
+			else if (truc==1){
 
 				coord=c.getCoordHeros(darius);
 				try {
@@ -142,15 +132,15 @@ public class Appli {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 		}
-		
 	}
 
 	public static void gererLancementJeu(InterfaceUtilisateurLayer menu, Souris mickey) {
-		NetworkInterface.bind("172.19.47.220", 9001);
+		//NetworkInterface.bind("172.19.47.220", 9001);
 	}
 	
 	public static void gererCredits(InterfaceUtilisateurLayer menu, Souris mickey) {
