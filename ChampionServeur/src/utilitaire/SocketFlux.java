@@ -34,9 +34,8 @@ public class SocketFlux {
 		Evenement ev = null;
 		try {
 			ev = (Evenement) oistream.readObject();
-			System.out.println("Reception d'un evenement");
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 			throw new RuntimeException(e);
 		} catch (ClassNotFoundException e) {
 			System.out.println("Unfound class");
