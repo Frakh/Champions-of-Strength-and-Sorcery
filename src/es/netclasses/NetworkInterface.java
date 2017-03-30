@@ -37,8 +37,8 @@ public class NetworkInterface {
 			streamSocket = new Socket(addr, port);
 
 			// Maybe Buggy
-			oos = new ObjectOutputStream(new BufferedOutputStream(streamSocket.getOutputStream()));
-			ois = new ObjectInputStream(new BufferedInputStream(streamSocket.getInputStream()));
+			oos = new ObjectOutputStream(streamSocket.getOutputStream());
+			ois = new ObjectInputStream(streamSocket.getInputStream());
 
 			threceiver = new Receiver(ois);
 			threceiver.start();
