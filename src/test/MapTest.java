@@ -92,7 +92,6 @@ public class MapTest {
 		Carte c = IFileLoader.loadCarte("./ressources/map/map.txt");
 		
 		AbstractBufferComposant curseurLayer = new CurseurLayer(fm, "./assets/img/SPRITES/PEUNEUGEU/Curseur.png", cPos);
-		AbstractBufferComposant debugL = new DebugLayer("Go", souris);
 		AbstractBufferComposant elemLayer = new ObjetLayer(fm, c);
 		
 		CarteLayer cl = new CarteLayer(fm, c);
@@ -105,7 +104,7 @@ public class MapTest {
 		HerosMap darius=noxus.getHerosMap(0);
 		c.addElement(darius, 2, 2); //on fait demarrer le heros en 2,2
 		
-		fm.init(cl, elemLayer, debugL, curseurLayer);
+		fm.init(cl, elemLayer, curseurLayer, uil);
 		fm.setFrameRateLimit(30);
 		
 		uil.ajouterImageUI(new ImageConteneur("assets/img/ui/fin.jpg", new IntRect(640,10,60,60),42));
