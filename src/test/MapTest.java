@@ -103,13 +103,9 @@ public class MapTest {
 		noxus.addHeros(new Heros("dar kwadeaure"));
 		HerosMap darius=noxus.getHerosMap(0);
 		c.addElement(darius, 2, 2); //on fait demarrer le heros en 2,2
-<<<<<<< HEAD
 		
 		fm.init(cl, elemLayer, curseurLayer, uil);
-=======
 
-		fm.init(cl, elemLayer, debugL, curseurLayer);
->>>>>>> branch 'master' of https://github.com/Frakh/Champions-of-Strength-and-Sorcery.git
 		fm.setFrameRateLimit(30);
 
 		uil.ajouterImageUI(new ImageConteneur("assets/img/ui/fin.jpg", new IntRect(640,10,60,60),42));

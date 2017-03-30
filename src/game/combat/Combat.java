@@ -40,22 +40,40 @@ public class Combat {
 		return coordTroupes[i];
 	}
 
-	public Combat(String truc){
+	public Combat(String truc) throws FileNotFoundException{
 		armee1 = null;
 		armee2 = null;
+		int cpt = 1000;
+		int x = -1;
+		int y = -1;
 		terrainCombat = new CaseCombat[LARGEURTERRAIN][HAUTEURTERRAIN];
-		for(int i = 0; i < 14; i++){
+		coordTroupes = new Vector2i[14];
+		
+		
+		for(int i = 0; i < coordTroupes.length ; i++){
 			coordTroupes[i] = new Vector2i(-1, -1);
 		}
+		
 		for(int i=0; i<LARGEURTERRAIN;i++)
 			for(int j=0; j<HAUTEURTERRAIN;j++)
 				terrainCombat[i][j]=new CaseCombat();
+		
 		coordTroupes= new Vector2i[14];
 		for(int j=0; j<14;j++)
 			coordTroupes[j]= new Vector2i(-1,-1);
+		
 		for(int i=0; i<LARGEURTERRAIN;i++)
 			for(int j=0; j<HAUTEURTERRAIN;j++)
 				terrainCombat[i][j]=new CaseCombat();
+		
+		
+		coordTroupes[0]=new Vector2i(0,6);
+		terrainCombat[0][6].setUnit(new Unit(11, 2));
+		coordTroupes[7]=new Vector2i(19,4);
+		terrainCombat[19][4].setUnit(new Unit(11, 2));
+		coordTroupes[8]=new Vector2i(19,8);
+		terrainCombat[19][8].setUnit(new Unit(11, 2));
+		
 		this.majMap(truc);
 	}
 	
@@ -292,6 +310,8 @@ public class Combat {
 		else{
 			throw new IllegalArgumentException("pas de vainqueur du match, pas de signal de match nul");
 		}
+		
+		
 	}
 
 	private boolean armeeMorte(){ //indique si le combat doit se terminer
@@ -401,7 +421,7 @@ public class Combat {
 		}
 		if (CestSonTour == -1) {
 			for (int i = 0; i < coordTroupes.length; i++) {//fin d'un tour de jeu: les unites regagnent leur riposte et leur droit de jouer
-				if (coordTroupes[i].getX()>=0) {//si la troupe existe on lui ebnleve son ajoue
+				if (coordTroupes[i].getX()>=0) {//si la troupe existe on lui enleve son aJoue
 					terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().setAJoue(false);
 				}
 			}
@@ -416,7 +436,7 @@ public class Combat {
 
 		return CestSonTour;
 	}
-
+		
 	public void majMap(String m) {
 		CaseCombat[][] t = new CaseCombat[LARGEURTERRAIN][HAUTEURTERRAIN];
 
@@ -435,17 +455,16 @@ public class Combat {
 		//mettre la nouvelle carte dans t
 		for(int j=0; j<HAUTEURTERRAIN;j++){
 			for(int i=0; i<LARGEURTERRAIN;i++){
-				System.out.println(m.charAt(0));
 				if (m.charAt(0)!=' '){ 		   //efface les blancs entre les caracteres
 					if (m.charAt(0)=='x'){ 	   //si la case est un obstacle
 						t[i][j].setFranchissable(false);
 					}
-					else if (Character.isDigit((m.charAt(0))) && !Character.isDigit((m.charAt(1)))) {    //si la case est un nombre Ã  1 chiffre
+					else if (Character.isDigit((m.charAt(0))) && !Character.isDigit((m.charAt(1)))) {    //si la case est un nombre a  1 chiffre
 						t[i][j].setUnit(terrainCombat[coordTroupes[Character.getNumericValue(m.charAt(0))].getX()][coordTroupes[Character.getNumericValue(m.charAt(0))].getY()].getUnit());
 						coordTroupes[Character.getNumericValue(m.charAt(0))].set(i, j); 		   //mettre a jour coordTroupes
 						flush[Character.getNumericValue(m.charAt(0))]=1;
 					}
-					else if (Character.isDigit((m.charAt(0))) && Character.isDigit((m.charAt(1)))) {    //si la case est un nombre Ã  2 chiffre (fourbe!!)
+					else if (Character.isDigit((m.charAt(0))) && Character.isDigit((m.charAt(1)))) {    //si la case est un nombre a  2 chiffres (fourbe!!)
 						t[i][j].setUnit(terrainCombat[coordTroupes[Integer.parseInt(String.valueOf(m.charAt(0))+m.charAt(1))].getX()][coordTroupes[Integer.parseInt(String.valueOf(m.charAt(0))+m.charAt(1))].getY()].getUnit());
 						coordTroupes[Integer.parseInt(String.valueOf(m.charAt(0))+m.charAt(1))].set(i, j);
 						flush[Integer.parseInt(String.valueOf(m.charAt(0))+m.charAt(1))]=1;
@@ -458,9 +477,8 @@ public class Combat {
 					i--;
 				m = m.substring(1,m.length());
 			}
-			System.out.println("");
-		}
-		System.out.println("blub2");
+			
+	}
 		//flush contient 1 sur toutes les unites encore vivantes, 61 sur les autres
 		for(int i=0; i<flush.length; i++) {
 			if (flush[i]==-1) {
@@ -468,14 +486,12 @@ public class Combat {
 			}
 		}
 
-		System.out.println("blub3");
 		//t devient la nouvelle map officielle
 		for(int i=0; i<HAUTEURTERRAIN;i++){
 			for(int j=0; j<LARGEURTERRAIN;j++){
 				terrainCombat[j][i]=t[j][i];
 			}
 		}
-		System.out.println("blub4");
 		//les donnees sont de la forme "indexUnit nombre pv"
 		//on met a jour les units avec ces donnees
 		String tt="";  //sert de String-tampon
@@ -525,10 +541,7 @@ public class Combat {
 				pv = Integer.parseInt(tt);
 				cpt=0;
 				tt="";
-				System.out.println("bzegzrub");
 				//mettre a jour terraincombat avec les donnees isolees
-				System.out.println(coordTroupes[unit].getX()+" "+coordTroupes[unit].getY());
-				System.out.println(terrainCombat[coordTroupes[unit].getX()][coordTroupes[unit].getY()].getUnit().getNombre());
 				terrainCombat[coordTroupes[unit].getX()][coordTroupes[unit].getY()].getUnit().setNombre(nb);
 				terrainCombat[coordTroupes[unit].getX()][coordTroupes[unit].getY()].getUnit().setPvAct(pv);
 				unit=-1;
@@ -536,10 +549,9 @@ public class Combat {
 				pv=-1;
 			}
 		}
-		System.out.println("blubset");
 	}	
 	
-	public void fight(boolean attaque, int idH1, int idH2, Souris s) throws IOException{ //bah, l'endroit on on fait se taper des gens avec d'autres
+	public void fight(boolean attaque, int idH1, int idH2, Souris s) throws IOException, InterruptedException{ //bah, l'endroit on on fait se taper des gens avec d'autres
 		boolean blbl=false;
 		int k;
 		int l;
@@ -547,59 +559,87 @@ public class Combat {
 		
 		Vector2i sel = new Vector2i(-1,-1);
 		Evenement eventEnCours = null; //new CombatEvenement(Evenement.COMBAT_EVENT, "");
-		System.out.println("avant");
 		if (attaque){ 		   //si le joueur enclenche le combat, il envoie les donnê¦³ de combat à¡³on adversaire
 			eventEnCours=new CombatEvenement(CombatEvenement.DEBUT_COMBAT , toStringMap());
 			System.out.println(eventEnCours.getId());
 			NetworkInterface.send(eventEnCours);
 			eventEnCours=null;
 		}
-		System.out.println("attaque = " + attaque);
 		while(!armeeMorte()){
 			CestSonTour = choixTourUnit();//cestsontour = id de la troupe qui doit jouer
+			System.out.println("tour de l'unit "+CestSonTour);
 			if ((attaque && CestSonTour < 7) || !attaque && CestSonTour > 6) { 	//si attaque=true, alors ce joueur alance le combat
 				//et possede donc les 7 premiers slots du tableau.
 				//Sinon il possede les 7 derniers.
 				//faire une action
 				while (!blbl) {
+					if (CombatLayer.getCaseSourisPosition()  != null)
+						System.out.print("");
+					Thread.sleep(30);
 					if (s.getUniqueUsedButton()==1) {
-						sel = CombatLayer.getCaseSourisPosition();
+						
+						sel.set(CombatLayer.getCaseSourisPosition().getX(), CombatLayer.getCaseSourisPosition().getY());
 						//si le pathfinding est d'accord, le trupe se balade
+						System.out.println("clic detecte");
 						if (pathfinding(coordTroupes[CestSonTour].getX(),coordTroupes[CestSonTour].getY())[sel.getX()][sel.getY()]) {
 							teleporterTroupe(new Vector2i (coordTroupes[CestSonTour].getX(),coordTroupes[CestSonTour].getY()), new Vector2i(sel.getX(), sel.getY()));
+							blbl=true;
 							//si elle arrive près d'un ou plusieurs ennemis, elle les tape
 							if (attaque) {
 								for (int i = 7; i <14;i++) {
+								
 									if (deplacement1Case (coordTroupes[i].getX(),coordTroupes[i].getY(), sel.getX(), sel.getY())){
+										System.out.println("taper");
 										terrainCombat[sel.getX()][sel.getY()].getUnit().combattre(terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit());
+										System.out.println(terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getNombre());
+										if (terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getMort()) {
+											System.out.println("mouru");
+											terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].setUnit(null);
+											coordTroupes[i]=new Vector2i(-1, -1);
+										}
 									}
 								}
 							}
 							else {
 								for (int i = 0; i <7;i++) {
-									if (deplacement1Case (coordTroupes[i].getX(),coordTroupes[i].getY(), sel.getX(), sel.getY())){
+									
+									if (deplacement1Case (sel.getX(), sel.getY(), coordTroupes[i].getX(),coordTroupes[i].getY())){
+										System.out.println("taper");
 										terrainCombat[sel.getX()][sel.getY()].getUnit().combattre(terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit());
+										System.out.println(terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getNombre());
+										if (terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].getUnit().getMort()) {
+											System.out.println("mouru");
+											terrainCombat[coordTroupes[i].getX()][coordTroupes[i].getY()].setUnit(null);
+											coordTroupes[i]=new Vector2i(-1, -1);
+										}
 									}
 								}
 							}
 						}
 						// si elle agi, on le set sinon elle va rejouer a l'infini
-						terrainCombat[coordTroupes[CestSonTour].getX()][coordTroupes[CestSonTour].getY()].getUnit().setAJoue(true);
 					}
 				}
+				blbl = false;
 				//envoyer au serveur la map mise a jour
 				eventEnCours = new CombatEvenement(Evenement.COMBAT_EVENT, toStringMap());
+				NetworkInterface.send(eventEnCours);
+				eventEnCours=null;
 			}
 			else {
 				//attendre une mise a jour de la map
+				System.out.println("en attente...");
 				while (eventEnCours == null) {
 					eventEnCours=NetQueueEvenement.getEvenement(Evenement.COMBAT_EVENT);
 					try {
-						Thread.sleep(16);
+						Thread.sleep(30);
 					} catch (InterruptedException e) {}
-					majMap(((CombatEvenement) eventEnCours).getMaj());
+					if (eventEnCours!=null) {
+						majMap(((CombatEvenement) eventEnCours).getMaj());
+						}
 				}
+				System.out.println("map recue");
 			}
+			terrainCombat[coordTroupes[CestSonTour].getX()][coordTroupes[CestSonTour].getY()].getUnit().setAJoue(true);
 			eventEnCours=null;
 		}
 		for (int i =0; i<coordTroupes.length; i++){//regarder quelle armee est morte
