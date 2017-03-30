@@ -1,18 +1,12 @@
 package appli;
 
-import es.entree.CaptureKeyboard;
 import es.entree.Souris;
 import es.interfaces.IController;
 import es.interfaces.IFileLoader;
 import es.netclasses.NetworkInterface;
 import es.sortie.FrameManager;
 import es.sortie.ImageConteneur;
-import es.sortie.composants.AbstractBufferComposant;
-import es.sortie.composants.CarteLayer;
-import es.sortie.composants.CurseurLayer;
-import es.sortie.composants.DebugLayer;
-import es.sortie.composants.InterfaceUtilisateurLayer;
-import es.sortie.composants.ObjetLayer;
+import es.sortie.composants.*;
 import game.Carte;
 import game.Heros;
 import game.Joueur;
@@ -120,7 +114,7 @@ public class Appli {
 		int truc=-1;
 		int lo=-1;
 		int la=-1;
-		Vector2i coord = new Vector2i(-1,-1);;
+		Vector2i coord = new Vector2i(-1,-1);
 		while (true) {
 			fm.repaint();
 			Vector2i autrePos = souris.getInGamePosition();
