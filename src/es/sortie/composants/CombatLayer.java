@@ -27,14 +27,23 @@ public class CombatLayer extends AbstractBufferComposant {
 	public final int DEPLACEMENT_VERTICAL_PIXEL;
 	public final float REDUCTION_VERTICALE = 0.75f;
 	public final float REDUCTION_HORIZONTALE = 0.85f;
-
 	public final Vector2i[][] rectgls;
 
 	private Souris souris;
 
+	static {
+		ImageManager.getImage("./assets/img/Hexagon.png");
+	}
+
 	public CombatLayer(FrameManager fm, Combat combat, Souris souris) {
 		this(fm, combat);
 		this.souris = souris;
+	}
+
+	private Vector2i sourisCasePos = null;
+
+	public Vector2i getCaseSourisPosition() {
+		return sourisCasePos;
 	}
 
 	/**
@@ -91,16 +100,22 @@ public class CombatLayer extends AbstractBufferComposant {
 
 				Rectangle2D.Double rdouble = new Rectangle2D.Double(
 						x_rect_pos, y_rect_pos,
-						gdb.spriteWidth*this.REDUCTION_HORIZONTALE,
-						gdb.spriteHeight*this.REDUCTION_VERTICALE
+						leRectangle.width,
+						leRectangle.height
 				);
-				if (leRectangle.contains(souris.getInGamePosition())) {
-					Color c = g2.getColor();
-					g2.setColor(Color.GRAY);
-					g2.fill(rdouble);
-					g2.setColor(c);
+				if (!leRectangle.contains(souris.getInGamePosition())) {
+					this.sourisCasePos = null;
+					g2.drawImage(
+							ImageManager.getImage("./assets/img/Hexagon90.png"),
+							x_rect_pos, y_rect_pos, leRectangle.width, leRectangle.height,
+							this
+					);
 				} else {
-					g2.draw(rdouble);
+					this.sourisCasePos = new Vector2i(a,b);
+					g2.drawImage(
+							ImageManager.getImage("./assets/img/Hexagon.png"),
+							x_rect_pos,y_rect_pos,leRectangle.width, leRectangle.height, this
+					);
 				}
 			}
 		}
