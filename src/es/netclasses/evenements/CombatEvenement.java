@@ -18,6 +18,10 @@ public class CombatEvenement extends Evenement{
 	public static final byte MAJ_COMBAT = 42;
 
 	String carteMaj="";
+
+	public String getMaj() {
+		return carteMaj;
+	}
 }
 
 
