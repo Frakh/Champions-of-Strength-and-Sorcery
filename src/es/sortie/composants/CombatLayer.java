@@ -119,6 +119,14 @@ public class CombatLayer extends AbstractBufferComposant {
 							x_rect_pos,y_rect_pos,leRectangle.width, leRectangle.height, this
 					);
 				}
+				if (!combat.terrainCombat[a][b].getFranchissable()) {
+					g2.drawImage(ImageManager.getImage("./assets/img/KYU.png"),
+							x_rect_pos,
+							y_rect_pos,
+							leRectangle.width,
+							leRectangle.height,
+							this);
+				}
 				++AntiTearBuffer.RENDERED_IMAGES;
 			}
 		}
