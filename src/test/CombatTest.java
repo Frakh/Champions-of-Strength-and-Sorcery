@@ -74,7 +74,7 @@ public class CombatTest {
  	FrameManager fm = new FrameManager();
  	Souris souris = Souris.getInstance(fm);
  	fm.addMouseListener(souris);
- 	fm.setDimensions(1920,1080);
+ 	fm.setDimensions(1280,720);
  	fm.setSpriteDim(32,32);
  	fm.setPositionToFollow(new Position(0,0));
 
