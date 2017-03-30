@@ -68,11 +68,11 @@ public class Combat {
 		
 		
 		coordTroupes[0]=new Vector2i(0,6);
-		terrainCombat[0][6].setUnit(new Unit(11, 2));
+		terrainCombat[0][6].setUnit(new Unit(11, 30));
 		coordTroupes[7]=new Vector2i(19,4);
-		terrainCombat[19][4].setUnit(new Unit(11, 2));
+		terrainCombat[19][4].setUnit(new Unit(12, 50));
 		coordTroupes[8]=new Vector2i(19,8);
-		terrainCombat[19][8].setUnit(new Unit(11, 2));
+		terrainCombat[19][8].setUnit(new Unit(13, 75));
 		
 		this.majMap(truc);
 	}
