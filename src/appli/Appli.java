@@ -146,7 +146,7 @@ public class Appli {
 	}
 
 	public static void gererLancementJeu(InterfaceUtilisateurLayer menu, Souris mickey) {
-		NetworkInterface.bind("172.19.47.220", 9001);
+		//NetworkInterface.bind("172.19.47.220", 9001);
 	}
 	
 	public static void gererCredits(InterfaceUtilisateurLayer menu, Souris mickey) {
