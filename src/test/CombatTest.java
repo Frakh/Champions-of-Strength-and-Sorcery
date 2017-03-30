@@ -144,15 +144,17 @@ public class CombatTest {
   }
   
   @Test
-	public void testRejoindrePartie() throws IOException {
+	public void testRejoindrePartie() throws IOException, InterruptedException {
 		NetworkInterface.bind("172.19.47.220",9001);
 		NetworkInterface.send(new JeuEvenement(JeuEvenement.GAME_LIST,""));
 		Evenement ev=null;
+		Thread.sleep(413);
 		while(ev==null){
 			ev= NetQueueEvenement.getEvenement(Evenement.GAME_ID);
 		}
 		JeuEvenement jev=(JeuEvenement) ev;
 		System.out.println(jev.getDetail());
+		NetworkInterface.send(new JeuEvenement(JeuEvenement.JOIN_GAME,"0"));
 	}
 
   
