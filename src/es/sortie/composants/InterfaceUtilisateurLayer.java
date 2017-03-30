@@ -84,6 +84,8 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 			}
 		}
 
+		Color c = g2.getColor();
+		g2.setColor(Color.BLACK);
 		synchronized (iObjectMap) {
 			//Memory Unoptimized
 			Set<Vector2i> vector2is = iObjectMap.keySet();
@@ -91,6 +93,7 @@ public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 				g2.drawString(iObjectMap.get(vi).toString(), vi.x, vi.y);
 			}
 		}
+		g2.setColor(c);
 	}
 
 	//Voir la javadoc de la super classe abstraite
