@@ -96,7 +96,7 @@ public class MapTest {
 		noxus.addHeros(new Heros("dar kwadeaure"));
 		HerosMap darius=noxus.getHerosMap(0);
 		c.addElement(darius, 2, 2); //on fait demarrer le heros en 2,2
-		fm.init(cl, elemLayer, curseurLayer);
+		fm.init(cl, elemLayer, debugL, curseurLayer);
 		fm.setFrameRateLimit(30);
 		int truc=-1;
 		int lo=-1;
@@ -109,8 +109,10 @@ public class MapTest {
 			truc=souris.getUniqueUsedButton();
 			lo = souris.getInGamePosition().getX()*c.getWidth()/1280;
 			la = souris.getInGamePosition().getY()*c.getHeight()/720;
-		//	if 
-			if (truc==1){
+			if (truc==1 && lo<22 && lo > 19 && la < 2){
+				darius.setPtMouvement(1500);
+			}
+			else if (truc==1){
 
 				coord=c.getCoordHeros(darius);
 				try {
