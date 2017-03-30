@@ -13,6 +13,7 @@ import game.carte.CaseDejaPriseException;
 import game.combat.Combat;
 import org.junit.Test;
 import utilitaire.Position;
+import utilitaire.Vector2i;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -95,7 +96,7 @@ public class CombatTest {
   }
 */
 
-
+/*
   @Test
   public void testScreenCombat() throws CaseDejaPriseException, InterruptedException, IOException {
 	System.out.println("Demarrage du truc réseau");
@@ -141,10 +142,10 @@ public class CombatTest {
  	fm.setSpriteDim(64,55);
  	Thread.sleep(600000);
  	*/
-  }
+  //}
   
   
-/*
+
 	@Test
 	public void testDecod() throws CaseDejaPriseException, FileNotFoundException, InterruptedException {
 
@@ -157,6 +158,7 @@ public class CombatTest {
 		Mechaaaaaaaaant.addTroupe(new Unite(11, 75), 4);
 		Combat c = new Combat(heros, Mechaaaaaaaaant, 10);
 		c.initialiserCombat();
+		c.teleporterTroupe(new Vector2i(0,6), new Vector2i(2,6));
 		String aaa = c.toStringMap();
 		System.out.println(aaa);
 		System.out.println("");
@@ -166,6 +168,6 @@ public class CombatTest {
 		System.out.println(b.toString());
 
 	}
-*/
+
 }
 
