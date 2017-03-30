@@ -1,17 +1,11 @@
 package test;
 
-import es.entree.ControlleurJoueur;
 import es.entree.Souris;
 import es.interfaces.IController;
 import es.interfaces.IFileLoader;
 import es.sortie.FrameManager;
 import es.sortie.ImageConteneur;
-import es.sortie.composants.AbstractBufferComposant;
-import es.sortie.composants.CarteLayer;
-import es.sortie.composants.CurseurLayer;
-import es.sortie.composants.DebugLayer;
-import es.sortie.composants.InterfaceUtilisateurLayer;
-import es.sortie.composants.ObjetLayer;
+import es.sortie.composants.*;
 import game.Carte;
 import game.Heros;
 import game.Joueur;
@@ -23,8 +17,6 @@ import utilitaire.Position;
 import utilitaire.Vector2i;
 
 import java.io.IOException;
-
-import static java.awt.event.KeyEvent.*;
 
 public class MapTest {
 
@@ -103,13 +95,8 @@ public class MapTest {
 		noxus.addHeros(new Heros("dar kwadeaure"));
 		HerosMap darius=noxus.getHerosMap(0);
 		c.addElement(darius, 2, 2); //on fait demarrer le heros en 2,2
-<<<<<<< HEAD
 		
 		fm.init(cl, elemLayer, curseurLayer, uil);
-=======
-
-		fm.init(cl, elemLayer, debugL, curseurLayer);
->>>>>>> branch 'master' of https://github.com/Frakh/Champions-of-Strength-and-Sorcery.git
 		fm.setFrameRateLimit(30);
 
 		uil.ajouterImageUI(new ImageConteneur("assets/img/ui/fin.jpg", new IntRect(640,10,60,60),42));
