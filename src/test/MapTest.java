@@ -1,12 +1,14 @@
 package test;
 
 import es.entree.ControlleurJoueur;
+import es.entree.Souris;
 import es.interfaces.IController;
 import es.interfaces.IFileLoader;
 import es.sortie.FrameManager;
 import es.sortie.composants.AbstractBufferComposant;
 import es.sortie.composants.CarteLayer;
 import es.sortie.composants.CurseurLayer;
+import es.sortie.composants.DebugLayer;
 import es.sortie.composants.ObjetLayer;
 import game.Carte;
 import game.Heros;
@@ -23,28 +25,7 @@ import static java.awt.event.KeyEvent.*;
 
 public class MapTest {
 
-	@Test
-	public void testMapDisp() throws IOException, InterruptedException {
-
-		Carte c = IFileLoader.loadCarte("./ressources/map/map.txt");
-
-		FrameManager fm = new FrameManager();
-		IPosition ip = new Position(0,0);
-
-		fm.setSpriteDim(32, 32);
-		fm.setPositionToFollow(ip);
-		fm.setDimensions(1280,720);
-
-		AbstractBufferComposant carteLayer = new CarteLayer(fm, c);
-
-		fm.init(carteLayer);
-
-		for (int i = 0; i < 10; ++i) {
-			fm.repaint();
-			Thread.sleep(5000);
-		}
-	}
-
+/*
 	@Test
 	public void testDispAndMove() throws IOException, InterruptedException {
 		Carte c = IFileLoader.loadCarte("./ressources/map/map.txt");
@@ -90,39 +71,61 @@ public class MapTest {
 			Thread.sleep(16);
 		}
 	}
+*/	
 	
 	@Test
-	public void testDeplacerHeros() throws IOException, InterruptedException {
-		Carte c = IFileLoader.loadCarte("./ressources/map/nexttest.gameres");
-		
-		Joueur noxus = new Joueur();
-		Vector2i curseur=noxus.getCurseur();
-		IController ic=noxus.getController();
-		noxus.addHeros(new Heros("dar kwadeaure"));
-		HerosMap darius=noxus.getHerosMap(0);
-
-		//IntelliJ a dit "Condition "darius==null" is always false
-		if (darius==null)
-			throw new RuntimeException("Darius est null");
-		
-		c.addElement(darius, 2, 2); //on fait demarrer le heros en 2,2
-		System.out.println("oui");
-												  
+	public void testBase() throws InterruptedException, IOException {
 
 		FrameManager fm = new FrameManager();
-		IPosition ip = new Position(0,0);
+		IPosition ip = new Position(20,11);
 
 		fm.setSpriteDim(32, 32);
 		fm.setPositionToFollow(ip);
 		fm.setDimensions(1280,720);
 
-		AbstractBufferComposant carteLayer = new CarteLayer(fm, c);
-		AbstractBufferComposant curseurLayer = new CurseurLayer(fm, "./assets/img/SPRITES/PEUNEUGEU/Curseur.png", curseur);
+		Souris souris = Souris.getInstance(fm);
+		Vector2i cPos = new Vector2i(0,0);
+		AbstractBufferComposant curseurLayer = new CurseurLayer(fm, "./assets/img/SPRITES/PEUNEUGEU/Curseur.png", cPos);
+		AbstractBufferComposant debugL = new DebugLayer("Go", souris);
+		Carte c = IFileLoader.loadCarte("./ressources/map/map.txt");
+		CarteLayer cl = new CarteLayer(fm, c);
 		AbstractBufferComposant elemLayer = new ObjetLayer(fm, c);
-		fm.init(carteLayer, elemLayer, curseurLayer);
+		Joueur noxus = new Joueur();
+		Vector2i curseur=noxus.getCurseur();
+		IController ic=noxus.getController();
+		noxus.addHeros(new Heros("dar kwadeaure"));
+		HerosMap darius=noxus.getHerosMap(0);
+		c.addElement(darius, 2, 2); //on fait demarrer le heros en 2,2
+		fm.init(cl, elemLayer, curseurLayer);
+		fm.setFrameRateLimit(30);
+		int truc=-1;
+		int lo=-1;
+		int la=-1;
+		Vector2i coord = new Vector2i(-1,-1);;
+		while (true) {
+			fm.repaint();
+			Vector2i autrePos = souris.getInGamePosition();
+			cPos.set(autrePos.x/fm.getSpriteWidth(), autrePos.y/fm.getSpriteHeigt());
+			truc=souris.getUniqueUsedButton();
+			lo = souris.getInGamePosition().getX()*c.getWidth()/1280;
+			la = souris.getInGamePosition().getY()*c.getHeight()/720;
+		//	if 
+			if (truc==1){
 
-		
+				coord=c.getCoordHeros(darius);
+				try {
+					c.deplacer(darius, coord.x, coord.y, new Vector2i(lo,la));
+				} catch (Exception e) {}
+				truc=-1;
+				lo=-1;
+				la=-1;
+			}
+			Thread.sleep(100);
 
+		}
+	}
+	
+	/*
 		while (true) {
 			fm.repaint();
 
@@ -161,4 +164,5 @@ public class MapTest {
 			Thread.sleep(16);
 		}
 	}
+	*/
 }
