@@ -13,6 +13,7 @@ import game.carte.CaseDejaPriseException;
 import game.combat.Combat;
 import org.junit.Test;
 import utilitaire.Position;
+import utilitaire.Vector2i;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -100,20 +101,20 @@ public class CombatTest {
   public void testScreenCombat() throws CaseDejaPriseException, InterruptedException, IOException {
 	System.out.println("Demarrage du truc r�seau");
 	NetworkInterface.bind("172.19.47.220", 9001);
-	NetworkInterface.send(new JeuEvenement(JeuEvenement.GAME_LIST, ""));
-	
+	NetworkInterface.send(new JeuEvenement(JeuEvenement.GAME_LIST, "coucou twa"));
+	/*
 	System.out.println("Attente");
 	Evenement evenement = null;
 	while (evenement==null) {
 		evenement = NetQueueEvenement.getEvenement(Evenement.GAME_ID);
 		Thread.sleep(50);
 	}
-	System.out.println("Evenement re�u");
+	System.out.println("Evenement recuuuu");
 	
 	
 	NetworkInterface.send(new JeuEvenement(JeuEvenement.CREATE_GAME, ""));
 	System.out.println("cg envoye");
-
+*/
 	Thread.sleep(500000);
 	
 	/*
@@ -142,7 +143,7 @@ public class CombatTest {
  	Thread.sleep(600000);
  	*/
   }
-  
+  /*
   @Test
 	public void testRejoindrePartie() throws IOException, InterruptedException {
 		NetworkInterface.bind("172.19.47.220",9001);
@@ -156,7 +157,7 @@ public class CombatTest {
 		System.out.println(jev.getDetail());
 		NetworkInterface.send(new JeuEvenement(JeuEvenement.JOIN_GAME,"0"));
 	}
-
+*/
   
   
 /*
@@ -172,6 +173,7 @@ public class CombatTest {
 		Mechaaaaaaaaant.addTroupe(new Unite(11, 75), 4);
 		Combat c = new Combat(heros, Mechaaaaaaaaant, 10);
 		c.initialiserCombat();
+		c.teleporterTroupe(new Vector2i(0,6), new Vector2i(2,6));
 		String aaa = c.toStringMap();
 		System.out.println(aaa);
 		System.out.println("");
