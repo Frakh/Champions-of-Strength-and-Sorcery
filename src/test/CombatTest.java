@@ -26,10 +26,10 @@ public class CombatTest {
 	 */
  /* @Test
   public void UniteTest() throws Throwable{  //teste la creation de heros, d'unites, et l'initialisation du combat
- 	System.out.println("Attention: cette interface n'est là que pour tester le systeme de combat au tour par tour, une interface plus agreable et des graphismes seront rajoutes ulterieurement.");
+ 	System.out.println("Attention: cette interface n'est lï¿½ que pour tester le systeme de combat au tour par tour, une interface plus agreable et des graphismes seront rajoutes ulterieurement.");
  	System.out.println("Legende:");
  	System.out.println("");
- 	System.out.println("Premier schema: (représente la carte)");
+ 	System.out.println("Premier schema: (reprï¿½sente la carte)");
  	System.out.println("o: case libre");
  	System.out.println("x: case avec un obstacle (infranchissable)");
  	System.out.println("chiffre: emplacement de l'unite correspondante au chiffre");
@@ -98,7 +98,7 @@ public class CombatTest {
 
   @Test
   public void testScreenCombat() throws CaseDejaPriseException, InterruptedException, IOException {
-	System.out.println("Demarrage du truc réseau");
+	System.out.println("Demarrage du truc rï¿½seau");
 	NetworkInterface.bind("172.19.47.220", 9001);
 	NetworkInterface.send(new JeuEvenement(JeuEvenement.GAME_LIST, ""));
 	
@@ -108,7 +108,7 @@ public class CombatTest {
 		evenement = NetQueueEvenement.getEvenement(Evenement.GAME_ID);
 		Thread.sleep(50);
 	}
-	System.out.println("Evenement reçu");
+	System.out.println("Evenement reï¿½u");
 	
 	
 	NetworkInterface.send(new JeuEvenement(JeuEvenement.CREATE_GAME, ""));
@@ -142,6 +142,19 @@ public class CombatTest {
  	Thread.sleep(600000);
  	*/
   }
+  
+  @Test
+	public void testRejoindrePartie() throws IOException {
+		NetworkInterface.bind("172.19.47.220",9001);
+		NetworkInterface.send(new JeuEvenement(JeuEvenement.GAME_LIST,""));
+		Evenement ev=null;
+		while(ev==null){
+			ev= NetQueueEvenement.getEvenement(Evenement.GAME_ID);
+		}
+		JeuEvenement jev=(JeuEvenement) ev;
+		System.out.println(jev.getDetail());
+	}
+
   
   
 /*
