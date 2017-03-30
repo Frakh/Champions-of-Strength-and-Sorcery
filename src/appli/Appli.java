@@ -98,7 +98,9 @@ public class Appli {
 			}
 			if (ub == MouseEvent.BUTTON1 && zoneTexteNom.getImageDrawingArea().contains(mickey.getInGamePosition())){
 				CaptureKeyboard ck =new CaptureKeyboard();
-				menu.ajouterDonnesUI(zoneTexteNom.getImageDrawingArea().getXY(), ck);
+				Vector2i coordtext=zoneTexteNom.getImageDrawingArea().getXY();
+				coordtext.set(coordtext.getX()+2,coordtext.getY()+((zoneTexteNom.getImageDrawingArea().height/3))*2);
+				menu.ajouterDonnesUI(coordtext, ck);
 				try {
 					ck.launchInNewThread().join();
 				} catch (InterruptedException e) {
@@ -112,51 +114,61 @@ public class Appli {
 					//lancer socket, utiliser nom, etc
 					System.out.println("oui");
 				}
+				System.out.println("non");
 			}
 
 		}
 	}
 	public static void gererRejoindrePartie(InterfaceUtilisateurLayer menu, Souris mickey) {
+		System.out.println("rejoindre partie");
 		boolean conti = true;
-		String nom=null;
-		
-		ImageConteneur fenetreCreer = new ImageConteneur("./assets/img/ui/fenetreCreer.jpg", new IntRect(100, 50, 700, 600), 10);
+		String nom = null;
+
+		ImageConteneur fenetreRejoindre = new ImageConteneur("./assets/img/ui/fenetreRejoindre.jpg", new IntRect(100, 50, 700, 600), 10);
 		ImageConteneur boutonFermer = new ImageConteneur("./assets/img/ui/nope.jpg", new IntRect(770, 50, 30, 30), 11);
-		ImageConteneur boutonValider = new ImageConteneur("./assets/img/ui/valider.jpg", new IntRect(550, 450, 200, 90), 11);	
-		ImageConteneur zoneTexteNom=new ImageConteneur("./assets/img/ui/zonetexte.jpg", new IntRect(380, 1230, 300, 30), 11);
-		
-		menu.ajouterImageUI(fenetreCreer);
+		ImageConteneur boutonValider = new ImageConteneur("./assets/img/ui/valider.jpg", new IntRect(550, 450, 200, 90), 11);
+		ImageConteneur zoneTexteNom = new ImageConteneur("./assets/img/ui/zonetexte.jpg", new IntRect(380, 120, 300, 30), 11);
+
+		menu.ajouterImageUI(fenetreRejoindre);
 		menu.ajouterImageUI(boutonFermer);
 		menu.ajouterImageUI(boutonValider);
+		menu.ajouterImageUI(zoneTexteNom);
 
 		while (conti) {
-			//créer une partie
+			//rejoindre une partie
+			System.out.print(""); //java est un monde étrange
+
 			int ub = mickey.getUniqueUsedButton();
 			if (ub == MouseEvent.BUTTON1 && boutonFermer.getImageDrawingArea().contains(mickey.getInGamePosition())) {
-				menu.retirerImageUI(fenetreCreer);
+				System.out.println("retirer image");
+				menu.retirerImageUI(fenetreRejoindre);
 				menu.retirerImageUI(boutonValider);
 				menu.retirerImageUI(boutonFermer);
+				menu.retirerImageUI(zoneTexteNom);
 				conti = false;
 				System.out.println("oui");
 			}
-			if (ub == MouseEvent.BUTTON1 && zoneTexteNom.getImageDrawingArea().contains(mickey.getInGamePosition())){
-				CaptureKeyboard ck =new CaptureKeyboard();
-				menu.ajouterDonnesUI(zoneTexteNom.getImageDrawingArea().getXY(), ck);
+			if (ub == MouseEvent.BUTTON1 && zoneTexteNom.getImageDrawingArea().contains(mickey.getInGamePosition())) {
+				CaptureKeyboard ck = new CaptureKeyboard();
+				Vector2i coordtext = zoneTexteNom.getImageDrawingArea().getXY();
+				coordtext.set(coordtext.getX() + 2, coordtext.getY() + ((zoneTexteNom.getImageDrawingArea().height / 3)) * 2);
+				menu.ajouterDonnesUI(coordtext, ck);
 				try {
 					ck.launchInNewThread().join();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				nom=ck.toString();
+				nom = ck.toString();
 			}
-			
+
 			if (ub == MouseEvent.BUTTON1 && boutonValider.getImageDrawingArea().contains(mickey.getInGamePosition())) {
-				if(nom!=null){
+				if (nom != null) {
 					//lancer socket, utiliser nom, etc
 					System.out.println("oui");
 				}
+				System.out.println("non");
 			}
-			
+
 		}
 	}
 }
