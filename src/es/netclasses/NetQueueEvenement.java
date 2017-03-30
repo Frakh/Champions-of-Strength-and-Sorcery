@@ -20,7 +20,7 @@ public class NetQueueEvenement {
 	 * Methode permettant d'ajouter un évenement
 	 * @param e l'evenement
 	 */
-	public static void addEvenement(Evenement e) {
+	public synchronized static void addEvenement(Evenement e) {
 		if (arrayQueue[e.getId()] == null) {
 			arrayQueue[e.getId()] = new ConcurrentLinkedQueue();
 		}
@@ -35,9 +35,8 @@ public class NetQueueEvenement {
 		 */
 		
 		//Ce message a ete sponsorise par La Baleine.
-		synchronized (arrayQueue[e.getId()]) {
-			arrayQueue[e.getId()].add(e);
-		}
+
+		arrayQueue[e.getId()].add(e);
 		System.out.println("Evenement reçu : " + e.getId());
 	}
 
@@ -46,7 +45,7 @@ public class NetQueueEvenement {
 	 * @param id : l'identifiant d'evenement
 	 * @return : l'evenement si il y en a un, null sinon
 	 */
-	public static Evenement getEvenement(int id) {
+	public synchronized static Evenement getEvenement(int id) {
 		if (arrayQueue[id]==null) {
 			return null;
 		}
@@ -62,7 +61,7 @@ public class NetQueueEvenement {
 	 * @throws NullPointerException : en cas de queue inexistante
 	 *
 	 */
-	public static Evenement[] getEvents(int id) throws NullPointerException {
+	public synchronized static Evenement[] getEvents(int id) throws NullPointerException {
 		if (arrayQueue[id]==null)
 			return null;
 		synchronized (arrayQueue[id]) {
