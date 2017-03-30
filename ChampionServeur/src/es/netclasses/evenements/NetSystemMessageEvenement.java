@@ -4,7 +4,6 @@ import es.netclasses.Evenement;
 
 public class NetSystemMessageEvenement extends Evenement{
 
-	//Detail a fournir : le message de l'exception
 	public static final byte UNFOUND_CLASS = 0;
 
 	private byte messageid;
