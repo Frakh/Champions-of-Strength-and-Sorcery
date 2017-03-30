@@ -96,25 +96,25 @@ public class CombatTest {
   }
 */
 
-/*
+
   @Test
   public void testScreenCombat() throws CaseDejaPriseException, InterruptedException, IOException {
 	System.out.println("Demarrage du truc r�seau");
 	NetworkInterface.bind("172.19.47.220", 9001);
-	NetworkInterface.send(new JeuEvenement(JeuEvenement.GAME_LIST, ""));
-	
+	NetworkInterface.send(new JeuEvenement(JeuEvenement.GAME_LIST, "coucou twa"));
+	/*
 	System.out.println("Attente");
 	Evenement evenement = null;
 	while (evenement==null) {
 		evenement = NetQueueEvenement.getEvenement(Evenement.GAME_ID);
 		Thread.sleep(50);
 	}
-	System.out.println("Evenement re�u");
+	System.out.println("Evenement recuuuu");
 	
 	
 	NetworkInterface.send(new JeuEvenement(JeuEvenement.CREATE_GAME, ""));
 	System.out.println("cg envoye");
-
+*/
 	Thread.sleep(500000);
 	
 	/*
@@ -142,8 +142,8 @@ public class CombatTest {
  	fm.setSpriteDim(64,55);
  	Thread.sleep(600000);
  	*/
-  //}
-  
+  }
+  /*
   @Test
 	public void testRejoindrePartie() throws IOException, InterruptedException {
 		NetworkInterface.bind("172.19.47.220",9001);
@@ -157,10 +157,10 @@ public class CombatTest {
 		System.out.println(jev.getDetail());
 		NetworkInterface.send(new JeuEvenement(JeuEvenement.JOIN_GAME,"0"));
 	}
-
+*/
   
   
-
+/*
 	@Test
 	public void testDecod() throws CaseDejaPriseException, FileNotFoundException, InterruptedException {
 
@@ -183,6 +183,6 @@ public class CombatTest {
 		System.out.println(b.toString());
 
 	}
-
+*/
 }
 
