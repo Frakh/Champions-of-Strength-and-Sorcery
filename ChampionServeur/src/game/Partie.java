@@ -38,7 +38,6 @@ public class Partie extends BaseThread {
 	 * @param proprietaire : le joueur propriétaire de la partie
 	 */
 	private Partie(String map, Joueur proprietaire) {
-		System.out.println("Dans constructeur");
 		partiesAttente.add(this);
 		this.proprietaire = proprietaire;
 		this.map = map;
@@ -130,6 +129,7 @@ public class Partie extends BaseThread {
 	 */
 	public static void rejoindre(final int i, final Joueur joueur) {
 		getPartieById(i).ajouterJoueur(joueur);
+		System.out.println("Partie rejointe");
 	}
 
 	/**

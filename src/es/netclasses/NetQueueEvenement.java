@@ -38,6 +38,7 @@ public class NetQueueEvenement {
 		synchronized (arrayQueue[e.getId()]) {
 			arrayQueue[e.getId()].add(e);
 		}
+		System.out.println("Evenement reçu : " + e.getId());
 	}
 
 	/**
