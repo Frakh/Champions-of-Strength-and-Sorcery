@@ -101,8 +101,6 @@ public class CombatTest {
   public void testScreenCombat() throws CaseDejaPriseException, InterruptedException, IOException {
 	System.out.println("Demarrage du truc r�seau");
 	NetworkInterface.bind("172.19.47.220", 9001);
-	NetworkInterface.send(new JeuEvenement(JeuEvenement.GAME_LIST, "coucou twa"));
-	/*
 	System.out.println("Attente");
 	Evenement evenement = null;
 	while (evenement==null) {
@@ -110,14 +108,9 @@ public class CombatTest {
 		Thread.sleep(50);
 	}
 	System.out.println("Evenement recuuuu");
-	
-	
 	NetworkInterface.send(new JeuEvenement(JeuEvenement.CREATE_GAME, ""));
 	System.out.println("cg envoye");
-*/
 	Thread.sleep(500000);
-	
-	/*
  	System.out.println("TestFRAME");
  	Heros heros = new Heros();
  	heros.addTroupe(new Unite(11, 30), 1);
@@ -126,22 +119,18 @@ public class CombatTest {
  	Mechaaaaaaaaant.addTroupe(new Unite(11, 75), 4);
  	Combat c = new Combat(heros, Mechaaaaaaaaant, 10);
  	c.initialiserCombat();
-
  	FrameManager fm = new FrameManager();
  	Souris souris = Souris.getInstance(fm);
  	fm.addMouseListener(souris);
  	fm.setDimensions(1280,720);
  	fm.setSpriteDim(32,32);
  	fm.setPositionToFollow(new Position(0,0));
-
  	CombatLayer cl = new CombatLayer(fm,c, souris);
-
  	fm.init(cl);
  	fm.setFrameRateLimit(60);
- 	
  	fm.setSpriteDim(64,55);
  	Thread.sleep(600000);
- 	*/
+ 
   }
   
   @Test
