@@ -23,6 +23,7 @@ public class SocketFlux {
 	public void writeEvenement(Evenement evenement) {
 		try {
 			oostream.writeObject(evenement);
+			oostream.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
