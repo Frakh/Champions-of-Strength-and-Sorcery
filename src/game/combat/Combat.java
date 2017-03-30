@@ -68,11 +68,11 @@ public class Combat {
 		
 		
 		coordTroupes[0]=new Vector2i(0,6);
-		terrainCombat[0][6].setUnit(new Unit(11, 30));
+		terrainCombat[0][6].setUnit(new Unit(12, 50));
 		coordTroupes[7]=new Vector2i(19,4);
-		terrainCombat[19][4].setUnit(new Unit(12, 50));
+		terrainCombat[19][4].setUnit(new Unit(11, 30));
 		coordTroupes[8]=new Vector2i(19,8);
-		terrainCombat[19][8].setUnit(new Unit(13, 75));
+		terrainCombat[19][8].setUnit(new Unit(13, 5));
 		
 		this.majMap(truc);
 	}
@@ -158,7 +158,7 @@ public class Combat {
 		}
 	}
 
-	private boolean deplacement1Case(int hauteur, int largeur, int hauteurVoulue, int largeurVoulue){//indique si un dï¿½placement est lï¿½gal
+	private boolean deplacement1Case(int hauteur, int largeur, int hauteurVoulue, int largeurVoulue){//indique si un d�placement est l�gal
 		if (hauteur == hauteurVoulue){
 			if (largeurVoulue==largeur+1 ||largeurVoulue == largeur-1){
 				return true;
@@ -194,17 +194,17 @@ public class Combat {
 		}
 	}
 
-	public boolean[][] pathfinding(int coordUniteL, int coordUniteH){ // renvoie un tableau de bools, reprï¿½sentant les cases accessibles par un monstre qui marche par terre
-		// case non visitï¿½e = null
+	public boolean[][] pathfinding(int coordUniteL, int coordUniteH){ // renvoie un tableau de bools, repr�sentant les cases accessibles par un monstre qui marche par terre
+		// case non visit�e = null
 		// case accessible = true
-		// case ï¿½ accï¿½der = false
+		// case � acc�der = false
 		boolean volant = false;
 		// On ne compare pas les string avec == bordel
 		if (Objects.equals(terrainCombat[coordUniteL][coordUniteH].getUnit().getPouvoir(), "Volant")) volant = true;
 		int k;
 		int l;
 		boolean trucARetourner[][] = new boolean[LARGEURTERRAIN][HAUTEURTERRAIN];
-		int truc[][]=new int[LARGEURTERRAIN][HAUTEURTERRAIN]; // ai besoin de truc pour avoir faux, vrai et ï¿½ rendre vrai
+		int truc[][]=new int[LARGEURTERRAIN][HAUTEURTERRAIN]; // ai besoin de truc pour avoir faux, vrai et � rendre vrai
 		for(int i=0; i<LARGEURTERRAIN; i++){
 			for (int j=0; j<HAUTEURTERRAIN; j++){
 				trucARetourner[i][j]=false;
@@ -226,7 +226,7 @@ public class Combat {
 							if (l<0) {l=0;}
 							while (l <= j+1 && l<HAUTEURTERRAIN){
 								if (deplacement1Case(j,i,l,k) && truc[k][l] != 1){
-									truc[k][l]=2; // changï¿½ juste apres, pour eviter que les true crees ici fassent n'importe quoi dans la boucle
+									truc[k][l]=2; // chang� juste apres, pour eviter que les true crees ici fassent n'importe quoi dans la boucle
 								}
 								l++;
 							}
@@ -246,7 +246,7 @@ public class Combat {
 			trucARetourner[coordUniteL][coordUniteH]=false;
 			mouvement--;
 		}
-		if (volant){ // volant: pas de dï¿½tection des collisions dans la boucle, amis on enlï¿½ve les cases inaccessibles ï¿½ la fin
+		if (volant){ // volant: pas de d�tection des collisions dans la boucle, amis on enl�ve les cases inaccessibles � la fin
 			for(int i=0; i<LARGEURTERRAIN; i++){
 				for (int j=0; j<HAUTEURTERRAIN; j++){
 					if (truc[i][j]==0 || !(terrainCombat[i][j].getFranchissable() && terrainCombat[i][j].getUnit() == null) ){
@@ -274,8 +274,8 @@ public class Combat {
 			armee2.armee[i].setUnite(null, null);
 		}
 		if (gaucheVainqueur ==1){
-			// Remplacï¿½ par un foreach par l'ide
-			for (Vector2i coordTroupe : coordTroupes) { // prend les troupes vivantes sur le terrain et les rend au hï¿½ros vainqueur
+			// Remplac� par un foreach par l'ide
+			for (Vector2i coordTroupe : coordTroupes) { // prend les troupes vivantes sur le terrain et les rend au h�ros vainqueur
 				if (coordTroupe.getX() != -1)
 					if (terrainCombat[coordTroupe.getX()][coordTroupe.getY()].getUnit().getArmeeGauche()) {
 						armee1.armee[compteur].setUnite(
@@ -288,7 +288,7 @@ public class Combat {
 		}
 		else if(gaucheVainqueur == 2){
 			// Remplace par un foreach par l'ide
-			for (Vector2i coordTroupe : coordTroupes) { // prend les troupes vivantes sur le terrain et les rend au hï¿½ros vainqueur
+			for (Vector2i coordTroupe : coordTroupes) { // prend les troupes vivantes sur le terrain et les rend au h�ros vainqueur
 				if (coordTroupe.getX() != -1)
 					if (!terrainCombat[coordTroupe.getX()][coordTroupe.getY()].getUnit().getArmeeGauche()) {
 						armee2.armee[compteur].setUnite(
@@ -559,7 +559,7 @@ public class Combat {
 		
 		Vector2i sel = new Vector2i(-1,-1);
 		Evenement eventEnCours = null; //new CombatEvenement(Evenement.COMBAT_EVENT, "");
-		if (attaque){ 		   //si le joueur enclenche le combat, il envoie les donnê¦³ de combat à¡³on adversaire
+		if (attaque){ 		   //si le joueur enclenche le combat, il envoie les donn꦳ de combat ࡳon adversaire
 			eventEnCours=new CombatEvenement(CombatEvenement.DEBUT_COMBAT , toStringMap());
 			System.out.println(eventEnCours.getId());
 			NetworkInterface.send(eventEnCours);
@@ -584,7 +584,7 @@ public class Combat {
 						if (pathfinding(coordTroupes[CestSonTour].getX(),coordTroupes[CestSonTour].getY())[sel.getX()][sel.getY()]) {
 							teleporterTroupe(new Vector2i (coordTroupes[CestSonTour].getX(),coordTroupes[CestSonTour].getY()), new Vector2i(sel.getX(), sel.getY()));
 							blbl=true;
-							//si elle arrive près d'un ou plusieurs ennemis, elle les tape
+							//si elle arrive pr�s d'un ou plusieurs ennemis, elle les tape
 							if (attaque) {
 								for (int i = 7; i <14;i++) {
 								

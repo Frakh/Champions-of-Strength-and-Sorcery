@@ -97,10 +97,7 @@ public class MapTest {
 		c.addElement(darius, 2, 2); //on fait demarrer le heros en 2,2
 		
 		fm.init(cl, elemLayer, curseurLayer, uil);
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/Frakh/Champions-of-Strength-and-Sorcery.git
 		fm.setFrameRateLimit(30);
 
 		uil.ajouterImageUI(new ImageConteneur("assets/img/ui/fin.jpg", new IntRect(640,10,60,60),42));

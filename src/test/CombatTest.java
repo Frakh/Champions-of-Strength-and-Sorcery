@@ -113,10 +113,10 @@ public class CombatTest {
 	Combat c = null;
 	if (evenement==null) {
 		Heros heros = new Heros();
-		heros.addTroupe(new Unite(11, 30), 1);
+		heros.addTroupe(new Unite(12, 50), 1);
 		Heros Mechaaaaaaaaant = new Heros();
-		Mechaaaaaaaaant.addTroupe(new Unite(12, 50), 0);
-		Mechaaaaaaaaant.addTroupe(new Unite(13, 75), 4);
+		Mechaaaaaaaaant.addTroupe(new Unite(11, 30), 0);
+		Mechaaaaaaaaant.addTroupe(new Unite(13, 5), 4);
 		c = new Combat(heros, Mechaaaaaaaaant, 10);
 		c.initialiserCombat();
 		NetworkInterface.send(new JeuEvenement(CombatEvenement.DEBUT_COMBAT, c.toStringMap()));
