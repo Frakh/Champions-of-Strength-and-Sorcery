@@ -1,17 +1,11 @@
 package test;
 
-import es.entree.ControlleurJoueur;
 import es.entree.Souris;
 import es.interfaces.IController;
 import es.interfaces.IFileLoader;
 import es.sortie.FrameManager;
 import es.sortie.ImageConteneur;
-import es.sortie.composants.AbstractBufferComposant;
-import es.sortie.composants.CarteLayer;
-import es.sortie.composants.CurseurLayer;
-import es.sortie.composants.DebugLayer;
-import es.sortie.composants.InterfaceUtilisateurLayer;
-import es.sortie.composants.ObjetLayer;
+import es.sortie.composants.*;
 import game.Carte;
 import game.Heros;
 import game.Joueur;
@@ -23,8 +17,6 @@ import utilitaire.Position;
 import utilitaire.Vector2i;
 
 import java.io.IOException;
-
-import static java.awt.event.KeyEvent.*;
 
 public class MapTest {
 
@@ -74,8 +66,8 @@ public class MapTest {
 			Thread.sleep(16);
 		}
 	}
-*/	
-	
+*/
+
 	@Test
 	public void testBase() throws InterruptedException, IOException {
 
@@ -88,16 +80,15 @@ public class MapTest {
 
 		Souris souris = Souris.getInstance(fm);
 		Vector2i cPos = new Vector2i(0,0);
-		
+
 		Carte c = IFileLoader.loadCarte("./ressources/map/map.txt");
-		
+
 		AbstractBufferComposant curseurLayer = new CurseurLayer(fm, "./assets/img/SPRITES/PEUNEUGEU/Curseur.png", cPos);
-		AbstractBufferComposant debugL = new DebugLayer("Go", souris);
 		AbstractBufferComposant elemLayer = new ObjetLayer(fm, c);
-		
+
 		CarteLayer cl = new CarteLayer(fm, c);
 		InterfaceUtilisateurLayer uil= new InterfaceUtilisateurLayer();
-		
+
 		Joueur noxus = new Joueur();
 		Vector2i curseur=noxus.getCurseur();
 		IController ic=noxus.getController();
@@ -105,15 +96,15 @@ public class MapTest {
 		HerosMap darius=noxus.getHerosMap(0);
 		c.addElement(darius, 2, 2); //on fait demarrer le heros en 2,2
 		
-		fm.init(cl, elemLayer, debugL, curseurLayer);
+		fm.init(cl, elemLayer, curseurLayer, uil);
 		fm.setFrameRateLimit(30);
-		
+
 		uil.ajouterImageUI(new ImageConteneur("assets/img/ui/fin.jpg", new IntRect(640,10,60,60),42));
-		
+
 		int truc=-1;
 		int lo=-1;
 		int la=-1;
-		Vector2i coord = new Vector2i(-1,-1);;
+		Vector2i coord = new Vector2i(-1,-1);
 		while (true) {
 			fm.repaint();
 			Vector2i autrePos = souris.getInGamePosition();
@@ -138,7 +129,7 @@ public class MapTest {
 
 		}
 	}
-	
+
 	/*
 		while (true) {
 			fm.repaint();
@@ -172,7 +163,7 @@ public class MapTest {
 					}
 				}
 			}
-			
+
 			fm.setPositionToFollow(new Position(noxus.getCurseur().x, noxus.getCurseur().y));
 
 			Thread.sleep(16);
