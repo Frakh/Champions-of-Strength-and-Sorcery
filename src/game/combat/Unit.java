@@ -185,6 +185,8 @@ public class Unit implements IUnit {
 		if (degatsEffectues <=0) //minimun de dégats parce que wouallah
 				degatsEffectues = 1;
 		u.subirDegats(degatsEffectues);
+		if (u.getNombre()==0)
+			u.setMort(true);
 	}
 	
 	public void subirDegats(int degatsRecus){

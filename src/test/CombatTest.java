@@ -105,20 +105,20 @@ public class CombatTest {
 	Souris souris = Souris.getInstance(fm);
 	 
 	System.out.println("Demarrage du truc reseau");
-	NetworkInterface.bind("172.19.47.220", 9001);
+	NetworkInterface.bind("127.0.0.1", 9001);
 	System.out.println("Attente");
 	Evenement evenement = null;	
-	Thread.sleep(15000);
+	Thread.sleep(5000);
 	evenement = NetQueueEvenement.getEvenement(Evenement.COMBAT_EVENT);
 	Combat c = null;
 	if (evenement==null) {
-		 Heros heros = new Heros();
-		 heros.addTroupe(new Unite(11, 30), 1);
-		 Heros Mechaaaaaaaaant = new Heros();
-		 Mechaaaaaaaaant.addTroupe(new Unite(11, 50), 0);
-		 Mechaaaaaaaaant.addTroupe(new Unite(11, 75), 4);
-		 c = new Combat(heros, Mechaaaaaaaaant, 10);
-		 c.initialiserCombat();
+		Heros heros = new Heros();
+		heros.addTroupe(new Unite(11, 30), 1);
+		Heros Mechaaaaaaaaant = new Heros();
+		Mechaaaaaaaaant.addTroupe(new Unite(12, 50), 0);
+		Mechaaaaaaaaant.addTroupe(new Unite(13, 75), 4);
+		c = new Combat(heros, Mechaaaaaaaaant, 10);
+		c.initialiserCombat();
 		NetworkInterface.send(new JeuEvenement(CombatEvenement.DEBUT_COMBAT, c.toStringMap()));
 	 	fm.addMouseListener(souris);
 	 	fm.setDimensions(1280,720);
@@ -132,12 +132,8 @@ public class CombatTest {
 		
 	}
 	else{
-		System.out.println(((CombatEvenement) evenement).getMaj());
-		System.out.println(((CombatEvenement) evenement).getMaj().length());
 		c = new Combat(((CombatEvenement) evenement).getMaj());
-		System.out.println("1");
 	 	fm.addMouseListener(souris);
-		System.out.println("2");
 	 	fm.setDimensions(1280,720);
 	 	fm.setSpriteDim(32,32);
 	 	fm.setPositionToFollow(new Position(0,0));
@@ -145,7 +141,6 @@ public class CombatTest {
 	 	fm.init(cl);
 	 	fm.setFrameRateLimit(60);
 	 	fm.setSpriteDim(64,55);
-		System.out.println("3");
 		c.fight(false, -1, -1, souris);
 	}
   }
