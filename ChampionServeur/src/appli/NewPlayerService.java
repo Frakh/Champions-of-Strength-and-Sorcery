@@ -32,10 +32,14 @@ public class NewPlayerService implements Runnable {
 
 			switch (jevent.getMessageId()) {
 				case JeuEvenement.GAME_LIST:
-					joueur.getSocketFlux().writeEvenement(new JeuEvenement(JeuEvenement.GAME_LIST, Partie.getPartiesJoinable()));
+					System.out.println("Game List demandé");
+					String partiesJ = Partie.getPartiesJoinable();
+					JeuEvenement evenem = new JeuEvenement(JeuEvenement.GAME_LIST, partiesJ);
+					System.out.println("Envoie de " + partiesJ);
+					joueur.sendEvenement(evenem);
+					System.out.println("Apres");
 					break;
 				case JeuEvenement.CREATE_GAME:
-					System.out.println("Amorcement creation partie");
 					Partie.creerPartie(joueur, jevent.getDetail());
 					return;
 				case JeuEvenement.JOIN_GAME:
