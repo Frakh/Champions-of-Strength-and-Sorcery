@@ -11,7 +11,7 @@ public class CarteLayer extends AbstractBufferComposant {
 
 	// Friend, pattern permettant d'imiter le comportement du friend C++, parce que oui, c'est utile
 	public static class Friend { private Friend(){}}
-	private static Friend friend = new Friend();
+	private static final Friend friend = new Friend();
 
 	/**
 	 * Constructeur de carte layer

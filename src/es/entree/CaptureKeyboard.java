@@ -13,7 +13,7 @@ public class CaptureKeyboard implements Runnable{
 
 	public String currentString = "";
 
-	private static Map<Integer, Character> keyMapping;
+	private static final Map<Integer, Character> keyMapping;
 
 	public Thread launchInNewThread() {
 		Thread t = new Thread(this);

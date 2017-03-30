@@ -82,17 +82,15 @@ public class ImageManager {
 	/**
 	 * Permet de faire flip l'image ( un 180 par rapport à l'axe vertical
 	 * @param url : l'url de l'image a faire flip
-	 * @return la nouvelle url de l'image
 	 */
-	private static String flipImage(String url) {
+	private static void flipImage(String url) {
 		String newUrl = flippedURL(url);
 		if (imageMap.containsKey(newUrl))
-			return newUrl;
+			return;
 		AffineTransform at = new AffineTransform();
 		at.concatenate(AffineTransform.getScaleInstance(-1,1));
 		at.concatenate(AffineTransform.getTranslateInstance(-getImage(url).getWidth(), 0));
 		createVirtualImage(newUrl, createTransform(getImage(url), at));
-		return newUrl;
 	}
 
 	/**
@@ -115,7 +113,6 @@ public class ImageManager {
 	 * Permet de faire une rotation d'un certain nombre de degré de l'image
 	 * @param url : l'url de l'image
 	 * @param degree : le nombre de degré de rotation
-	 * @return : la nouvelle image
 	 */
 	private static void rotate(String url, float degree) {
 		int insertPos = url.lastIndexOf('.');
