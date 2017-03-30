@@ -14,8 +14,10 @@ public class TileDecoder {
 
 		BufferedImage bm = ImageManager.getImage(path);
 
-		for (int i = 0; i < (bm.getWidth()/length); ++i) {
-			for (int j= 0; j < bm.getHeight()/height; ++j) {
+		int bmWidth = bm.getWidth();
+		int bmHeight = bm.getHeight();
+		for (int i = 0; i < (bmWidth /length); ++i) {
+			for (int j = 0; j < bmHeight /height; ++j) {
 				ImageManager.createVirtualImage(
 						newURL(path, length, height, i, j),
 						bm.getSubimage(i*length, j*height, length, height)
