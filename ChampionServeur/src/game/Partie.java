@@ -94,8 +94,10 @@ public class Partie extends BaseThread {
 			//Redispachage des evenements aux autres joueurs
 			for (Joueur j : joueurs) {
 				EvenementConteneur evenement = this.queueDevent.poll();
-				if (j!=evenement.getDeposeur()) {
-					j.sendEvenement(evenement.getEvenement());
+				if (evenement!=null) {
+					if (j != evenement.getDeposeur()) {
+						j.sendEvenement(evenement.getEvenement());
+					}
 				}
 			}
 		}
