@@ -34,7 +34,7 @@ public class Receiver implements Runnable {
 	 * Demarre le receiver dans lequel le thread tourne
 	 */
 	public void start() {
-		if (!should_run)
+		if (should_run)
 			throw new IllegalStateException("Thread already started");
 		t.start();
 		should_run = true;
