@@ -19,7 +19,10 @@ public class MainApp {
 
 		System.out.println("Ready to receive player");
 		while (true) {
-			new NewPlayerService(new SocketFlux(waiter.accept())).start();
+			try {
+				new NewPlayerService(new SocketFlux(waiter.accept())).start();
+			} catch (Exception e) {
+			}
 		}
 	}
 
