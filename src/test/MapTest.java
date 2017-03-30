@@ -74,8 +74,8 @@ public class MapTest {
 			Thread.sleep(16);
 		}
 	}
-*/	
-	
+*/
+
 	@Test
 	public void testBase() throws InterruptedException, IOException {
 
@@ -88,27 +88,32 @@ public class MapTest {
 
 		Souris souris = Souris.getInstance(fm);
 		Vector2i cPos = new Vector2i(0,0);
-		
+
 		Carte c = IFileLoader.loadCarte("./ressources/map/map.txt");
-		
+
 		AbstractBufferComposant curseurLayer = new CurseurLayer(fm, "./assets/img/SPRITES/PEUNEUGEU/Curseur.png", cPos);
 		AbstractBufferComposant elemLayer = new ObjetLayer(fm, c);
-		
+
 		CarteLayer cl = new CarteLayer(fm, c);
 		InterfaceUtilisateurLayer uil= new InterfaceUtilisateurLayer();
-		
+
 		Joueur noxus = new Joueur();
 		Vector2i curseur=noxus.getCurseur();
 		IController ic=noxus.getController();
 		noxus.addHeros(new Heros("dar kwadeaure"));
 		HerosMap darius=noxus.getHerosMap(0);
 		c.addElement(darius, 2, 2); //on fait demarrer le heros en 2,2
+<<<<<<< HEAD
 		
 		fm.init(cl, elemLayer, curseurLayer, uil);
+=======
+
+		fm.init(cl, elemLayer, debugL, curseurLayer);
+>>>>>>> branch 'master' of https://github.com/Frakh/Champions-of-Strength-and-Sorcery.git
 		fm.setFrameRateLimit(30);
-		
+
 		uil.ajouterImageUI(new ImageConteneur("assets/img/ui/fin.jpg", new IntRect(640,10,60,60),42));
-		
+
 		int truc=-1;
 		int lo=-1;
 		int la=-1;
@@ -137,7 +142,7 @@ public class MapTest {
 
 		}
 	}
-	
+
 	/*
 		while (true) {
 			fm.repaint();
@@ -171,7 +176,7 @@ public class MapTest {
 					}
 				}
 			}
-			
+
 			fm.setPositionToFollow(new Position(noxus.getCurseur().x, noxus.getCurseur().y));
 
 			Thread.sleep(16);
