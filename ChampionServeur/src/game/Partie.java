@@ -37,10 +37,12 @@ public class Partie extends BaseThread {
 	 * @param proprietaire : le joueur propriétaire de la partie
 	 */
 	private Partie(String map, Joueur proprietaire) {
+		System.out.println("Dans constructeur");
 		partiesAttente.add(this);
 		this.proprietaire = proprietaire;
 		this.map = map;
 		joueurs = new Vector<>();
+		joueurs.add(proprietaire);
 		this.id = id_cpt++;
 		this.queueDevent = new ConcurrentLinkedQueue<>();
 		this.servEvenements = new ConcurrentLinkedQueue<>();
@@ -53,6 +55,7 @@ public class Partie extends BaseThread {
 	 */
 	public static void creerPartie(Joueur j, String map) {
 		new Partie(map, j).start();
+		System.out.println("Creation de partie");
 	}
 
 	/**
