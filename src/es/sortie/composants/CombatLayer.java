@@ -40,9 +40,9 @@ public class CombatLayer extends AbstractBufferComposant {
 		this.souris = souris;
 	}
 
-	private Vector2i sourisCasePos = null;
+	private static Vector2i sourisCasePos = null;
 
-	public Vector2i getCaseSourisPosition() {
+	public static Vector2i getCaseSourisPosition() {
 		return sourisCasePos;
 	}
 
