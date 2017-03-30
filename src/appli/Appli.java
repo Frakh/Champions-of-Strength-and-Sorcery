@@ -41,7 +41,7 @@ public class Appli {
 		
 		Souris mickey = Souris.getInstance(fm);
 
-		DebugLayer dl = new DebugLayer(mickey);
+		DebugLayer dl = new DebugLayer(mickey, menu);
 		
 		fm.init(menu, dl);
 		fm.setFrameRateLimit(60);
