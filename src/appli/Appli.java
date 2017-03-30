@@ -35,7 +35,7 @@ public class Appli {
 		ImageConteneur boutonCreer=new ImageConteneur("./assets/img/ui/create.jpg",new IntRect(positionBoutonCreer.x,positionBoutonCreer.y,tailleBouton.x,tailleBouton.y),9);
 		ImageConteneur boutonRejoindre=new ImageConteneur("./assets/img/ui/join.jpg",new IntRect(positionBoutonRejoindre.x,positionBoutonRejoindre.y,tailleBouton.x,tailleBouton.y),9);
 		
-		menu.ajouterImageUI(new ImageConteneur("./assets/img/ui/menu_fond.jpg",new IntRect(0,0,1280,720),-69));
+		menu.ajouterImageUI(new ImageConteneur("./assets/img/ui/menuFond.PNG",new IntRect(0,0,1280,720),-69));
 		menu.ajouterImageUI(boutonCreer);
 		menu.ajouterImageUI(boutonRejoindre);
 		
