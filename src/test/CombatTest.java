@@ -4,6 +4,7 @@ import es.entree.Souris;
 import es.netclasses.Evenement;
 import es.netclasses.NetQueueEvenement;
 import es.netclasses.NetworkInterface;
+import es.netclasses.evenements.CombatEvenement;
 import es.netclasses.evenements.JeuEvenement;
 import es.sortie.FrameManager;
 import es.sortie.composants.CombatLayer;
@@ -96,43 +97,59 @@ public class CombatTest {
   }
 */
 
+	
 
   @Test
   public void testScreenCombat() throws CaseDejaPriseException, InterruptedException, IOException {
-	System.out.println("Demarrage du truc r�seau");
+	FrameManager fm = new FrameManager();
+	Souris souris = Souris.getInstance(fm);
+	 
+	System.out.println("Demarrage du truc reseau");
 	NetworkInterface.bind("172.19.47.220", 9001);
 	System.out.println("Attente");
-	Evenement evenement = null;
-	while (evenement==null) {
-		evenement = NetQueueEvenement.getEvenement(Evenement.GAME_ID);
-		Thread.sleep(50);
+	Evenement evenement = null;	
+	Thread.sleep(15000);
+	evenement = NetQueueEvenement.getEvenement(Evenement.COMBAT_EVENT);
+	Combat c = null;
+	if (evenement==null) {
+		 Heros heros = new Heros();
+		 heros.addTroupe(new Unite(11, 30), 1);
+		 Heros Mechaaaaaaaaant = new Heros();
+		 Mechaaaaaaaaant.addTroupe(new Unite(11, 50), 0);
+		 Mechaaaaaaaaant.addTroupe(new Unite(11, 75), 4);
+		 c = new Combat(heros, Mechaaaaaaaaant, 10);
+		 c.initialiserCombat();
+		NetworkInterface.send(new JeuEvenement(CombatEvenement.DEBUT_COMBAT, c.toStringMap()));
+	 	fm.addMouseListener(souris);
+	 	fm.setDimensions(1280,720);
+	 	fm.setSpriteDim(32,32);
+	 	fm.setPositionToFollow(new Position(0,0));
+	 	CombatLayer cl = new CombatLayer(fm, c, souris);
+	 	fm.init(cl);
+	 	fm.setFrameRateLimit(60);
+	 	fm.setSpriteDim(64,55);
+		c.fight(true, -1, -1, souris);
+		
 	}
-	System.out.println("Evenement recuuuu");
-	NetworkInterface.send(new JeuEvenement(JeuEvenement.CREATE_GAME, ""));
-	System.out.println("cg envoye");
-	Thread.sleep(500000);
- 	System.out.println("TestFRAME");
- 	Heros heros = new Heros();
- 	heros.addTroupe(new Unite(11, 30), 1);
- 	Heros Mechaaaaaaaaant = new Heros();
- 	Mechaaaaaaaaant.addTroupe(new Unite(11, 50), 0);
- 	Mechaaaaaaaaant.addTroupe(new Unite(11, 75), 4);
- 	Combat c = new Combat(heros, Mechaaaaaaaaant, 10);
- 	c.initialiserCombat();
- 	FrameManager fm = new FrameManager();
- 	Souris souris = Souris.getInstance(fm);
- 	fm.addMouseListener(souris);
- 	fm.setDimensions(1280,720);
- 	fm.setSpriteDim(32,32);
- 	fm.setPositionToFollow(new Position(0,0));
- 	CombatLayer cl = new CombatLayer(fm,c, souris);
- 	fm.init(cl);
- 	fm.setFrameRateLimit(60);
- 	fm.setSpriteDim(64,55);
- 	Thread.sleep(600000);
- 
+	else{
+		System.out.println(((CombatEvenement) evenement).getMaj());
+		System.out.println(((CombatEvenement) evenement).getMaj().length());
+		c = new Combat(((CombatEvenement) evenement).getMaj());
+		System.out.println("1");
+	 	fm.addMouseListener(souris);
+		System.out.println("2");
+	 	fm.setDimensions(1280,720);
+	 	fm.setSpriteDim(32,32);
+	 	fm.setPositionToFollow(new Position(0,0));
+	 	CombatLayer cl = new CombatLayer(fm, c, souris);
+	 	fm.init(cl);
+	 	fm.setFrameRateLimit(60);
+	 	fm.setSpriteDim(64,55);
+		System.out.println("3");
+		c.fight(false, -1, -1, souris);
+	}
   }
-  
+	/*
   @Test
 	public void testRejoindrePartie() throws IOException, InterruptedException {
 		NetworkInterface.bind("172.19.47.220",9001);
@@ -152,9 +169,9 @@ public class CombatTest {
 		}
 		JeuEvenement jev=(JeuEvenement) ev;
 		System.out.println(jev.getDetail());
-		NetworkInterface.send(new JeuEvenement(JeuEvenement.JOIN_GAME,"0"));*/
+		NetworkInterface.send(new JeuEvenement(JeuEvenement.JOIN_GAME,"0"));
 	}
-
+*/
   
   
 /*
