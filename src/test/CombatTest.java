@@ -1,6 +1,10 @@
 package test;
 
 import es.entree.Souris;
+import es.netclasses.Evenement;
+import es.netclasses.NetQueueEvenement;
+import es.netclasses.NetworkInterface;
+import es.netclasses.evenements.JeuEvenement;
 import es.sortie.FrameManager;
 import es.sortie.composants.CombatLayer;
 import game.Heros;
@@ -11,11 +15,13 @@ import org.junit.Test;
 import utilitaire.Position;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class CombatTest {
 
 	/**
 	 * Ceci est le test qui permet d essayer le systeme de combat au tour par tour
+	 * @throws IOException 
 	 * @throws Throwable
 	 */
  /* @Test
@@ -58,7 +64,7 @@ public class CombatTest {
 	//MapTest testDispAndMove
 	//}
 
-
+/*
   @Test
   public void testScreenCombat() throws CaseDejaPriseException, FileNotFoundException, InterruptedException {
 
@@ -84,12 +90,61 @@ public class CombatTest {
  	fm.setFrameRateLimit(60);
 
  	fm.setSpriteDim(64,55);
- 	Thread.sleep(60000);
+ 	Thread.sleep(600000);
 
   }
+*/
 
 
+  @Test
+  public void testScreenCombat() throws CaseDejaPriseException, InterruptedException, IOException {
+	System.out.println("Demarrage du truc réseau");
+	NetworkInterface.bind("172.19.47.220", 9001);
+	NetworkInterface.send(new JeuEvenement(JeuEvenement.GAME_LIST, ""));
+	
+	System.out.println("Attente");
+	Evenement evenement = null;
+	while (evenement==null) {
+		evenement = NetQueueEvenement.getEvenement(Evenement.GAME_ID);
+		Thread.sleep(50);
+	}
+	System.out.println("Evenement reçu");
+	
+	
+	NetworkInterface.send(new JeuEvenement(JeuEvenement.CREATE_GAME, ""));
+	System.out.println("cg envoye");
 
+	Thread.sleep(500000);
+	
+	/*
+ 	System.out.println("TestFRAME");
+ 	Heros heros = new Heros();
+ 	heros.addTroupe(new Unite(11, 30), 1);
+ 	Heros Mechaaaaaaaaant = new Heros();
+ 	Mechaaaaaaaaant.addTroupe(new Unite(11, 50), 0);
+ 	Mechaaaaaaaaant.addTroupe(new Unite(11, 75), 4);
+ 	Combat c = new Combat(heros, Mechaaaaaaaaant, 10);
+ 	c.initialiserCombat();
+
+ 	FrameManager fm = new FrameManager();
+ 	Souris souris = Souris.getInstance(fm);
+ 	fm.addMouseListener(souris);
+ 	fm.setDimensions(1280,720);
+ 	fm.setSpriteDim(32,32);
+ 	fm.setPositionToFollow(new Position(0,0));
+
+ 	CombatLayer cl = new CombatLayer(fm,c, souris);
+
+ 	fm.init(cl);
+ 	fm.setFrameRateLimit(60);
+ 	
+ 	fm.setSpriteDim(64,55);
+ 	Thread.sleep(600000);
+ 	*/
+  }
+  
+  
+/*
 	@Test
 	public void testDecod() throws CaseDejaPriseException, FileNotFoundException, InterruptedException {
 
@@ -111,6 +166,6 @@ public class CombatTest {
 		System.out.println(b.toString());
 
 	}
-
+*/
 }
 
