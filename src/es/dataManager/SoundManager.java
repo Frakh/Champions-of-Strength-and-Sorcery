@@ -2,6 +2,7 @@ package es.dataManager;
 
 import es.exception.DisposedMediaException;
 import es.exception.MediaNonTrouveException;
+import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -95,6 +96,7 @@ public class SoundManager {
 
 	static {
 		soundMap = new ConcurrentHashMap<>();
+		new JFXPanel();
 	}
 
 	/**
