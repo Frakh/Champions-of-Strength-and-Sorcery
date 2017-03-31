@@ -81,7 +81,7 @@ public class Appli {
 		fm.setLayerVisibility(CurseurLayer.class.getName(), false);
 		fm.setFrameRateLimit(60);
 		
-		//SoundManager.playMedia(url);
+		SoundManager.playMedia("./assets/musics/main_jingle.mp3");
 		
 
 		while(true){
@@ -121,7 +121,7 @@ public class Appli {
 		
 		menu.ajouterImageUI(new ImageConteneur("assets/img/ui/fin.png", new IntRect(640,10,60,60),42));
 		
-		//SoundManager.playMedia(url);
+		SoundManager.playMedia("./assets/musics/theme_plaine.mp3");
 		
 		int truc=-1;
 		int lo=-1;
@@ -191,7 +191,7 @@ public class Appli {
 			 	fm.setFrameRateLimit(60);
 			 	fm.setSpriteDim(64,55);
 			 	
-			 	//SoundManager.playMedia(url);
+			 	SoundManager.playMedia("./assets/musics/battle_theme_2.mp3");
 			 	
 				c.fight(true, -1, -1, souris);
 			} catch (CaseDejaPriseException e) {
@@ -215,7 +215,7 @@ public class Appli {
 			 	fm.setFrameRateLimit(60);
 			 	fm.setSpriteDim(64,55);
 			 	
-			 	//SoundManager.playMedia(url);
+			 	SoundManager.playMedia("./assets/musics/battle_theme_2.mp3");
 			 	
 				c.fight(false, -1, -1, souris);
 			} catch (FileNotFoundException e) {
