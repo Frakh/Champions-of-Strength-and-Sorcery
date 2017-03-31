@@ -232,7 +232,7 @@ public class Appli {
 		System.out.println("rejoindre partie");
 		boolean conti = true;
 
-		ImageConteneur fenetreCredits = new ImageConteneur("./assets/img/ui/fenetreCredits.png", new IntRect(100, 50, 700, 600), 10);
+		ImageConteneur fenetreCredits = new ImageConteneur("./assets/img/ui/fenetreCredit.png", new IntRect(100, 50, 700, 600), 10);
 		ImageConteneur boutonFermer = new ImageConteneur("./assets/img/ui/nope.jpg", new IntRect(770, 50, 30, 30), 11);
 
 		menu.ajouterImageUI(fenetreCredits);
