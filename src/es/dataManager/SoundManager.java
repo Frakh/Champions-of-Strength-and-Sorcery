@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-//UNSTABLE CLASS DO NOT USE
 public class SoundManager {
 
 

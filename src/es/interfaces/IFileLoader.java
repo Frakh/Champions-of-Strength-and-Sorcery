@@ -17,7 +17,7 @@ public interface IFileLoader {
 	 * Ancien chargeur de carte : ne pas utiliser, utilisez loadCarte à la place
 	 * @param path : pas touche
 	 * @return : j'ai dit pas touche, utilisez loadCarte
-	 * @throws IOException : METHODE MECHANTE PAS TOUCHER
+	 * @throws IOException : Problème avec les fichiers
 	 */
 	@Deprecated
 	static Case[][] loadCarteFile(String path) throws IOException {

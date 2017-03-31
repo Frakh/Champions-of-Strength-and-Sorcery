@@ -4,13 +4,13 @@ import es.interfaces.IController;
 
 public class ControlleurJoueur implements IController{
 
-	public static final int MAX_NUMBERS_OF_BINDING = 256;
+	public static final int MAX_TAB_TAILLE = 256;
 
 	private int[] keyMap;
 
 	public ControlleurJoueur() {
 		EcouteurClavier.init();
-		keyMap = new int[256];
+		keyMap = new int[MAX_TAB_TAILLE];
 	}
 
 	/**

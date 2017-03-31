@@ -1,5 +1,6 @@
 package utilitaire;
 
+//Classe largement inspiré de celle de SFML
 public class IntRect {
 
 	public int x, y, width, height;
