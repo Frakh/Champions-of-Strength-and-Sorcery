@@ -1,16 +1,24 @@
 package appli;
 
+import es.dataManager.SoundManager;
 import es.entree.Souris;
 import es.interfaces.IController;
 import es.interfaces.IFileLoader;
+import es.netclasses.Evenement;
+import es.netclasses.NetQueueEvenement;
 import es.netclasses.NetworkInterface;
+import es.netclasses.evenements.CombatEvenement;
+import es.netclasses.evenements.JeuEvenement;
 import es.sortie.FrameManager;
 import es.sortie.ImageConteneur;
 import es.sortie.composants.*;
 import game.Carte;
 import game.Heros;
 import game.Joueur;
+import game.Unite;
+import game.carte.CaseDejaPriseException;
 import game.carte.elements.HerosMap;
+import game.combat.Combat;
 import test.MapTest;
 import utilitaire.IPosition;
 import utilitaire.IntRect;
@@ -18,6 +26,7 @@ import utilitaire.Position;
 import utilitaire.Vector2i;
 
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Appli {
@@ -61,18 +70,25 @@ public class Appli {
 		
 		Souris mickey = Souris.getInstance(fm);
 		
-		fm.init(cl, elemLayer, curseurLayer,menu);
+		//Combat combat=null;
+		
+		//CombatLayer combatL = new CombatLayer(fm, combat, mickey); 
+		
+		fm.init(cl, elemLayer, curseurLayer,menu); //combatL,
+		//fm.setLayerVisibility(CombatLayer.class.getName(), false);
 		fm.setLayerVisibility(CarteLayer.class.getName(), false);
 		fm.setLayerVisibility(ObjetLayer.class.getName(), false);
 		fm.setLayerVisibility(CurseurLayer.class.getName(), false);
 		fm.setFrameRateLimit(60);
+		
+		//SoundManager.playMedia(url);
 		
 
 		while(true){
 			System.out.print(""); //pour des raisons étranges, ça ne marche pas sans
 			int usedButtonUnique = mickey.getUniqueUsedButton();
 			if (usedButtonUnique==MouseEvent.BUTTON1 && boutonJouer.getImageDrawingArea().contains(mickey.getInGamePosition())){
-				gererLancementJeu(menu, mickey);
+				gererLancementJeu(mickey);
 			}
 			if (usedButtonUnique==MouseEvent.BUTTON1 && boutonTest.getImageDrawingArea().contains(mickey.getInGamePosition())){
 				menu.retirerImageUI(fond);
@@ -105,6 +121,8 @@ public class Appli {
 		
 		menu.ajouterImageUI(new ImageConteneur("assets/img/ui/fin.png", new IntRect(640,10,60,60),42));
 		
+		//SoundManager.playMedia(url);
+		
 		int truc=-1;
 		int lo=-1;
 		int la=-1;
@@ -132,15 +150,82 @@ public class Appli {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 		}
 	}
 
-	public static void gererLancementJeu(InterfaceUtilisateurLayer menu, Souris mickey) {
-		//NetworkInterface.bind("172.19.47.220", 9001);
+	public static void gererLancementJeu(Souris souris) {
+		FrameManager fm = new FrameManager();
+		 
+		System.out.println("Demarrage du truc reseau");
+		NetworkInterface.bind("127.0.0.1", 9001);
+		System.out.println("Attente");
+		Evenement evenement = null;	
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		evenement = NetQueueEvenement.getEvenement(Evenement.COMBAT_EVENT);
+		Combat c = null;
+		if (evenement==null) {
+			Heros heros = new Heros();
+			try {
+				heros.addTroupe(new Unite(12, 50), 1);
+				Heros Mechaaaaaaaaant = new Heros();
+				Mechaaaaaaaaant.addTroupe(new Unite(11, 30), 0);
+				Mechaaaaaaaaant.addTroupe(new Unite(13, 5), 4);
+				c = new Combat(heros, Mechaaaaaaaaant, 10);
+				c.initialiserCombat();
+				NetworkInterface.send(new JeuEvenement(CombatEvenement.DEBUT_COMBAT, c.toStringMap()));
+			 	fm.addMouseListener(souris);
+			 	fm.setDimensions(1280,720);
+			 	fm.setSpriteDim(32,32);
+			 	fm.setPositionToFollow(new Position(0,0));
+			 	CombatLayer cl = new CombatLayer(fm, c, souris);
+			 	fm.init(cl);
+			 	fm.setFrameRateLimit(60);
+			 	fm.setSpriteDim(64,55);
+			 	
+			 	//SoundManager.playMedia(url);
+			 	
+				c.fight(true, -1, -1, souris);
+			} catch (CaseDejaPriseException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		else{
+			try {
+				c = new Combat(((CombatEvenement) evenement).getMaj());
+				fm.addMouseListener(souris);
+			 	fm.setDimensions(1280,720);
+			 	fm.setSpriteDim(32,32);
+			 	fm.setPositionToFollow(new Position(0,0));
+			 	CombatLayer cl = new CombatLayer(fm, c, souris);
+			 	fm.init(cl);
+			 	fm.setFrameRateLimit(60);
+			 	fm.setSpriteDim(64,55);
+			 	
+			 	//SoundManager.playMedia(url);
+			 	
+				c.fight(false, -1, -1, souris);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public static void gererCredits(InterfaceUtilisateurLayer menu, Souris mickey) {
