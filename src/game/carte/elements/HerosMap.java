@@ -18,7 +18,7 @@ public class HerosMap implements IElement, ISpriteDrawable {
 
 	@Override
 	public String getImage() {
-		return "./assets/img/heros.jpg";
+		return "./assets/img/hero2.png";
 	}
 
 	@Override
