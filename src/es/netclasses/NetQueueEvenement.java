@@ -24,17 +24,6 @@ public class NetQueueEvenement {
 		if (arrayQueue[e.getId()] == null) {
 			arrayQueue[e.getId()] = new ConcurrentLinkedQueue();
 		}
-		/*
-		 * // PUTAIN DE GENERIQUES !!!
-		 * Ce truc génère un warning compilateur, mais la, faut pas se foutre de la gueule du monde
-		 * Java est même pas foutu d'implementer les générics correctement, tellement que personne ne
-		 * peut instancier un tableau de types génériques, quand bien même le type erasure est censé
-		 * donner le même putain de résultat a la compilation
-		 *
-		 * ET LE COMPILO ME DIT DE FAIRE GAFFE ICI , PARCE QUE "ta utilizé dé ro taipss" ???
-		 */
-		
-		//Ce message a ete sponsorise par La Baleine.
 
 		arrayQueue[e.getId()].add(e);
 		System.out.println("Evenement reçu : " + e.getId());

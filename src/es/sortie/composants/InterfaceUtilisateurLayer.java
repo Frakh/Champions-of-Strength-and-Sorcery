@@ -10,7 +10,6 @@ import java.util.*;
 
 /**
  * Classe permettant de contenir les informations par rapport a l'UI
- * A terminé, pas complète
  */
 public class InterfaceUtilisateurLayer extends AbstractBufferComposant {
 
