@@ -1,5 +1,7 @@
 package appli;
 
+//Il y a beaucoup d'imports
+
 import es.dataManager.SoundManager;
 import es.entree.Souris;
 import es.interfaces.IController;
@@ -19,7 +21,6 @@ import game.Unite;
 import game.carte.CaseDejaPriseException;
 import game.carte.elements.HerosMap;
 import game.combat.Combat;
-import test.MapTest;
 import utilitaire.IPosition;
 import utilitaire.IntRect;
 import utilitaire.Position;
